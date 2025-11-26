@@ -2,7 +2,7 @@
 #include "config.h"
 
 
-bool performance_check_mode = true;
+bool performance_check_mode = false;
 
 int server_fps_check_interval = 5;
 

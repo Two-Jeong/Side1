@@ -13,7 +13,7 @@ NetworkUtil::NetworkUtil()
     int err_code = WSAStartup(req_version, &wsa_data);
     if (err_code != 0) {
         // TOODO: LOG
-        std::wcout << L"wsa startup fail" << std::endl;
+        std::cout << "wsa startup fail" << std::endl;
         // TODO: STOP SERVER
         return;
     }
@@ -61,7 +61,7 @@ bool NetworkUtil::bind(SOCKET socket, const char* ip, int port)
     {
         // TODO: ERROR LOG
         int err_code = ::WSAGetLastError();
-        std::wcout << L"bind error: " << err_code << std::endl;
+        std::cout << "bind error: " << err_code << std::endl;
         return false;
     }
 
@@ -74,7 +74,7 @@ bool NetworkUtil::bind(SOCKET socket, SOCKADDR_IN addr)
     {
         // TODO: ERROR LOG
         int err_code = ::WSAGetLastError();
-        std::wcout << L"bind error: " << err_code << std::endl;
+        std::cout << "bind error: " << err_code << std::endl;
         return false;
     }
 
@@ -86,7 +86,7 @@ bool NetworkUtil::listen(SOCKET socket, int backlog)
     if(SOCKET_ERROR == ::listen(socket, backlog))
     {
         int err_code = GetLastError();
-        std::wcout << L"listen error: " << err_code << std::endl;
+        std::cout << "listen error: " << err_code << std::endl;
         return false;
     }
     
@@ -106,7 +106,7 @@ bool NetworkUtil::accept(SOCKET listen_socket, AcceptIO* io)
 		const int err_no = ::WSAGetLastError();
 		if (WSA_IO_PENDING != err_no)
 		{
-		    std::wcout << L"accept error: " << err_no << std::endl;
+		    std::cout << "accept error: " << err_no << std::endl;
 		    // TODO: Error Log
 			return false;
 		}
@@ -131,7 +131,7 @@ bool NetworkUtil::connect(SOCKET socket, ConnectIO* io, bool& is_not_pending)
         const int err_no = ::WSAGetLastError();
         if(WSA_IO_PENDING != err_no)
         {
-		    std::wcout << L"connect error: " << err_no << std::endl;
+		    std::cout << "connect error: " << err_no << std::endl;
             // TODO: Error LOG
             return false;
         }
@@ -153,7 +153,7 @@ bool NetworkUtil::send(SendIO* io, bool& is_not_pending, DWORD& send_byte_size)
 
         if(err_code != ERROR_IO_PENDING)
         {
-		    std::wcout << L"send error: " << err_code << std::endl;
+		    std::cout << "send error: " << err_code << std::endl;
             // TODO: log 
             return false;
         }
@@ -177,7 +177,7 @@ bool NetworkUtil::receive(SOCKET socket, RecvIO* io)
 
         if(err_code != WSA_IO_PENDING)
         {
-		    std::wcout << L"recv error: " << err_code << std::endl;
+		    std::cout << "recv error: " << err_code << std::endl;
             // TODO: 로그
             return false;
         }
@@ -192,7 +192,7 @@ bool NetworkUtil::disconnect(SOCKET socket, class DisconnectIO* io)
         int err_code = ::GetLastError();
         if (err_code != ERROR_IO_PENDING)
         {
-		    std::wcout << L"disconnect error: " << err_code << std::endl;
+		    std::cout << "disconnect error: " << err_code << std::endl;
             // TODO: 로그
             return false;
         }

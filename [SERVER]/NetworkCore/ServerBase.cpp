@@ -51,7 +51,7 @@ void ServerBase::open(std::string open_ip, int open_port, std::function<ClientSe
     }
     
 
-    std::wcout << L"Listening..." << std::endl;
+    std::cout << "Listening..." << std::endl;
 }
 
 void ServerBase::on_accept(int bytes_transferred, NetworkIO* io) {
@@ -81,7 +81,7 @@ void ServerBase::on_accept(int bytes_transferred, NetworkIO* io) {
     NetworkSection* first_section =  select_first_section();
     if (nullptr == first_section)
     {
-        std::wcout << "first section is nullptr" << std::endl;
+        std::cout << "first section is nullptr" << std::endl;
         // TODO: LOG
         // TODO: stop server
         return;
@@ -232,8 +232,6 @@ void ServerBase::on_iocp_io(NetworkIO* io, int bytes_transferred)
 {
     Session* session = io->get_session();
 
-    // std::wcout << "io in, type: " << io->get_type() << " io size: " << bytes_transferred << std::endl;
-    
     switch(io->get_type())
     {
     case IoType::DISCONNECT:

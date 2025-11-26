@@ -26,14 +26,14 @@ bool Session::do_connect()
     NetworkCore* network_core = get_network_core();
     if (nullptr == network_core)
     {
-        std::wcout << "network_core is nullptr" << std::endl;
+        std::cout << "network_core is nullptr" << std::endl;
         // TODO: LOG
         return false;
     }
 
     if (false == NetworkUtil::register_socket(network_core->get_iocp_handle(), m_connecting_socket))
     {
-        std::wcout << "register socket fail" << std::endl;
+        std::cout << "register socket fail" << std::endl;
         // TODO: LOG
         return false;    
     }
@@ -83,7 +83,7 @@ bool Session::do_disconnect()
     if (false == NetworkUtil::disconnect(m_connecting_socket, &m_disconnect_io))
         return false;
 
-    std::wcout << L"do disconnect session id " << get_id() << std::endl;
+    std::cout << "do disconnect session id " << get_id() << std::endl;
     return true;
 }
 
@@ -94,7 +94,7 @@ void Session::complete_connect()
 
     if (false == do_recieve())
     {
-        std::wcout << L"recieve fail" << std::endl;
+        std::cout << "recieve fail" << std::endl;
         // TODO: LOG
         return;
     }

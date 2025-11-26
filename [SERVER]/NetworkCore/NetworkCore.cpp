@@ -15,7 +15,7 @@ void NetworkCore::init(int iocp_thread_count)
     m_iocp_handle = ::CreateIoCompletionPort(INVALID_HANDLE_VALUE, nullptr, 0, 0);
     if(nullptr == m_iocp_handle)
     {
-        std::wcout << L"CreateIoCompletionPort Error" << std::endl;
+        std::cout << "CreateIoCompletionPort Error" << std::endl;
         // TODO: Crash
         return;
     }
@@ -37,7 +37,7 @@ void NetworkCore::iocp_thread_work()
         if(false == ::GetQueuedCompletionStatus(m_iocp_handle, &bytes_transferred, &key, reinterpret_cast<LPOVERLAPPED*>(&io), INFINITE))
         {
             const int err_no = ::WSAGetLastError();
-            std::wcout << "GQCS error: " << err_no << std::endl; 
+            std::cout << "GQCS error: " << err_no << std::endl; 
             // TODO: error log
             continue;
         }

@@ -32,11 +32,11 @@ void ClientBase::open(std::string connecting_ip, int connecting_port, std::funct
         my_addr.sin_port = ::htons(0);
         if (false == NetworkUtil::bind(session->get_socket(), my_addr))
         {
-            std::wcout << L"bind error" << std::endl;
+            std::cout << "bind error" << std::endl;
             return;
         }
         
-        std::wcout << L"Connecting..." << std::endl;
+        std::cout << "Connecting..." << std::endl;
         session->do_connect();
 
         m_sessions.emplace(session->get_id(), session);
@@ -47,8 +47,6 @@ void ClientBase::on_iocp_io(NetworkIO* io, int bytes_transferred)
 {
     Session* session = io->get_session();
 
-    // std::wcout << "io in, type: " << io->get_type() << " io size: " << bytes_transferred << std::endl;
-    
     switch(io->get_type())
     {
     case IoType::CONNECT:

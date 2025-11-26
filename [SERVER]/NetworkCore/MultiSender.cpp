@@ -73,25 +73,5 @@ bool MultiSender::send()
     if(false == NetworkUtil::send(&m_send_io, is_not_pending, send_byte_size))
         return false;
 
-    if(true == is_not_pending) // send는 pending이 안돼도 완료 통지가 옴.
-    {
-        NetworkCore* network_core = m_owner->get_network_core();
-        if(nullptr == network_core)
-        {
-            // TODO:LOG
-            std::wcout << L"network core is null" << std::endl;
-            m_owner->do_disconnect();
-            return false;
-        }
-        
-        /*ULONG_PTR key = 0;
-        if(0 == ::PostQueuedCompletionStatus(network_core->get_iocp_handle(), send_byte_size, key, &m_send_io))
-        {
-            //TODO: LOG
-            m_owner->do_disconnect();
-            return false;
-        }*/
-    }
-    
     return true;
 }
