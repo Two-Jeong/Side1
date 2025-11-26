@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="MultiSender.h" />
+    <ClInclude Include="NetworkCore.h" />
+    <ClInclude Include="NetworkIO.h" />
+    <ClInclude Include="NetworkSection.h" />
+    <ClInclude Include="NetworkUtil.h" />
+    <ClInclude Include="Packet.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="RecvBuffer.h" />
+    <ClInclude Include="ServerBase.h" />
+    <ClInclude Include="ServerSession.h" />
+    <ClInclude Include="Session.h" />
+    <ClInclude Include="Base.h" />
+    <ClInclude Include="ClientBase.h" />
+    <ClInclude Include="ClientSession.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="CoreIncludes.h" />
+    <ClInclude Include="iTask.h" />
+    <ClInclude Include="Logger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NetworkCore.cpp" />
+    <ClCompile Include="NetworkIO.cpp" />
+    <ClCompile Include="NetworkSection.cpp" />
+    <ClCompile Include="NetworkUtil.cpp" />
+    <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="RecvBuffer.cpp" />
+    <ClCompile Include="ServerBase.cpp" />
+    <ClCompile Include="ServerSession.cpp" />
+    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="ClientBase.cpp" />
+    <ClCompile Include="ClientSession.cpp" />
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="CoreIncludes.cpp" />
+    <ClCompile Include="iTask.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="MultiSender.cpp" />
+  </ItemGroup>
+</Project>
