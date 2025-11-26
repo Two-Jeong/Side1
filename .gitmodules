@@ -1,3 +1,0 @@
-[submodule "[SERVER]/NetworkModule/NetworkModuleWithChatServer"]
-	path = [SERVER]/NetworkModule/NetworkModuleWithChatServer
-	url = https://github.com/JungEunseong/NetworkModuleWithChatServer.git
