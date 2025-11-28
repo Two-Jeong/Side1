@@ -1,42 +1,129 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="MultiSender.h" />
-    <ClInclude Include="NetworkCore.h" />
-    <ClInclude Include="NetworkIO.h" />
-    <ClInclude Include="NetworkSection.h" />
-    <ClInclude Include="NetworkUtil.h" />
-    <ClInclude Include="Packet.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="RecvBuffer.h" />
-    <ClInclude Include="ServerBase.h" />
-    <ClInclude Include="ServerSession.h" />
-    <ClInclude Include="Session.h" />
-    <ClInclude Include="Base.h" />
-    <ClInclude Include="ClientBase.h" />
-    <ClInclude Include="ClientSession.h" />
-    <ClInclude Include="config.h" />
-    <ClInclude Include="CoreIncludes.h" />
-    <ClInclude Include="iTask.h" />
-    <ClInclude Include="Logger.h" />
+    <ClInclude Include="Session.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="iTask.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiSender.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkCore.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkIO.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkSection.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkUtil.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="RecvBuffer.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerBase.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerSession.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSession.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientBase.h">
+      <Filter>Networks</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreIncludes.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocols.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NetworkCore.cpp" />
-    <ClCompile Include="NetworkIO.cpp" />
-    <ClCompile Include="NetworkSection.cpp" />
-    <ClCompile Include="NetworkUtil.cpp" />
-    <ClCompile Include="Packet.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="RecvBuffer.cpp" />
-    <ClCompile Include="ServerBase.cpp" />
-    <ClCompile Include="ServerSession.cpp" />
-    <ClCompile Include="Session.cpp" />
-    <ClCompile Include="ClientBase.cpp" />
-    <ClCompile Include="ClientSession.cpp" />
-    <ClCompile Include="config.cpp" />
-    <ClCompile Include="CoreIncludes.cpp" />
-    <ClCompile Include="iTask.cpp" />
-    <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="MultiSender.cpp" />
+    <ClCompile Include="iTask.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiSender.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkCore.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkIO.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkSection.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkUtil.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="RecvBuffer.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerBase.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerSession.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSession.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientBase.cpp">
+      <Filter>Networks</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreIncludes.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocols.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Networks">
+      <UniqueIdentifier>{6f849e3b-5717-4d42-92a2-06146b53a043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{35ff624f-9601-47b6-b72a-0117320335b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{e7eb017d-53a6-4b58-a87d-040194c7bacb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
