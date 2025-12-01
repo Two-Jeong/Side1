@@ -5,12 +5,11 @@ namespace CSharp_NetworkClient;
 
 public class MultiSender
 {
-    static int MAX_SEND_COUNT = 500;
+    const int MAX_SEND_COUNT = 500;
     
     private Session m_session;
     private SocketAsyncEventArgs m_send_args;
     private ConcurrentQueue<Packet> m_send_register_queue;
-    private List<ArraySegment<byte>> m_current_sending_buffer;
     
     private int m_is_sending;
     
@@ -50,8 +49,6 @@ public class MultiSender
             send_packet_counter += 1;
         }
 
-        m_current_sending_buffer = register_array;
-        
         m_send_args.BufferList = register_array;
         bool is_pending = m_session.Socket.SendAsync(m_send_args);
 
@@ -63,7 +60,6 @@ public class MultiSender
     void CompleteSend(object sender, SocketAsyncEventArgs args)
     {
         args.BufferList = null;
-        m_current_sending_buffer = null;
         m_session.OnSend();
         
         if(false == m_send_register_queue.IsEmpty)
