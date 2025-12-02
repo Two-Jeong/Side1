@@ -12,24 +12,28 @@ public class MultiSender
     private ConcurrentQueue<Packet> m_send_register_queue;
     
     private int m_is_sending;
-    
-    void Init(Session session)
+
+    public MultiSender()
     {
-        m_session = session;
-        
         m_send_args = new SocketAsyncEventArgs();
         m_send_args.Completed += CompleteSend;
+
+        m_send_register_queue = new ConcurrentQueue<Packet>();
+    }
+    
+    public void Init(Session session)
+    {
+        m_session = session; 
     }
 
-    void RegisterSend(Packet packet)
+    public void RegisterSend(Packet packet)
     {
+        m_send_register_queue.Enqueue(packet);
+        
         int result = Interlocked.CompareExchange(ref m_is_sending, 1, 0);
 
         if (0 == result)
             ProcessSend();    
-        else
-            m_send_register_queue.Enqueue(packet);
-        
     }
 
     void ProcessSend()
@@ -57,7 +61,7 @@ public class MultiSender
         
     }
 
-    void CompleteSend(object sender, SocketAsyncEventArgs args)
+    void CompleteSend(object? sender, SocketAsyncEventArgs args)
     {
         args.BufferList = null;
         m_session.OnSend();
