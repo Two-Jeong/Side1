@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/vcpkg-cmake-config-x64-windows-2024-05-23-a1e373bf-4136-40bd-8d69-3e62bbeaba39",
-  "name": "vcpkg-cmake-config:x64-windows@2024-05-23 160eb232ea8baf067ea1ea1c7e50b52646281216c7f006a7b013f636c21b18c0",
+  "documentNamespace": "https://spdx.org/spdxdocs/vcpkg-cmake-config-x64-windows-2022-02-06#1-f43e112f-49f7-4781-9216-7f0fa4330fee",
+  "name": "vcpkg-cmake-config:x64-windows@2022-02-06#1 dfea7c7418878ba205bf41c34fd4b854237b2bfc6c4db12c17b60c5883a88565",
   "creationInfo": {
     "creators": [
-      "Tool: vcpkg-2025-10-16-71538f2694db93da4668782d094768ba74c45991"
+      "Tool: vcpkg-2025-11-19-da1f056dc0775ac651bea7e3fbbf4066146a55f3"
     ],
-    "created": "2025-11-28T13:37:30Z"
+    "created": "2025-12-01T23:53:13Z"
   },
   "relationships": [
     {
@@ -72,8 +72,8 @@
     {
       "name": "vcpkg-cmake-config",
       "SPDXID": "SPDXRef-port",
-      "versionInfo": "2024-05-23",
-      "downloadLocation": "git+https://github.com/Microsoft/vcpkg#ports/vcpkg-cmake-config",
+      "versionInfo": "2022-02-06#1",
+      "downloadLocation": "git+https://github.com/Microsoft/vcpkg@8d54cc4f487d51b655abec5f9c9c3f86ca83311f",
       "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",
       "copyrightText": "NOASSERTION",
@@ -82,7 +82,7 @@
     {
       "name": "vcpkg-cmake-config:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "160eb232ea8baf067ea1ea1c7e50b52646281216c7f006a7b013f636c21b18c0",
+      "versionInfo": "dfea7c7418878ba205bf41c34fd4b854237b2bfc6c4db12c17b60c5883a88565",
       "downloadLocation": "NONE",
       "licenseConcluded": "MIT",
       "licenseDeclared": "NOASSERTION",
@@ -133,7 +133,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "3964c3d0e6b39c7f42cebd5949cccdc7eb6feb83ee434fe73756c954b173c5c2"
+          "checksumValue": "4ffbabc2feab69abd21267f57669ef5e404bcbfa5ab6d93234374d98f5ff1864"
         }
       ],
       "licenseConcluded": "NOASSERTION",
@@ -145,7 +145,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "f3880578674f1bdbc54b67c5fc3787aaab8ee8bcf4e3e6e008204bf4ab67aa0b"
+          "checksumValue": "f92905382d90e37fa2addd96becce31f5075175196b117de6dd997a4ac1d6d06"
         }
       ],
       "licenseConcluded": "NOASSERTION",
@@ -193,7 +193,7 @@
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "f3880578674f1bdbc54b67c5fc3787aaab8ee8bcf4e3e6e008204bf4ab67aa0b"
+          "checksumValue": "f92905382d90e37fa2addd96becce31f5075175196b117de6dd997a4ac1d6d06"
         }
       ],
       "licenseConcluded": "NOASSERTION",
