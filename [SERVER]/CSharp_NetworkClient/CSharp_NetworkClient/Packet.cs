@@ -21,6 +21,8 @@ namespace CSharp_NetworkClient
         private int m_pos;
 
         public ArraySegment<byte> Data => new ArraySegment<byte>(m_data.GetWriteSpan().ToArray(), 0, m_pos);
+        public ushort Size => BitConverter.ToUInt16(m_data.GetWriteSpan().Slice(0, Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF)));
+        public ushort Protocol => BitConverter.ToUInt16(m_data.GetWriteSpan().Slice(Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF), Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_SIZEOF)));
 
         public Packet()
         {

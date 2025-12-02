@@ -18,10 +18,13 @@ public abstract class Session
     private MultiSender m_sender;
     private Receiver m_receiver;
 
+    protected Dictionary<ushort, Func<Packet, bool>> m_packet_handlers;
+
     public Session()
     {
         m_sender = new MultiSender();
         m_receiver = new Receiver();
+        m_packet_handlers = new Dictionary<ushort, Func<Packet, bool>>();
     }
     public void Init(Socket socket, EndPoint end_point)
     {
@@ -30,6 +33,8 @@ public abstract class Session
         
         m_sender.Init(this);
         m_receiver.Init(this);
+        
+        InitPacketHandlers();
     }
     
 
@@ -61,9 +66,24 @@ public abstract class Session
 
         return process_len;
     }
-    
+
+    private void OnPacketAssambled(Packet packet)
+    {
+        if (false == m_packet_handlers.ContainsKey(packet.Protocol))
+        {
+            //TODO: LOG
+            return;
+        }
+
+        if (false == m_packet_handlers[packet.Protocol]?.Invoke(packet))
+        {
+            //TODO: LOG AND Disconnect
+            return;
+        }
+    }
+
+    protected abstract void InitPacketHandlers();
     public abstract void OnConnected();
     public abstract void OnDisconnected();
-    public abstract void OnPacketAssambled(Packet packet);
     public abstract void OnSend();
 }

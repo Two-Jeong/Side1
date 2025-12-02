@@ -4,6 +4,7 @@ namespace CSharp_NetworkClient;
 
 public static class PacketBufferManager
 {
+    private static ConcurrentQueue<StreamBuffer> m_send_buffers = new ConcurrentQueue<StreamBuffer>();
     public static StreamBuffer GetBuffer()
     {
         if (true == m_send_buffers.IsEmpty)
@@ -27,6 +28,4 @@ public static class PacketBufferManager
         buffer.Reset();
         m_send_buffers.Enqueue(buffer);
     }
-    
-    private static ConcurrentQueue<StreamBuffer> m_send_buffers;
 }
