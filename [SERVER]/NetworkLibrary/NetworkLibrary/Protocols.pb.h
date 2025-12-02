@@ -45,29 +45,26 @@ struct TableStruct_Protocols_2eproto {
   static const uint32_t offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Protocols_2eproto;
-class C2S_REQ_Chat;
-struct C2S_REQ_ChatDefaultTypeInternal;
-extern C2S_REQ_ChatDefaultTypeInternal _C2S_REQ_Chat_default_instance_;
-class C2S_REQ_LOGIN;
-struct C2S_REQ_LOGINDefaultTypeInternal;
-extern C2S_REQ_LOGINDefaultTypeInternal _C2S_REQ_LOGIN_default_instance_;
-class S2C_RES_LOGIN;
-struct S2C_RES_LOGINDefaultTypeInternal;
-extern S2C_RES_LOGINDefaultTypeInternal _S2C_RES_LOGIN_default_instance_;
+class C2S_TestEcho;
+struct C2S_TestEchoDefaultTypeInternal;
+extern C2S_TestEchoDefaultTypeInternal _C2S_TestEcho_default_instance_;
+class S2C_TestEcho;
+struct S2C_TestEchoDefaultTypeInternal;
+extern S2C_TestEchoDefaultTypeInternal _S2C_TestEcho_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
-template<> ::C2S_REQ_Chat* Arena::CreateMaybeMessage<::C2S_REQ_Chat>(Arena*);
-template<> ::C2S_REQ_LOGIN* Arena::CreateMaybeMessage<::C2S_REQ_LOGIN>(Arena*);
-template<> ::S2C_RES_LOGIN* Arena::CreateMaybeMessage<::S2C_RES_LOGIN>(Arena*);
+template<> ::C2S_TestEcho* Arena::CreateMaybeMessage<::C2S_TestEcho>(Arena*);
+template<> ::S2C_TestEcho* Arena::CreateMaybeMessage<::S2C_TestEcho>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 enum packet_number : int {
   NONE = 0,
+  TestEcho = 1,
   packet_number_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   packet_number_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool packet_number_IsValid(int value);
 constexpr packet_number packet_number_MIN = NONE;
-constexpr packet_number packet_number_MAX = NONE;
+constexpr packet_number packet_number_MAX = TestEcho;
 constexpr int packet_number_ARRAYSIZE = packet_number_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* packet_number_descriptor();
@@ -86,24 +83,24 @@ inline bool packet_number_Parse(
 }
 // ===================================================================
 
-class C2S_REQ_Chat final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:C2S_REQ_Chat) */ {
+class C2S_TestEcho final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:C2S_TestEcho) */ {
  public:
-  inline C2S_REQ_Chat() : C2S_REQ_Chat(nullptr) {}
-  ~C2S_REQ_Chat() override;
-  explicit PROTOBUF_CONSTEXPR C2S_REQ_Chat(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline C2S_TestEcho() : C2S_TestEcho(nullptr) {}
+  ~C2S_TestEcho() override;
+  explicit PROTOBUF_CONSTEXPR C2S_TestEcho(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  C2S_REQ_Chat(const C2S_REQ_Chat& from);
-  C2S_REQ_Chat(C2S_REQ_Chat&& from) noexcept
-    : C2S_REQ_Chat() {
+  C2S_TestEcho(const C2S_TestEcho& from);
+  C2S_TestEcho(C2S_TestEcho&& from) noexcept
+    : C2S_TestEcho() {
     *this = ::std::move(from);
   }
 
-  inline C2S_REQ_Chat& operator=(const C2S_REQ_Chat& from) {
+  inline C2S_TestEcho& operator=(const C2S_TestEcho& from) {
     CopyFrom(from);
     return *this;
   }
-  inline C2S_REQ_Chat& operator=(C2S_REQ_Chat&& from) noexcept {
+  inline C2S_TestEcho& operator=(C2S_TestEcho&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -126,20 +123,20 @@ class C2S_REQ_Chat final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const C2S_REQ_Chat& default_instance() {
+  static const C2S_TestEcho& default_instance() {
     return *internal_default_instance();
   }
-  static inline const C2S_REQ_Chat* internal_default_instance() {
-    return reinterpret_cast<const C2S_REQ_Chat*>(
-               &_C2S_REQ_Chat_default_instance_);
+  static inline const C2S_TestEcho* internal_default_instance() {
+    return reinterpret_cast<const C2S_TestEcho*>(
+               &_C2S_TestEcho_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(C2S_REQ_Chat& a, C2S_REQ_Chat& b) {
+  friend void swap(C2S_TestEcho& a, C2S_TestEcho& b) {
     a.Swap(&b);
   }
-  inline void Swap(C2S_REQ_Chat* other) {
+  inline void Swap(C2S_TestEcho* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -152,7 +149,7 @@ class C2S_REQ_Chat final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(C2S_REQ_Chat* other) {
+  void UnsafeArenaSwap(C2S_TestEcho* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -160,14 +157,14 @@ class C2S_REQ_Chat final :
 
   // implements Message ----------------------------------------------
 
-  C2S_REQ_Chat* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C2S_REQ_Chat>(arena);
+  C2S_TestEcho* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C2S_TestEcho>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C2S_REQ_Chat& from);
+  void CopyFrom(const C2S_TestEcho& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C2S_REQ_Chat& from) {
-    C2S_REQ_Chat::MergeImpl(*this, from);
+  void MergeFrom( const C2S_TestEcho& from) {
+    C2S_TestEcho::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -185,15 +182,15 @@ class C2S_REQ_Chat final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(C2S_REQ_Chat* other);
+  void InternalSwap(C2S_TestEcho* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "C2S_REQ_Chat";
+    return "C2S_TestEcho";
   }
   protected:
-  explicit C2S_REQ_Chat(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit C2S_TestEcho(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -207,33 +204,18 @@ class C2S_REQ_Chat final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kMessageFieldNumber = 3,
-    kSenderIdFieldNumber = 1,
+    kRandNumberFieldNumber = 1,
   };
-  // string message = 3;
-  void clear_message();
-  const std::string& message() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_message(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_message();
-  PROTOBUF_NODISCARD std::string* release_message();
-  void set_allocated_message(std::string* message);
+  // int32 rand_number = 1;
+  void clear_rand_number();
+  int32_t rand_number() const;
+  void set_rand_number(int32_t value);
   private:
-  const std::string& _internal_message() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
-  std::string* _internal_mutable_message();
+  int32_t _internal_rand_number() const;
+  void _internal_set_rand_number(int32_t value);
   public:
 
-  // int32 sender_id = 1;
-  void clear_sender_id();
-  int32_t sender_id() const;
-  void set_sender_id(int32_t value);
-  private:
-  int32_t _internal_sender_id() const;
-  void _internal_set_sender_id(int32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:C2S_REQ_Chat)
+  // @@protoc_insertion_point(class_scope:C2S_TestEcho)
  private:
   class _Internal;
 
@@ -241,8 +223,7 @@ class C2S_REQ_Chat final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
-    int32_t sender_id_;
+    int32_t rand_number_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -250,24 +231,24 @@ class C2S_REQ_Chat final :
 };
 // -------------------------------------------------------------------
 
-class C2S_REQ_LOGIN final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:C2S_REQ_LOGIN) */ {
+class S2C_TestEcho final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:S2C_TestEcho) */ {
  public:
-  inline C2S_REQ_LOGIN() : C2S_REQ_LOGIN(nullptr) {}
-  ~C2S_REQ_LOGIN() override;
-  explicit PROTOBUF_CONSTEXPR C2S_REQ_LOGIN(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline S2C_TestEcho() : S2C_TestEcho(nullptr) {}
+  ~S2C_TestEcho() override;
+  explicit PROTOBUF_CONSTEXPR S2C_TestEcho(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  C2S_REQ_LOGIN(const C2S_REQ_LOGIN& from);
-  C2S_REQ_LOGIN(C2S_REQ_LOGIN&& from) noexcept
-    : C2S_REQ_LOGIN() {
+  S2C_TestEcho(const S2C_TestEcho& from);
+  S2C_TestEcho(S2C_TestEcho&& from) noexcept
+    : S2C_TestEcho() {
     *this = ::std::move(from);
   }
 
-  inline C2S_REQ_LOGIN& operator=(const C2S_REQ_LOGIN& from) {
+  inline S2C_TestEcho& operator=(const S2C_TestEcho& from) {
     CopyFrom(from);
     return *this;
   }
-  inline C2S_REQ_LOGIN& operator=(C2S_REQ_LOGIN&& from) noexcept {
+  inline S2C_TestEcho& operator=(S2C_TestEcho&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -290,20 +271,20 @@ class C2S_REQ_LOGIN final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const C2S_REQ_LOGIN& default_instance() {
+  static const S2C_TestEcho& default_instance() {
     return *internal_default_instance();
   }
-  static inline const C2S_REQ_LOGIN* internal_default_instance() {
-    return reinterpret_cast<const C2S_REQ_LOGIN*>(
-               &_C2S_REQ_LOGIN_default_instance_);
+  static inline const S2C_TestEcho* internal_default_instance() {
+    return reinterpret_cast<const S2C_TestEcho*>(
+               &_S2C_TestEcho_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(C2S_REQ_LOGIN& a, C2S_REQ_LOGIN& b) {
+  friend void swap(S2C_TestEcho& a, S2C_TestEcho& b) {
     a.Swap(&b);
   }
-  inline void Swap(C2S_REQ_LOGIN* other) {
+  inline void Swap(S2C_TestEcho* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -316,7 +297,7 @@ class C2S_REQ_LOGIN final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(C2S_REQ_LOGIN* other) {
+  void UnsafeArenaSwap(S2C_TestEcho* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -324,14 +305,14 @@ class C2S_REQ_LOGIN final :
 
   // implements Message ----------------------------------------------
 
-  C2S_REQ_LOGIN* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<C2S_REQ_LOGIN>(arena);
+  S2C_TestEcho* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S2C_TestEcho>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const C2S_REQ_LOGIN& from);
+  void CopyFrom(const S2C_TestEcho& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const C2S_REQ_LOGIN& from) {
-    C2S_REQ_LOGIN::MergeImpl(*this, from);
+  void MergeFrom( const S2C_TestEcho& from) {
+    S2C_TestEcho::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -349,15 +330,15 @@ class C2S_REQ_LOGIN final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(C2S_REQ_LOGIN* other);
+  void InternalSwap(S2C_TestEcho* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "C2S_REQ_LOGIN";
+    return "S2C_TestEcho";
   }
   protected:
-  explicit C2S_REQ_LOGIN(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit S2C_TestEcho(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -371,23 +352,28 @@ class C2S_REQ_LOGIN final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kNicknameFieldNumber = 1,
+    kSessionIdFieldNumber = 1,
+    kRandNumberFieldNumber = 2,
   };
-  // string nickname = 1;
-  void clear_nickname();
-  const std::string& nickname() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_nickname(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_nickname();
-  PROTOBUF_NODISCARD std::string* release_nickname();
-  void set_allocated_nickname(std::string* nickname);
+  // int32 session_id = 1;
+  void clear_session_id();
+  int32_t session_id() const;
+  void set_session_id(int32_t value);
   private:
-  const std::string& _internal_nickname() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_nickname(const std::string& value);
-  std::string* _internal_mutable_nickname();
+  int32_t _internal_session_id() const;
+  void _internal_set_session_id(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:C2S_REQ_LOGIN)
+  // int32 rand_number = 2;
+  void clear_rand_number();
+  int32_t rand_number() const;
+  void set_rand_number(int32_t value);
+  private:
+  int32_t _internal_rand_number() const;
+  void _internal_set_rand_number(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:S2C_TestEcho)
  private:
   class _Internal;
 
@@ -395,171 +381,8 @@ class C2S_REQ_LOGIN final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr nickname_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Protocols_2eproto;
-};
-// -------------------------------------------------------------------
-
-class S2C_RES_LOGIN final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:S2C_RES_LOGIN) */ {
- public:
-  inline S2C_RES_LOGIN() : S2C_RES_LOGIN(nullptr) {}
-  ~S2C_RES_LOGIN() override;
-  explicit PROTOBUF_CONSTEXPR S2C_RES_LOGIN(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  S2C_RES_LOGIN(const S2C_RES_LOGIN& from);
-  S2C_RES_LOGIN(S2C_RES_LOGIN&& from) noexcept
-    : S2C_RES_LOGIN() {
-    *this = ::std::move(from);
-  }
-
-  inline S2C_RES_LOGIN& operator=(const S2C_RES_LOGIN& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline S2C_RES_LOGIN& operator=(S2C_RES_LOGIN&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const S2C_RES_LOGIN& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const S2C_RES_LOGIN* internal_default_instance() {
-    return reinterpret_cast<const S2C_RES_LOGIN*>(
-               &_S2C_RES_LOGIN_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    2;
-
-  friend void swap(S2C_RES_LOGIN& a, S2C_RES_LOGIN& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(S2C_RES_LOGIN* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(S2C_RES_LOGIN* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  S2C_RES_LOGIN* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<S2C_RES_LOGIN>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const S2C_RES_LOGIN& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const S2C_RES_LOGIN& from) {
-    S2C_RES_LOGIN::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(S2C_RES_LOGIN* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "S2C_RES_LOGIN";
-  }
-  protected:
-  explicit S2C_RES_LOGIN(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kNicknameFieldNumber = 2,
-    kIsMineFieldNumber = 1,
-  };
-  // string nickname = 2;
-  void clear_nickname();
-  const std::string& nickname() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_nickname(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_nickname();
-  PROTOBUF_NODISCARD std::string* release_nickname();
-  void set_allocated_nickname(std::string* nickname);
-  private:
-  const std::string& _internal_nickname() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_nickname(const std::string& value);
-  std::string* _internal_mutable_nickname();
-  public:
-
-  // bool is_mine = 1;
-  void clear_is_mine();
-  bool is_mine() const;
-  void set_is_mine(bool value);
-  private:
-  bool _internal_is_mine() const;
-  void _internal_set_is_mine(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:S2C_RES_LOGIN)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr nickname_;
-    bool is_mine_;
+    int32_t session_id_;
+    int32_t rand_number_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -574,211 +397,75 @@ class S2C_RES_LOGIN final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// C2S_REQ_Chat
+// C2S_TestEcho
 
-// int32 sender_id = 1;
-inline void C2S_REQ_Chat::clear_sender_id() {
-  _impl_.sender_id_ = 0;
+// int32 rand_number = 1;
+inline void C2S_TestEcho::clear_rand_number() {
+  _impl_.rand_number_ = 0;
 }
-inline int32_t C2S_REQ_Chat::_internal_sender_id() const {
-  return _impl_.sender_id_;
+inline int32_t C2S_TestEcho::_internal_rand_number() const {
+  return _impl_.rand_number_;
 }
-inline int32_t C2S_REQ_Chat::sender_id() const {
-  // @@protoc_insertion_point(field_get:C2S_REQ_Chat.sender_id)
-  return _internal_sender_id();
+inline int32_t C2S_TestEcho::rand_number() const {
+  // @@protoc_insertion_point(field_get:C2S_TestEcho.rand_number)
+  return _internal_rand_number();
 }
-inline void C2S_REQ_Chat::_internal_set_sender_id(int32_t value) {
+inline void C2S_TestEcho::_internal_set_rand_number(int32_t value) {
   
-  _impl_.sender_id_ = value;
+  _impl_.rand_number_ = value;
 }
-inline void C2S_REQ_Chat::set_sender_id(int32_t value) {
-  _internal_set_sender_id(value);
-  // @@protoc_insertion_point(field_set:C2S_REQ_Chat.sender_id)
-}
-
-// string message = 3;
-inline void C2S_REQ_Chat::clear_message() {
-  _impl_.message_.ClearToEmpty();
-}
-inline const std::string& C2S_REQ_Chat::message() const {
-  // @@protoc_insertion_point(field_get:C2S_REQ_Chat.message)
-  return _internal_message();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void C2S_REQ_Chat::set_message(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.message_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:C2S_REQ_Chat.message)
-}
-inline std::string* C2S_REQ_Chat::mutable_message() {
-  std::string* _s = _internal_mutable_message();
-  // @@protoc_insertion_point(field_mutable:C2S_REQ_Chat.message)
-  return _s;
-}
-inline const std::string& C2S_REQ_Chat::_internal_message() const {
-  return _impl_.message_.Get();
-}
-inline void C2S_REQ_Chat::_internal_set_message(const std::string& value) {
-  
-  _impl_.message_.Set(value, GetArenaForAllocation());
-}
-inline std::string* C2S_REQ_Chat::_internal_mutable_message() {
-  
-  return _impl_.message_.Mutable(GetArenaForAllocation());
-}
-inline std::string* C2S_REQ_Chat::release_message() {
-  // @@protoc_insertion_point(field_release:C2S_REQ_Chat.message)
-  return _impl_.message_.Release();
-}
-inline void C2S_REQ_Chat::set_allocated_message(std::string* message) {
-  if (message != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.message_.SetAllocated(message, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.message_.IsDefault()) {
-    _impl_.message_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:C2S_REQ_Chat.message)
+inline void C2S_TestEcho::set_rand_number(int32_t value) {
+  _internal_set_rand_number(value);
+  // @@protoc_insertion_point(field_set:C2S_TestEcho.rand_number)
 }
 
 // -------------------------------------------------------------------
 
-// C2S_REQ_LOGIN
+// S2C_TestEcho
 
-// string nickname = 1;
-inline void C2S_REQ_LOGIN::clear_nickname() {
-  _impl_.nickname_.ClearToEmpty();
+// int32 session_id = 1;
+inline void S2C_TestEcho::clear_session_id() {
+  _impl_.session_id_ = 0;
 }
-inline const std::string& C2S_REQ_LOGIN::nickname() const {
-  // @@protoc_insertion_point(field_get:C2S_REQ_LOGIN.nickname)
-  return _internal_nickname();
+inline int32_t S2C_TestEcho::_internal_session_id() const {
+  return _impl_.session_id_;
 }
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void C2S_REQ_LOGIN::set_nickname(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.nickname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:C2S_REQ_LOGIN.nickname)
+inline int32_t S2C_TestEcho::session_id() const {
+  // @@protoc_insertion_point(field_get:S2C_TestEcho.session_id)
+  return _internal_session_id();
 }
-inline std::string* C2S_REQ_LOGIN::mutable_nickname() {
-  std::string* _s = _internal_mutable_nickname();
-  // @@protoc_insertion_point(field_mutable:C2S_REQ_LOGIN.nickname)
-  return _s;
-}
-inline const std::string& C2S_REQ_LOGIN::_internal_nickname() const {
-  return _impl_.nickname_.Get();
-}
-inline void C2S_REQ_LOGIN::_internal_set_nickname(const std::string& value) {
+inline void S2C_TestEcho::_internal_set_session_id(int32_t value) {
   
-  _impl_.nickname_.Set(value, GetArenaForAllocation());
+  _impl_.session_id_ = value;
 }
-inline std::string* C2S_REQ_LOGIN::_internal_mutable_nickname() {
-  
-  return _impl_.nickname_.Mutable(GetArenaForAllocation());
-}
-inline std::string* C2S_REQ_LOGIN::release_nickname() {
-  // @@protoc_insertion_point(field_release:C2S_REQ_LOGIN.nickname)
-  return _impl_.nickname_.Release();
-}
-inline void C2S_REQ_LOGIN::set_allocated_nickname(std::string* nickname) {
-  if (nickname != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.nickname_.SetAllocated(nickname, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.nickname_.IsDefault()) {
-    _impl_.nickname_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:C2S_REQ_LOGIN.nickname)
+inline void S2C_TestEcho::set_session_id(int32_t value) {
+  _internal_set_session_id(value);
+  // @@protoc_insertion_point(field_set:S2C_TestEcho.session_id)
 }
 
-// -------------------------------------------------------------------
-
-// S2C_RES_LOGIN
-
-// bool is_mine = 1;
-inline void S2C_RES_LOGIN::clear_is_mine() {
-  _impl_.is_mine_ = false;
+// int32 rand_number = 2;
+inline void S2C_TestEcho::clear_rand_number() {
+  _impl_.rand_number_ = 0;
 }
-inline bool S2C_RES_LOGIN::_internal_is_mine() const {
-  return _impl_.is_mine_;
+inline int32_t S2C_TestEcho::_internal_rand_number() const {
+  return _impl_.rand_number_;
 }
-inline bool S2C_RES_LOGIN::is_mine() const {
-  // @@protoc_insertion_point(field_get:S2C_RES_LOGIN.is_mine)
-  return _internal_is_mine();
+inline int32_t S2C_TestEcho::rand_number() const {
+  // @@protoc_insertion_point(field_get:S2C_TestEcho.rand_number)
+  return _internal_rand_number();
 }
-inline void S2C_RES_LOGIN::_internal_set_is_mine(bool value) {
+inline void S2C_TestEcho::_internal_set_rand_number(int32_t value) {
   
-  _impl_.is_mine_ = value;
+  _impl_.rand_number_ = value;
 }
-inline void S2C_RES_LOGIN::set_is_mine(bool value) {
-  _internal_set_is_mine(value);
-  // @@protoc_insertion_point(field_set:S2C_RES_LOGIN.is_mine)
-}
-
-// string nickname = 2;
-inline void S2C_RES_LOGIN::clear_nickname() {
-  _impl_.nickname_.ClearToEmpty();
-}
-inline const std::string& S2C_RES_LOGIN::nickname() const {
-  // @@protoc_insertion_point(field_get:S2C_RES_LOGIN.nickname)
-  return _internal_nickname();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void S2C_RES_LOGIN::set_nickname(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.nickname_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:S2C_RES_LOGIN.nickname)
-}
-inline std::string* S2C_RES_LOGIN::mutable_nickname() {
-  std::string* _s = _internal_mutable_nickname();
-  // @@protoc_insertion_point(field_mutable:S2C_RES_LOGIN.nickname)
-  return _s;
-}
-inline const std::string& S2C_RES_LOGIN::_internal_nickname() const {
-  return _impl_.nickname_.Get();
-}
-inline void S2C_RES_LOGIN::_internal_set_nickname(const std::string& value) {
-  
-  _impl_.nickname_.Set(value, GetArenaForAllocation());
-}
-inline std::string* S2C_RES_LOGIN::_internal_mutable_nickname() {
-  
-  return _impl_.nickname_.Mutable(GetArenaForAllocation());
-}
-inline std::string* S2C_RES_LOGIN::release_nickname() {
-  // @@protoc_insertion_point(field_release:S2C_RES_LOGIN.nickname)
-  return _impl_.nickname_.Release();
-}
-inline void S2C_RES_LOGIN::set_allocated_nickname(std::string* nickname) {
-  if (nickname != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.nickname_.SetAllocated(nickname, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.nickname_.IsDefault()) {
-    _impl_.nickname_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:S2C_RES_LOGIN.nickname)
+inline void S2C_TestEcho::set_rand_number(int32_t value) {
+  _internal_set_rand_number(value);
+  // @@protoc_insertion_point(field_set:S2C_TestEcho.rand_number)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 

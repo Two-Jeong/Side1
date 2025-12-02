@@ -48,6 +48,8 @@ public class Connector
         {
             Session session = m_session_factory.Invoke();
             session.Init(args.ConnectSocket, args.RemoteEndPoint);
+            
+            session.OnConnected();
         }
     }
 }

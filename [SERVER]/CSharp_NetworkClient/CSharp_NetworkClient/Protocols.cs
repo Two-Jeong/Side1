@@ -22,40 +22,42 @@ public static partial class ProtocolsReflection {
   static ProtocolsReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "Cg9Qcm90b2NvbHMucHJvdG8iMgoMQzJTX1JFUV9DaGF0EhEKCXNlbmRlcl9p",
-          "ZBgBIAEoBRIPCgdtZXNzYWdlGAMgASgJIiEKDUMyU19SRVFfTE9HSU4SEAoI",
-          "bmlja25hbWUYASABKAkiMgoNUzJDX1JFU19MT0dJThIPCgdpc19taW5lGAEg",
-          "ASgIEhAKCG5pY2tuYW1lGAIgASgJKhkKDXBhY2tldF9udW1iZXISCAoETk9O",
-          "RRAAYgZwcm90bzM="));
+          "Cg9Qcm90b2NvbHMucHJvdG8iIwoMQzJTX1Rlc3RFY2hvEhMKC3JhbmRfbnVt",
+          "YmVyGAEgASgFIjcKDFMyQ19UZXN0RWNobxISCgpzZXNzaW9uX2lkGAEgASgF",
+          "EhMKC3JhbmRfbnVtYmVyGAIgASgFKicKDXBhY2tldF9udW1iZXISCAoETk9O",
+          "RRAAEgwKCFRlc3RFY2hvEAFiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::packet_number), }, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::C2S_REQ_Chat), global::C2S_REQ_Chat.Parser, new[]{ "SenderId", "Message" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::C2S_REQ_LOGIN), global::C2S_REQ_LOGIN.Parser, new[]{ "Nickname" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::S2C_RES_LOGIN), global::S2C_RES_LOGIN.Parser, new[]{ "IsMine", "Nickname" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::C2S_TestEcho), global::C2S_TestEcho.Parser, new[]{ "RandNumber" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::S2C_TestEcho), global::S2C_TestEcho.Parser, new[]{ "SessionId", "RandNumber" }, null, null, null, null)
         }));
   }
   #endregion
 
 }
 #region Enums
+/// <summary>
+/// packet_number의 값과 메세지 이름을 꼭 맞춰줘야함 (N2M_MessageName)
+/// </summary>
 public enum packet_number {
   [pbr::OriginalName("NONE")] None = 0,
+  [pbr::OriginalName("TestEcho")] TestEcho = 1,
 }
 
 #endregion
 
 #region Messages
-public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
+public sealed partial class C2S_TestEcho : pb::IMessage<C2S_TestEcho>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
 #endif
 {
-  private static readonly pb::MessageParser<C2S_REQ_Chat> _parser = new pb::MessageParser<C2S_REQ_Chat>(() => new C2S_REQ_Chat());
+  private static readonly pb::MessageParser<C2S_TestEcho> _parser = new pb::MessageParser<C2S_TestEcho>(() => new C2S_TestEcho());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<C2S_REQ_Chat> Parser { get { return _parser; } }
+  public static pb::MessageParser<C2S_TestEcho> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -71,7 +73,7 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public C2S_REQ_Chat() {
+  public C2S_TestEcho() {
     OnConstruction();
   }
 
@@ -79,59 +81,45 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public C2S_REQ_Chat(C2S_REQ_Chat other) : this() {
-    senderId_ = other.senderId_;
-    message_ = other.message_;
+  public C2S_TestEcho(C2S_TestEcho other) : this() {
+    randNumber_ = other.randNumber_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public C2S_REQ_Chat Clone() {
-    return new C2S_REQ_Chat(this);
+  public C2S_TestEcho Clone() {
+    return new C2S_TestEcho(this);
   }
 
-  /// <summary>Field number for the "sender_id" field.</summary>
-  public const int SenderIdFieldNumber = 1;
-  private int senderId_;
+  /// <summary>Field number for the "rand_number" field.</summary>
+  public const int RandNumberFieldNumber = 1;
+  private int randNumber_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public int SenderId {
-    get { return senderId_; }
+  public int RandNumber {
+    get { return randNumber_; }
     set {
-      senderId_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "message" field.</summary>
-  public const int MessageFieldNumber = 3;
-  private string message_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Message {
-    get { return message_; }
-    set {
-      message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      randNumber_ = value;
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
-    return Equals(other as C2S_REQ_Chat);
+    return Equals(other as C2S_TestEcho);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(C2S_REQ_Chat other) {
+  public bool Equals(C2S_TestEcho other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (SenderId != other.SenderId) return false;
-    if (Message != other.Message) return false;
+    if (RandNumber != other.RandNumber) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -139,8 +127,7 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (SenderId != 0) hash ^= SenderId.GetHashCode();
-    if (Message.Length != 0) hash ^= Message.GetHashCode();
+    if (RandNumber != 0) hash ^= RandNumber.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -159,13 +146,9 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (SenderId != 0) {
+    if (RandNumber != 0) {
       output.WriteRawTag(8);
-      output.WriteInt32(SenderId);
-    }
-    if (Message.Length != 0) {
-      output.WriteRawTag(26);
-      output.WriteString(Message);
+      output.WriteInt32(RandNumber);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -177,13 +160,9 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (SenderId != 0) {
+    if (RandNumber != 0) {
       output.WriteRawTag(8);
-      output.WriteInt32(SenderId);
-    }
-    if (Message.Length != 0) {
-      output.WriteRawTag(26);
-      output.WriteString(Message);
+      output.WriteInt32(RandNumber);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -195,11 +174,8 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (SenderId != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeInt32Size(SenderId);
-    }
-    if (Message.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
+    if (RandNumber != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(RandNumber);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -209,15 +185,12 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(C2S_REQ_Chat other) {
+  public void MergeFrom(C2S_TestEcho other) {
     if (other == null) {
       return;
     }
-    if (other.SenderId != 0) {
-      SenderId = other.SenderId;
-    }
-    if (other.Message.Length != 0) {
-      Message = other.Message;
+    if (other.RandNumber != 0) {
+      RandNumber = other.RandNumber;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -235,11 +208,7 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 8: {
-          SenderId = input.ReadInt32();
-          break;
-        }
-        case 26: {
-          Message = input.ReadString();
+          RandNumber = input.ReadInt32();
           break;
         }
       }
@@ -258,11 +227,7 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 8: {
-          SenderId = input.ReadInt32();
-          break;
-        }
-        case 26: {
-          Message = input.ReadString();
+          RandNumber = input.ReadInt32();
           break;
         }
       }
@@ -272,16 +237,16 @@ public sealed partial class C2S_REQ_Chat : pb::IMessage<C2S_REQ_Chat>
 
 }
 
-public sealed partial class C2S_REQ_LOGIN : pb::IMessage<C2S_REQ_LOGIN>
+public sealed partial class S2C_TestEcho : pb::IMessage<S2C_TestEcho>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
 #endif
 {
-  private static readonly pb::MessageParser<C2S_REQ_LOGIN> _parser = new pb::MessageParser<C2S_REQ_LOGIN>(() => new C2S_REQ_LOGIN());
+  private static readonly pb::MessageParser<S2C_TestEcho> _parser = new pb::MessageParser<S2C_TestEcho>(() => new S2C_TestEcho());
   private pb::UnknownFieldSet _unknownFields;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<C2S_REQ_LOGIN> Parser { get { return _parser; } }
+  public static pb::MessageParser<S2C_TestEcho> Parser { get { return _parser; } }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -297,7 +262,7 @@ public sealed partial class C2S_REQ_LOGIN : pb::IMessage<C2S_REQ_LOGIN>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public C2S_REQ_LOGIN() {
+  public S2C_TestEcho() {
     OnConstruction();
   }
 
@@ -305,45 +270,59 @@ public sealed partial class C2S_REQ_LOGIN : pb::IMessage<C2S_REQ_LOGIN>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public C2S_REQ_LOGIN(C2S_REQ_LOGIN other) : this() {
-    nickname_ = other.nickname_;
+  public S2C_TestEcho(S2C_TestEcho other) : this() {
+    sessionId_ = other.sessionId_;
+    randNumber_ = other.randNumber_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public C2S_REQ_LOGIN Clone() {
-    return new C2S_REQ_LOGIN(this);
+  public S2C_TestEcho Clone() {
+    return new S2C_TestEcho(this);
   }
 
-  /// <summary>Field number for the "nickname" field.</summary>
-  public const int NicknameFieldNumber = 1;
-  private string nickname_ = "";
+  /// <summary>Field number for the "session_id" field.</summary>
+  public const int SessionIdFieldNumber = 1;
+  private int sessionId_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Nickname {
-    get { return nickname_; }
+  public int SessionId {
+    get { return sessionId_; }
     set {
-      nickname_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      sessionId_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "rand_number" field.</summary>
+  public const int RandNumberFieldNumber = 2;
+  private int randNumber_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int RandNumber {
+    get { return randNumber_; }
+    set {
+      randNumber_ = value;
     }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
-    return Equals(other as C2S_REQ_LOGIN);
+    return Equals(other as S2C_TestEcho);
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(C2S_REQ_LOGIN other) {
+  public bool Equals(S2C_TestEcho other) {
     if (ReferenceEquals(other, null)) {
       return false;
     }
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (Nickname != other.Nickname) return false;
+    if (SessionId != other.SessionId) return false;
+    if (RandNumber != other.RandNumber) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -351,7 +330,8 @@ public sealed partial class C2S_REQ_LOGIN : pb::IMessage<C2S_REQ_LOGIN>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (Nickname.Length != 0) hash ^= Nickname.GetHashCode();
+    if (SessionId != 0) hash ^= SessionId.GetHashCode();
+    if (RandNumber != 0) hash ^= RandNumber.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -370,9 +350,13 @@ public sealed partial class C2S_REQ_LOGIN : pb::IMessage<C2S_REQ_LOGIN>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (Nickname.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Nickname);
+    if (SessionId != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(SessionId);
+    }
+    if (RandNumber != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(RandNumber);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -384,9 +368,13 @@ public sealed partial class C2S_REQ_LOGIN : pb::IMessage<C2S_REQ_LOGIN>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (Nickname.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(Nickname);
+    if (SessionId != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(SessionId);
+    }
+    if (RandNumber != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(RandNumber);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -398,8 +386,11 @@ public sealed partial class C2S_REQ_LOGIN : pb::IMessage<C2S_REQ_LOGIN>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (Nickname.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Nickname);
+    if (SessionId != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(SessionId);
+    }
+    if (RandNumber != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(RandNumber);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -409,230 +400,15 @@ public sealed partial class C2S_REQ_LOGIN : pb::IMessage<C2S_REQ_LOGIN>
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(C2S_REQ_LOGIN other) {
+  public void MergeFrom(S2C_TestEcho other) {
     if (other == null) {
       return;
     }
-    if (other.Nickname.Length != 0) {
-      Nickname = other.Nickname;
+    if (other.SessionId != 0) {
+      SessionId = other.SessionId;
     }
-    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(pb::CodedInputStream input) {
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    input.ReadRawMessage(this);
-  #else
-    uint tag;
-    while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
-        default:
-          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-          break;
-        case 10: {
-          Nickname = input.ReadString();
-          break;
-        }
-      }
-    }
-  #endif
-  }
-
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-    uint tag;
-    while ((tag = input.ReadTag()) != 0) {
-      switch(tag) {
-        default:
-          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-          break;
-        case 10: {
-          Nickname = input.ReadString();
-          break;
-        }
-      }
-    }
-  }
-  #endif
-
-}
-
-public sealed partial class S2C_RES_LOGIN : pb::IMessage<S2C_RES_LOGIN>
-#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    , pb::IBufferMessage
-#endif
-{
-  private static readonly pb::MessageParser<S2C_RES_LOGIN> _parser = new pb::MessageParser<S2C_RES_LOGIN>(() => new S2C_RES_LOGIN());
-  private pb::UnknownFieldSet _unknownFields;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pb::MessageParser<S2C_RES_LOGIN> Parser { get { return _parser; } }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public static pbr::MessageDescriptor Descriptor {
-    get { return global::ProtocolsReflection.Descriptor.MessageTypes[2]; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  pbr::MessageDescriptor pb::IMessage.Descriptor {
-    get { return Descriptor; }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public S2C_RES_LOGIN() {
-    OnConstruction();
-  }
-
-  partial void OnConstruction();
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public S2C_RES_LOGIN(S2C_RES_LOGIN other) : this() {
-    isMine_ = other.isMine_;
-    nickname_ = other.nickname_;
-    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public S2C_RES_LOGIN Clone() {
-    return new S2C_RES_LOGIN(this);
-  }
-
-  /// <summary>Field number for the "is_mine" field.</summary>
-  public const int IsMineFieldNumber = 1;
-  private bool isMine_;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool IsMine {
-    get { return isMine_; }
-    set {
-      isMine_ = value;
-    }
-  }
-
-  /// <summary>Field number for the "nickname" field.</summary>
-  public const int NicknameFieldNumber = 2;
-  private string nickname_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Nickname {
-    get { return nickname_; }
-    set {
-      nickname_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override bool Equals(object other) {
-    return Equals(other as S2C_RES_LOGIN);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public bool Equals(S2C_RES_LOGIN other) {
-    if (ReferenceEquals(other, null)) {
-      return false;
-    }
-    if (ReferenceEquals(other, this)) {
-      return true;
-    }
-    if (IsMine != other.IsMine) return false;
-    if (Nickname != other.Nickname) return false;
-    return Equals(_unknownFields, other._unknownFields);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override int GetHashCode() {
-    int hash = 1;
-    if (IsMine != false) hash ^= IsMine.GetHashCode();
-    if (Nickname.Length != 0) hash ^= Nickname.GetHashCode();
-    if (_unknownFields != null) {
-      hash ^= _unknownFields.GetHashCode();
-    }
-    return hash;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public override string ToString() {
-    return pb::JsonFormatter.ToDiagnosticString(this);
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void WriteTo(pb::CodedOutputStream output) {
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    output.WriteRawMessage(this);
-  #else
-    if (IsMine != false) {
-      output.WriteRawTag(8);
-      output.WriteBool(IsMine);
-    }
-    if (Nickname.Length != 0) {
-      output.WriteRawTag(18);
-      output.WriteString(Nickname);
-    }
-    if (_unknownFields != null) {
-      _unknownFields.WriteTo(output);
-    }
-  #endif
-  }
-
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (IsMine != false) {
-      output.WriteRawTag(8);
-      output.WriteBool(IsMine);
-    }
-    if (Nickname.Length != 0) {
-      output.WriteRawTag(18);
-      output.WriteString(Nickname);
-    }
-    if (_unknownFields != null) {
-      _unknownFields.WriteTo(ref output);
-    }
-  }
-  #endif
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public int CalculateSize() {
-    int size = 0;
-    if (IsMine != false) {
-      size += 1 + 1;
-    }
-    if (Nickname.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Nickname);
-    }
-    if (_unknownFields != null) {
-      size += _unknownFields.CalculateSize();
-    }
-    return size;
-  }
-
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public void MergeFrom(S2C_RES_LOGIN other) {
-    if (other == null) {
-      return;
-    }
-    if (other.IsMine != false) {
-      IsMine = other.IsMine;
-    }
-    if (other.Nickname.Length != 0) {
-      Nickname = other.Nickname;
+    if (other.RandNumber != 0) {
+      RandNumber = other.RandNumber;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -650,11 +426,11 @@ public sealed partial class S2C_RES_LOGIN : pb::IMessage<S2C_RES_LOGIN>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 8: {
-          IsMine = input.ReadBool();
+          SessionId = input.ReadInt32();
           break;
         }
-        case 18: {
-          Nickname = input.ReadString();
+        case 16: {
+          RandNumber = input.ReadInt32();
           break;
         }
       }
@@ -673,11 +449,11 @@ public sealed partial class S2C_RES_LOGIN : pb::IMessage<S2C_RES_LOGIN>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 8: {
-          IsMine = input.ReadBool();
+          SessionId = input.ReadInt32();
           break;
         }
-        case 18: {
-          Nickname = input.ReadString();
+        case 16: {
+          RandNumber = input.ReadInt32();
           break;
         }
       }

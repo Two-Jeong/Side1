@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Sockets;
+using Google.Protobuf;
 
 namespace CSharp_NetworkClient;
 
@@ -41,6 +42,19 @@ public abstract class Session
     public void DoSend(Packet packet)
     {
         m_sender.RegisterSend(packet);
+    }
+
+    public void DoSend(IMessage message)
+    {
+        string[] msg_split_string = message.GetType().Name.Split("_");
+		packet_number packet_number = Enum.Parse<packet_number>(msg_split_string[1]);
+        
+        Packet p = new Packet();
+        p.InitializePacket(Convert.ToUInt16(packet_number));
+        p.PushData(message);
+        p.FinalizePacket();
+        
+        DoSend(p);
     }
 
     public int OnRecv(ArraySegment<byte> recv_datas)
