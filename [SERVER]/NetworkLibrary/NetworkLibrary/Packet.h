@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <google/protobuf/message.h>
 
 struct PacketHeader
 {
@@ -67,12 +68,19 @@ public:
         ::memcpy_s(get_current_idx_ptr(), data_size, data.c_str(), data_size);
         m_current_idx += static_cast<int>(data_size);
     }
-
+    
+    void push(google::protobuf::Message& message)
+    {
+        m_current_idx += message.ByteSizeLong();
+        message.SerializeToArray(get_current_idx_ptr() ,message.ByteSizeLong());
+    }
+    
     template <typename... Types>
     void push(Types&... args)
     {
          (push(args), ...); // C++ 17 fold expression
     }
+    
     /* --------------------------------------------- pop --------------------------------------------- */
     template<typename t>
     void pop(t& data)
@@ -102,6 +110,12 @@ public:
         
         ::memcpy_s(const_cast<wchar_t*>(data.data()), data_size, get_current_idx_ptr(), data_size);
         m_current_idx += static_cast<int>(data_size);
+    }
+
+    void pop(google::protobuf::Message& message)
+    {
+        message.ParseFromArray(get_current_idx_ptr(), message.ByteSizeLong());
+        m_current_idx += static_cast<int>(message.ByteSizeLong());
     }
     
     template <typename... Types>
