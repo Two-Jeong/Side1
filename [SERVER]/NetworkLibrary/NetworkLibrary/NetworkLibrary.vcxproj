@@ -40,6 +40,7 @@
     <ClInclude Include="NetworkSection.h" />
     <ClInclude Include="NetworkUtil.h" />
     <ClInclude Include="Packet.h" />
+    <ClInclude Include="PacketNumberMapper.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Protocols.pb.h" />
     <ClInclude Include="RecvBuffer.h" />

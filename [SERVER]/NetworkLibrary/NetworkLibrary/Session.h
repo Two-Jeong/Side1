@@ -18,6 +18,7 @@ public:
     static int generate_session_id();
 public:
     virtual void init();
+    virtual void init_handlers() abstract;
     virtual void finalize();
 public:
     int get_id() { return m_session_id; };
@@ -44,6 +45,7 @@ public:
     bool do_connect();
     bool do_recieve();
     bool do_send(std::shared_ptr<Packet> packet);
+    bool do_send(google::protobuf::Message& message);
     bool do_disconnect();
 
     void complete_connect();

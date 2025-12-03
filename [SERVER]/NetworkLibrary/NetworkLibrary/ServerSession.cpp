@@ -1,6 +1,11 @@
 ﻿#include "pch.h"
 #include "ServerSession.h"
 
+void ServerSession::init_handlers()
+{
+    Session::init_handlers();
+}
+
 void ServerSession::on_connected()
 {
 }

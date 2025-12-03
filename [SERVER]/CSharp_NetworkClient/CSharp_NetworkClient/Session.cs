@@ -46,11 +46,10 @@ public abstract class Session
 
     public void DoSend(IMessage message)
     {
-        string[] msg_split_string = message.GetType().Name.Split("_");
-		packet_number packet_number = Enum.Parse<packet_number>(msg_split_string[1]);
+        ushort packet_id = PacketNumberMapper.GetProtocolNumber(message.GetType().Name);
         
         Packet p = new Packet();
-        p.InitializePacket(Convert.ToUInt16(packet_number));
+        p.InitializePacket(packet_id);
         p.PushData(message);
         p.FinalizePacket();
         

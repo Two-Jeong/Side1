@@ -28,11 +28,18 @@ public:
     Session* get_owner(); 
 public:
 
-    void initialize() { m_current_idx = 0; m_buffer.resize(PACKET_HEADER_SIZEOF); }
-    void finalize() { *(static_cast<unsigned short*>(get_size_ptr())) = static_cast<unsigned short>(m_current_idx) + PACKET_SIZE_SIZEOF; }
+
     unsigned short get_size() const { return *m_buffer.data(); }
     unsigned short get_protocol() const { return *(m_buffer.data() + PACKET_SIZE_SIZEOF); }
     std::vector<char>& get_buffer() {return m_buffer; }
+    
+    void initialize(unsigned short protocol_number)
+    {
+        m_buffer.resize(PACKET_HEADER_SIZEOF);
+        m_current_idx = PACKET_HEADER_SIZEOF;
+        ::memcpy_s(get_protocol_ptr(), PACKET_PROTOCOL_SIZEOF, &protocol_number, PACKET_PROTOCOL_SIZEOF);
+    }
+    void finalize() { *(static_cast<unsigned short*>(get_size_ptr())) = static_cast<unsigned short>(m_current_idx) + PACKET_SIZE_SIZEOF; }
 
 public:
     
@@ -71,6 +78,7 @@ public:
     
     void push(google::protobuf::Message& message)
     {
+        m_buffer.resize(m_buffer.size() + message.ByteSizeLong());
         m_current_idx += message.ByteSizeLong();
         message.SerializeToArray(get_current_idx_ptr() ,message.ByteSizeLong());
     }
@@ -116,6 +124,11 @@ public:
     {
         message.ParseFromArray(get_current_idx_ptr(), message.ByteSizeLong());
         m_current_idx += static_cast<int>(message.ByteSizeLong());
+    }
+    
+    void pop_message(google::protobuf::Message& message)
+    {
+        message.ParseFromArray(m_buffer.data() + sizeof(PacketHeader), message.ByteSizeLong());
     }
     
     template <typename... Types>
