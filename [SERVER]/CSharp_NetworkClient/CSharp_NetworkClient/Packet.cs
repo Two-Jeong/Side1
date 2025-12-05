@@ -13,16 +13,19 @@ namespace CSharp_NetworkClient
         PACKET_SIZE_VALUE_SIZEOF = sizeof(ushort),
         PACKET_PROTOCOL_VALUE_SIZEOF = sizeof(ushort),
         PACKET_HEADER_VALUE_SIZEOF = PACKET_SIZE_VALUE_SIZEOF + PACKET_PROTOCOL_VALUE_SIZEOF,
+        PACKET_SIZE_VALUE_START_IDX = 0,
+        PACKET_PROTOCOL_VALUE_START_IDX = PACKET_SIZE_VALUE_SIZEOF,
+        PACKET_DATA_START_IDX = PACKET_HEADER_VALUE_SIZEOF,
     }
 
     public class Packet
     {
         private StreamBuffer? m_data;
         private int m_pos;
-
+        
         public ArraySegment<byte> Data => new ArraySegment<byte>(m_data.GetWriteSpan().ToArray(), 0, m_pos);
-        public ushort Size => BitConverter.ToUInt16(m_data.GetWriteSpan().Slice(0, Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF)));
-        public ushort Protocol => BitConverter.ToUInt16(m_data.GetWriteSpan().Slice(Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF), Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_SIZEOF)));
+        public ushort Size => BitConverter.ToUInt16(m_data.GetWriteSpan().Slice(Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_START_IDX), Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF)));
+        public ushort Protocol => BitConverter.ToUInt16(m_data.GetWriteSpan().Slice(Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_START_IDX), Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_SIZEOF)));
 
         public Packet()
         {
@@ -56,7 +59,7 @@ namespace CSharp_NetworkClient
 
         public bool InitializePacket(ushort protocol_no)
         {
-            if (false == BitConverter.TryWriteBytes(m_data.GetWriteSpan().Slice(Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF), Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_SIZEOF)), protocol_no))
+            if (false == BitConverter.TryWriteBytes(m_data.GetWriteSpan().Slice(Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_START_IDX), Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_SIZEOF)), protocol_no))
             {
                 //TODO: LOG
                 return false;
@@ -74,7 +77,7 @@ namespace CSharp_NetworkClient
                 //TODO: LOG
                 return false;
             }
-            message.WriteTo(m_data.GetWriteSpan().Slice(m_pos));
+            message.ToByteArray().CopyTo(m_data.GetWriteSpan().Slice(m_pos, message.CalculateSize()));
 
             m_pos += message.CalculateSize();
             return true;
@@ -88,7 +91,7 @@ namespace CSharp_NetworkClient
                 return false;
             }
 
-            if (false == BitConverter.TryWriteBytes(m_data.GetWriteSpan().Slice(0, Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF)), m_pos))
+            if (false == BitConverter.TryWriteBytes(m_data.GetWriteSpan().Slice(0, Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF)), Convert.ToUInt16(m_pos)))
             {
                 //TODO: LOG
                 return false;
@@ -99,12 +102,12 @@ namespace CSharp_NetworkClient
 
         public void PopHeader(ref PacketHeader header)
         {
-            header.packet_size = BitConverter.ToUInt16(m_data.GetReadSpan().Slice(0, Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF)));
-            header.packet_protocol = BitConverter.ToUInt16(m_data.GetReadSpan().Slice(Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF), Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_SIZEOF)));
+            header.packet_size = BitConverter.ToUInt16(m_data.GetWriteSpan().Slice(0, Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF)));
+            header.packet_protocol = BitConverter.ToUInt16(m_data.GetWriteSpan().Slice(Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF), Convert.ToInt32(PacketDefine.PACKET_PROTOCOL_VALUE_SIZEOF)));
 
             m_pos += Convert.ToInt32(PacketDefine.PACKET_HEADER_VALUE_SIZEOF);
         }
-        public bool PopData(ref IMessage message)
+        public bool PopData(IMessage message)
         {
             if(null == m_data)
             {
@@ -112,7 +115,7 @@ namespace CSharp_NetworkClient
                 return false;
             }    
 
-            message.MergeFrom(m_data.GetReadSpan().Slice(m_pos, message.CalculateSize()));
+            message.MergeFrom(m_data.GetWriteSpan().Slice(Convert.ToUInt16(PacketDefine.PACKET_HEADER_VALUE_SIZEOF), Size - Convert.ToUInt16(PacketDefine.PACKET_HEADER_VALUE_SIZEOF)));
             return true;
         }
     }

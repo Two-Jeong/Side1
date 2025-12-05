@@ -19,13 +19,15 @@ public class Receiver
     public void Init(Session session)
     {
         m_session = session;
+        m_recv_args.Completed += CompleteRecv;
     }
 
-    public void DoRecv(int recv_count = 0)
+    public void DoRecv(int recv_count = 1)
     {
         for(int i = 0; i < recv_count; i++)
             RegisterRecv();
     }
+
     private void RegisterRecv()
     {
         m_recv_buffer.Clean();
@@ -39,7 +41,7 @@ public class Receiver
 
     private void CompleteRecv(object? receiver, SocketAsyncEventArgs args)
     {
-        if (0 == args.BytesTransferred /*연결 끊김*/ && args.SocketError == SocketError.Success)
+        if (0 != args.BytesTransferred /*연결 끊김*/ && args.SocketError == SocketError.Success)
         {
             if (false == m_recv_buffer.OnWrite((args.BytesTransferred)))
             {

@@ -27,7 +27,7 @@ public class TestSession : Session
         while (true)
         {
             C2S_TestEcho send_packet = new C2S_TestEcho();
-            send_packet.RandNumber = random.Next();
+            send_packet.RandNumber = random.Next(100);
 
             DoSend(send_packet);
             
@@ -36,6 +36,10 @@ public class TestSession : Session
     }
     private bool OnRecvTestEcho(Packet packet)
     {
+        S2C_TestEcho recv_pacekt_from_server = new S2C_TestEcho();
+        packet.PopData(recv_pacekt_from_server);
+
+        Console.WriteLine($"echo packet recived: session id: {recv_pacekt_from_server.SessionId}, random number: {recv_pacekt_from_server.RandNumber}");
         return true;
     }
 }

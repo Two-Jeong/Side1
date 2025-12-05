@@ -9,5 +9,5 @@ void LoginServerService::init(int iocp_thread_count, std::function<class Network
 
 NetworkSection* LoginServerService::select_first_section()
 {
-    return m_sections[0];
+    return m_sections.begin()->second;
 }

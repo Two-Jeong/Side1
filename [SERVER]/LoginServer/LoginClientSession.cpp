@@ -8,7 +8,6 @@ void LoginClientSession::init()
 
 void LoginClientSession::init_handlers()
 {
-    ClientSession::init_handlers();
     m_handlers.emplace(packet_number::TestEcho, [this](auto* p){this->test_echo_handler(p); });
 }
 
@@ -36,6 +35,8 @@ void LoginClientSession::test_echo_handler(Packet* packet)
 {
     C2S_TestEcho recv_message_from_client;
     packet->pop_message(recv_message_from_client);
+
+    std::cout << "Recv Echo: " << recv_message_from_client.rand_number() << std::endl;
 
     S2C_TestEcho send_message_to_client;
     send_message_to_client.set_session_id(get_id());

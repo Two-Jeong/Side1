@@ -30,6 +30,7 @@ public:
 
 
     unsigned short get_size() const { return *m_buffer.data(); }
+    unsigned short get_body_size() const { return (*m_buffer.data()) - PACKET_HEADER_SIZEOF; }
     unsigned short get_protocol() const { return *(m_buffer.data() + PACKET_SIZE_SIZEOF); }
     std::vector<char>& get_buffer() {return m_buffer; }
     
@@ -39,7 +40,7 @@ public:
         m_current_idx = PACKET_HEADER_SIZEOF;
         ::memcpy_s(get_protocol_ptr(), PACKET_PROTOCOL_SIZEOF, &protocol_number, PACKET_PROTOCOL_SIZEOF);
     }
-    void finalize() { *(static_cast<unsigned short*>(get_size_ptr())) = static_cast<unsigned short>(m_current_idx) + PACKET_SIZE_SIZEOF; }
+    void finalize() { *(static_cast<unsigned short*>(get_size_ptr())) = static_cast<unsigned short>(m_current_idx); }
 
 public:
     
@@ -79,8 +80,8 @@ public:
     void push(google::protobuf::Message& message)
     {
         m_buffer.resize(m_buffer.size() + message.ByteSizeLong());
+        message.SerializeToArray(get_current_idx_ptr(), message.ByteSizeLong());
         m_current_idx += message.ByteSizeLong();
-        message.SerializeToArray(get_current_idx_ptr() ,message.ByteSizeLong());
     }
     
     template <typename... Types>
@@ -120,15 +121,15 @@ public:
         m_current_idx += static_cast<int>(data_size);
     }
 
-    void pop(google::protobuf::Message& message)
+    void pop(google::protobuf::Message& message, int message_size)
     {
-        message.ParseFromArray(get_current_idx_ptr(), message.ByteSizeLong());
+        message.ParseFromArray(get_current_idx_ptr(), message_size);
         m_current_idx += static_cast<int>(message.ByteSizeLong());
     }
     
     void pop_message(google::protobuf::Message& message)
-    {
-        message.ParseFromArray(m_buffer.data() + sizeof(PacketHeader), message.ByteSizeLong());
+    { 
+        message.ParseFromArray(m_buffer.data() + PACKET_HEADER_SIZEOF, get_size() - PACKET_HEADER_SIZEOF);
     }
     
     template <typename... Types>
@@ -140,7 +141,7 @@ public:
 private:
     void* get_protocol_ptr() { return m_buffer.data() + PACKET_SIZE_SIZEOF; }
     void* get_size_ptr() { return m_buffer.data(); }
-    void* get_current_idx_ptr() {return (m_buffer.data() + PACKET_SIZE_SIZEOF + m_current_idx); }
+    void* get_current_idx_ptr() {return (m_buffer.data() + m_current_idx); }
 
 private:
     std::vector<char> m_buffer; // TODO: use buffer pool

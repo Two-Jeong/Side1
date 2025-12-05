@@ -3,7 +3,6 @@
 
 void ClientSession::init_handlers()
 {
-    Session::init_handlers();
 }
 
 NetworkCore* ClientSession::get_network_core()

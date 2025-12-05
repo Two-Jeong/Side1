@@ -18,7 +18,7 @@ namespace CSharp_NetworkClient
         public int RemainingSize => MaxBufferSize - m_write_pos;
         public int DataSize => m_write_pos - m_read_pos;
 
-        public StreamBuffer() : this(Convert.ToInt32(PacketDefine.PACKET_SIZE_VALUE_SIZEOF) * 3)
+        public StreamBuffer() : this(UInt16.MaxValue * 3)
         {
         }
 

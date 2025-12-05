@@ -33,7 +33,9 @@ public abstract class Session
         m_remote_end_point = end_point;
         
         m_sender.Init(this);
+
         m_receiver.Init(this);
+        m_receiver.DoRecv();
         
         InitPacketHandlers();
     }
