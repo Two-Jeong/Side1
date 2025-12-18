@@ -82,21 +82,7 @@ public abstract class Session
         return process_len;
     }
 
-    private void OnPacketAssambled(Packet packet)
-    {
-        if (false == m_packet_handlers.ContainsKey(packet.Protocol))
-        {
-            //TODO: LOG
-            return;
-        }
-
-        if (false == m_packet_handlers[packet.Protocol]?.Invoke(packet))
-        {
-            //TODO: LOG AND Disconnect
-            return;
-        }
-    }
-
+    protected abstract void OnPacketAssambled(Packet packet);
     protected abstract void InitPacketHandlers();
     public abstract void OnConnected();
     public abstract void OnDisconnected();

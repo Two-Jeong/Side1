@@ -42,4 +42,19 @@ public class TestSession : Session
         Console.WriteLine($"echo packet recived: session id: {recv_pacekt_from_server.SessionId}, random number: {recv_pacekt_from_server.RandNumber}");
         return true;
     }
+
+    protected override void OnPacketAssambled(Packet packet)
+    {
+        if (false == m_packet_handlers.ContainsKey(packet.Protocol))
+        {
+            //TODO: LOG
+            return;
+        }
+
+        if (false == m_packet_handlers[packet.Protocol]?.Invoke(packet))
+        {
+            //TODO: LOG AND Disconnect
+            return;
+        } 
+    }
 }

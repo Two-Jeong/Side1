@@ -17,5 +17,4 @@ public:
 
 private:
     void test_echo_handler(Packet* packet);
-    
 };
