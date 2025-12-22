@@ -1,5 +1,11 @@
-﻿using Google.Protobuf;
-
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using Google.Protobuf;
 namespace CSharp_NetworkClient
 {
     public struct PacketHeader

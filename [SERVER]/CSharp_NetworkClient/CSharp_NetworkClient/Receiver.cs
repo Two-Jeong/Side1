@@ -1,63 +1,72 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Net.Sockets;
 using System.Reflection.Metadata.Ecma335;
 
-namespace CSharp_NetworkClient;
-
-public class Receiver
+namespace CSharp_NetworkClient
 {
-    private Session? m_session;
-    private SocketAsyncEventArgs m_recv_args;
-    
-    private StreamBuffer m_recv_buffer;
-    
-    public Receiver()
-    {
-        m_recv_args = new SocketAsyncEventArgs();
-        m_recv_buffer = new StreamBuffer();
-    }
 
-    public void Init(Session session)
+    public class Receiver
     {
-        m_session = session;
-        m_recv_args.Completed += CompleteRecv;
-    }
+        private Session? m_session;
+        private SocketAsyncEventArgs m_recv_args;
 
-    public void DoRecv(int recv_count = 1)
-    {
-        for(int i = 0; i < recv_count; i++)
-            RegisterRecv();
-    }
+        private StreamBuffer m_recv_buffer;
 
-    private void RegisterRecv()
-    {
-        m_recv_buffer.Clean();
-        ArraySegment<byte> recv_segment = m_recv_buffer.GetWriteSegment();
-        m_recv_args.SetBuffer(recv_segment.Array, recv_segment.Offset, recv_segment.Count);
-
-        bool is_pending = m_session.Socket.ReceiveAsync(m_recv_args);
-        if (false == is_pending)
-            CompleteRecv(null, m_recv_args);
-    }
-
-    private void CompleteRecv(object? receiver, SocketAsyncEventArgs args)
-    {
-        if (0 != args.BytesTransferred /*연결 끊김*/ && args.SocketError == SocketError.Success)
+        public Receiver()
         {
-            if (false == m_recv_buffer.OnWrite((args.BytesTransferred)))
-            {
-                //TODO: LOG AND DIsconnect
-                return;
-            }
-            
-            int process_data_len = m_session.OnRecv(m_recv_buffer.GetReadSegment());
+            m_recv_args = new SocketAsyncEventArgs();
+            m_recv_buffer = new StreamBuffer();
+        }
 
-            if (false == m_recv_buffer.OnRead(process_data_len))
+        public void Init(Session session)
+        {
+            m_session = session;
+            m_recv_args.Completed += CompleteRecv;
+        }
+
+        public void DoRecv(int recv_count = 1)
+        {
+            for (int i = 0; i < recv_count; i++)
+                RegisterRecv();
+        }
+
+        private void RegisterRecv()
+        {
+            m_recv_buffer.Clean();
+            ArraySegment<byte> recv_segment = m_recv_buffer.GetWriteSegment();
+            m_recv_args.SetBuffer(recv_segment.Array, recv_segment.Offset, recv_segment.Count);
+
+            bool is_pending = m_session.Socket.ReceiveAsync(m_recv_args);
+            if (false == is_pending)
+                CompleteRecv(null, m_recv_args);
+        }
+
+        private void CompleteRecv(object? receiver, SocketAsyncEventArgs args)
+        {
+            if (0 != args.BytesTransferred /*연결 끊김*/ && args.SocketError == SocketError.Success)
             {
-                //TODO: LOG AND DIsconnect
-                return;
+                if (false == m_recv_buffer.OnWrite((args.BytesTransferred)))
+                {
+                    //TODO: LOG AND DIsconnect
+                    return;
+                }
+
+                int process_data_len = m_session.OnRecv(m_recv_buffer.GetReadSegment());
+
+                if (false == m_recv_buffer.OnRead(process_data_len))
+                {
+                    //TODO: LOG AND DIsconnect
+                    return;
+                }
+
+                RegisterRecv();
             }
-            
-            RegisterRecv();
         }
     }
 }
