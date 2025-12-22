@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 3543225067054122816}
   - component: {fileID: 7401919579277567722}
   - component: {fileID: 4262627005768109006}
-  - component: {fileID: 5325495061371843626}
+  - component: {fileID: 3694240853542484569}
   m_Layer: 5
   m_Name: CreateAccountButton
   m_TagString: Untagged
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5325495061371843626
+--- !u!114 &3694240853542484569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2017722994564061631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad38daa9b5fda4b5abec775189e79811, type: 3}
+  m_Script: {fileID: 11500000, guid: dc8602c511f01df429aa216e26646b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButton
   transformScale: {fileID: 3543225067054122816}
@@ -754,11 +754,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3401738076715877561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7163f34ebc402a648b335aa83143e838, type: 3}
+  m_Script: {fileID: 11500000, guid: d0ca3949bc9381747bb2d84e34054f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_TitleScene
-  btnCreateAccount: {fileID: 5325495061371843626}
-  btnLogin: {fileID: 1627740050209558435}
 --- !u!114 &4694129620557822702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,9 +766,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3401738076715877561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9630b17f9114944eab414984d56b12e1, type: 3}
+  m_Script: {fileID: 11500000, guid: f7c8134fec4ea6044a199ec881155e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UICanvas
+  btnCreateAccount: {fileID: 0}
+  btnLogin: {fileID: 0}
 --- !u!1 &4438988471066818182
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: 3454980963787721526}
   - component: {fileID: 8221995421013111878}
   - component: {fileID: 4999533156157067019}
-  - component: {fileID: 1627740050209558435}
+  - component: {fileID: 2934097580930652284}
   m_Layer: 5
   m_Name: LoginButton
   m_TagString: Untagged
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1627740050209558435
+--- !u!114 &2934097580930652284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -857,7 +857,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4438988471066818182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad38daa9b5fda4b5abec775189e79811, type: 3}
+  m_Script: {fileID: 11500000, guid: dc8602c511f01df429aa216e26646b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButton
   transformScale: {fileID: 3454980963787721526}

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6175714582904878936}
   - component: {fileID: 1356736653052332051}
   - component: {fileID: 4861394991451922365}
-  - component: {fileID: 6411622021273836574}
-  - component: {fileID: 3166320841091443024}
+  - component: {fileID: 5170591197071422129}
+  - component: {fileID: 3815398743458278576}
   m_Layer: 5
   m_Name: PopupCanvas_70
   m_TagString: Untagged
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6411622021273836574
+--- !u!114 &5170591197071422129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,11 +112,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3065336154240382330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c81da559410e42b5964addc97224c11, type: 3}
+  m_Script: {fileID: 11500000, guid: aadf7818db01363429adac3100a9151a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   popupCanvas: {fileID: 6175714582904878936}
---- !u!114 &3166320841091443024
+--- !u!114 &3815398743458278576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,6 +125,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3065336154240382330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9630b17f9114944eab414984d56b12e1, type: 3}
+  m_Script: {fileID: 11500000, guid: d0ca3949bc9381747bb2d84e34054f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UICanvas
