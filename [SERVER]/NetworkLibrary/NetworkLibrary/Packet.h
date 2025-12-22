@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <google/protobuf/message.h>
 
 struct PacketHeader
 {
@@ -27,11 +28,19 @@ public:
     Session* get_owner(); 
 public:
 
-    void initialize() { m_current_idx = 0; m_buffer.resize(PACKET_HEADER_SIZEOF); }
-    void finalize() { *(static_cast<unsigned short*>(get_size_ptr())) = static_cast<unsigned short>(m_current_idx) + PACKET_SIZE_SIZEOF; }
+
     unsigned short get_size() const { return *m_buffer.data(); }
+    unsigned short get_body_size() const { return (*m_buffer.data()) - PACKET_HEADER_SIZEOF; }
     unsigned short get_protocol() const { return *(m_buffer.data() + PACKET_SIZE_SIZEOF); }
     std::vector<char>& get_buffer() {return m_buffer; }
+    
+    void initialize(unsigned short protocol_number)
+    {
+        m_buffer.resize(PACKET_HEADER_SIZEOF);
+        m_current_idx = PACKET_HEADER_SIZEOF;
+        ::memcpy_s(get_protocol_ptr(), PACKET_PROTOCOL_SIZEOF, &protocol_number, PACKET_PROTOCOL_SIZEOF);
+    }
+    void finalize() { *(static_cast<unsigned short*>(get_size_ptr())) = static_cast<unsigned short>(m_current_idx); }
 
 public:
     
@@ -67,12 +76,20 @@ public:
         ::memcpy_s(get_current_idx_ptr(), data_size, data.c_str(), data_size);
         m_current_idx += static_cast<int>(data_size);
     }
-
+    
+    void push(google::protobuf::Message& message)
+    {
+        m_buffer.resize(m_buffer.size() + message.ByteSizeLong());
+        message.SerializeToArray(get_current_idx_ptr(), message.ByteSizeLong());
+        m_current_idx += message.ByteSizeLong();
+    }
+    
     template <typename... Types>
     void push(Types&... args)
     {
          (push(args), ...); // C++ 17 fold expression
     }
+    
     /* --------------------------------------------- pop --------------------------------------------- */
     template<typename t>
     void pop(t& data)
@@ -103,6 +120,17 @@ public:
         ::memcpy_s(const_cast<wchar_t*>(data.data()), data_size, get_current_idx_ptr(), data_size);
         m_current_idx += static_cast<int>(data_size);
     }
+
+    void pop(google::protobuf::Message& message, int message_size)
+    {
+        message.ParseFromArray(get_current_idx_ptr(), message_size);
+        m_current_idx += static_cast<int>(message.ByteSizeLong());
+    }
+    
+    void pop_message(google::protobuf::Message& message)
+    { 
+        message.ParseFromArray(m_buffer.data() + PACKET_HEADER_SIZEOF, get_size() - PACKET_HEADER_SIZEOF);
+    }
     
     template <typename... Types>
     void pop(Types&... args)
@@ -113,7 +141,7 @@ public:
 private:
     void* get_protocol_ptr() { return m_buffer.data() + PACKET_SIZE_SIZEOF; }
     void* get_size_ptr() { return m_buffer.data(); }
-    void* get_current_idx_ptr() {return (m_buffer.data() + PACKET_SIZE_SIZEOF + m_current_idx); }
+    void* get_current_idx_ptr() {return (m_buffer.data() + m_current_idx); }
 
 private:
     std::vector<char> m_buffer; // TODO: use buffer pool

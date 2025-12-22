@@ -35,4 +35,6 @@
 #include "Session.h"
 #include "ClientSession.h"
 #include "ServerSession.h"
+#include "Protocols.pb.h"
+#include "PacketNumberMapper.h"
 

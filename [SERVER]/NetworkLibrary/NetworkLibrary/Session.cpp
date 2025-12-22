@@ -10,6 +10,7 @@ int Session::generate_session_id()
 
 void Session::init()
 {
+    init_handlers();
 }
 
 void Session::finalize()
@@ -76,6 +77,18 @@ bool Session::do_send(std::shared_ptr<Packet> packet)
     
     m_multi_sender.register_packet(packet);
     return true;
+}
+
+bool Session::do_send(google::protobuf::Message& message)
+{
+    unsigned short protocol_number = PacketNumberMapper::GetProtocolNumber(message.GetTypeName());
+
+    std::shared_ptr<Packet> packet = std::make_shared<Packet>();
+    packet->initialize(protocol_number);
+    packet->push(message);
+    packet->finalize();
+
+    return do_send(packet);
 }
 
 bool Session::do_disconnect()

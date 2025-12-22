@@ -58,6 +58,9 @@
     <ClInclude Include="Protocols.pb.h">
       <Filter>Protocol</Filter>
     </ClInclude>
+    <ClInclude Include="PacketNumberMapper.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="iTask.cpp">

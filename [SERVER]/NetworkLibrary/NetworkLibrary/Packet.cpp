@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Packet.h"
 
-Packet::Packet()
+Packet::Packet() : m_current_idx(0), m_owner(nullptr)
 {
 }
 

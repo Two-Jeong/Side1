@@ -1,0 +1,24 @@
+Package: vcpkg-cmake-config
+Version: 2022-02-06
+Port-Version: 1
+Architecture: x64-windows
+Multi-Arch: same
+Abi: dfea7c7418878ba205bf41c34fd4b854237b2bfc6c4db12c17b60c5883a88565
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2022-11-13
+Architecture: x64-windows
+Multi-Arch: same
+Abi: bcde56a9cbe66fa1a6b18a621fb39b6927fc7e20e92f45bd4201978fcdee8e92
+Status: install ok installed
+
+Package: protobuf
+Version: 3.21.12
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2e5ecef81a99158defd0e7c21128e5d32c796b266fe2308155512d8b3d878170
+Description: Protocol Buffers - Google's data interchange format
+Status: install ok installed
+

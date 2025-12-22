@@ -1,6 +1,10 @@
 ﻿#include "pch.h"
 #include "ClientSession.h"
 
+void ClientSession::init_handlers()
+{
+}
+
 NetworkCore* ClientSession::get_network_core()
 {
     if (m_section == nullptr)
