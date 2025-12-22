@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 8853651846061619088}
   - component: {fileID: 4207030132113564809}
   - component: {fileID: 1027573785216884166}
-  - component: {fileID: 8677643626899298127}
+  - component: {fileID: 2350412138348739820}
   m_Layer: 5
   m_Name: CreateButton
   m_TagString: Untagged
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8677643626899298127
+--- !u!114 &2350412138348739820
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -873,7 +873,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2446380559401690581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad38daa9b5fda4b5abec775189e79811, type: 3}
+  m_Script: {fileID: 11500000, guid: dc8602c511f01df429aa216e26646b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButton
   transformScale: {fileID: 8853651846061619088}
@@ -1053,7 +1053,7 @@ GameObject:
   - component: {fileID: 1791534924444198804}
   - component: {fileID: 5340415905453694575}
   - component: {fileID: 6608906700058648069}
-  - component: {fileID: 9169135997635425202}
+  - component: {fileID: 704886613172561319}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -1119,7 +1119,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9169135997635425202
+--- !u!114 &704886613172561319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3548178839531019006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad38daa9b5fda4b5abec775189e79811, type: 3}
+  m_Script: {fileID: 11500000, guid: dc8602c511f01df429aa216e26646b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButton
   transformScale: {fileID: 1791534924444198804}
@@ -1503,7 +1503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8190947623778881844}
-  - component: {fileID: 6082400719663170587}
+  - component: {fileID: 4581879896839209671}
   m_Layer: 5
   m_Name: UI_CreateAccountPopup
   m_TagString: Untagged
@@ -1532,7 +1532,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6082400719663170587
+--- !u!114 &4581879896839209671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1541,13 +1541,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6853736765324919575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa09ced26e0bf9b4ea63acad4401ff0c, type: 3}
+  m_Script: {fileID: 11500000, guid: d9f20a3874ab3ec458548eb76721fcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_CreateAccountPopup
   dontPlaySound: 0
   soundClipName: 
-  btnClose: {fileID: 9169135997635425202}
-  btnCreate: {fileID: 8677643626899298127}
+  btnClose: {fileID: 704886613172561319}
+  btnCreate: {fileID: 2350412138348739820}
+  idInputField: {fileID: 3897582282679266928}
+  passwordInputField: {fileID: 101351980920083173}
 --- !u!1 &8355063610437705627
 GameObject:
   m_ObjectHideFlags: 0

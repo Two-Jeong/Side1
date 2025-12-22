@@ -1,9 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UI_TitleScene : MonoBehaviour
 {
+    [Header("Buttons")]
     [SerializeField] private UIButton btnCreateAccount;
     [SerializeField] private UIButton btnLogin;
+
+    [Header("Input Fields")]
+    [SerializeField] private TMP_InputField idInputField;
+    [SerializeField] private TMP_InputField passwordInputField;
 
     public void Awake()
     {
@@ -18,18 +25,10 @@ public class UI_TitleScene : MonoBehaviour
 
     private void OnBtnLoginClick()
     {
-        
-    }
+        C2S_AccountLogin login_request_packet = new C2S_AccountLogin();
+        login_request_packet.Id = idInputField.text;
+        login_request_packet.Password = passwordInputField.text;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        NetworkManager.Instance.DoSend(login_request_packet);
     }
 }

@@ -769,8 +769,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c8134fec4ea6044a199ec881155e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UICanvas
-  btnCreateAccount: {fileID: 0}
-  btnLogin: {fileID: 0}
+  btnCreateAccount: {fileID: 3694240853542484569}
+  btnLogin: {fileID: 2934097580930652284}
+  idInputField: {fileID: 3158506372173751192}
+  passwordInputField: {fileID: 7719928487658914775}
 --- !u!1 &4438988471066818182
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +841,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

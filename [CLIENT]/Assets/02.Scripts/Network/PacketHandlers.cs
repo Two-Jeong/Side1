@@ -17,4 +17,12 @@ public class PacketHandlers
         packet.PopData(RecvTestEchoPacketFromServer);
         Debug.Log($"session id: {RecvTestEchoPacketFromServer.SessionId}, random number: {RecvTestEchoPacketFromServer.RandNumber}");
     }
+
+    [PacketHandler(packet_number.AccountLogin)]
+    public void AccountLoginHandler(Packet packet)
+    {
+        S2C_AccountLogin RecvAccountLoginPacketFromServer = new  S2C_AccountLogin();
+        packet.PopData(RecvAccountLoginPacketFromServer);
+        Debug.Log($"account login result: {RecvAccountLoginPacketFromServer.ResultCode}");
+    }
 }
