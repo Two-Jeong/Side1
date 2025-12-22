@@ -31,6 +31,11 @@ public class ServerSession : Session
 
     public override void OnConnected()
     {
+        C2S_AccountRegister register_request_packet = new C2S_AccountRegister();
+        register_request_packet.Id = "test";
+        register_request_packet.Password = "1234";
+
+        NetworkManager.Instance.DoSend(register_request_packet);
     }
 
     public override void OnDisconnected()
