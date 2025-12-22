@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+// packet_number의 값과 메세지 이름을 꼭 맞춰줘야함 (N2M_MessageName)
+enum packet_number{
+    NONE = 0; 
+    TestEcho = 1;
+    AccountRegister = 2;
+    AccountLogin = 3;
+}
+
+message C2S_TestEcho{
+  int32 rand_number = 1;
+}
+
+message S2C_TestEcho{
+  int32 session_id = 1;
+  int32 rand_number = 2;
+}
+
+message AccountRegisterResult{
+  enum Code{
+    SUCCESS = 0;
+    ID_ALREADY_EXIST = 1;
+  }
+}
+
+message C2S_AccountRegister{
+  string id = 1;
+  string password = 2;
+}
+
+message S2C_AccountRegister{
+  int32 result_code = 1;
+}
+
+message AccountLoginResult{
+  enum Code{
+    SUCCESS = 0;
+    ID_OR_PASSWORD_WRONG = 1;
+  }
+}
+
+message C2S_AccountLogin{
+  string id = 1;
+  string password = 2;
+}
+
+message S2C_AccountLogin{
+  int32 result_code = 1;
+}
