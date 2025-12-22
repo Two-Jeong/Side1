@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class QuestSystem : MonoBehaviour
@@ -139,55 +139,55 @@ public class QuestSystem : MonoBehaviour
 
     public void Save()
     {
-        var root = new JObject();
-        root.Add(kActiveQuestsSavePath, CreateSaveDatas(activeQuests));
-        root.Add(kCompletedQuestsSavePath, CreateSaveDatas(completedQuests));
-        root.Add(kActiveAchievementsSavePath, CreateSaveDatas(activeAchievements));
-        root.Add(kCompletedAchievementsSavePath, CreateSaveDatas(completedAchievements));
+        // var root = new JObject();
+        // root.Add(kActiveQuestsSavePath, CreateSaveDatas(activeQuests));
+        // root.Add(kCompletedQuestsSavePath, CreateSaveDatas(completedQuests));
+        // root.Add(kActiveAchievementsSavePath, CreateSaveDatas(activeAchievements));
+        // root.Add(kCompletedAchievementsSavePath, CreateSaveDatas(completedAchievements));
 
-        PlayerPrefs.SetString(kSaveRootPath, root.ToString());
-        PlayerPrefs.Save();
+        // PlayerPrefs.SetString(kSaveRootPath, root.ToString());
+        // PlayerPrefs.Save();
     }
 
     public bool Load()
     {
-        if (PlayerPrefs.HasKey(kSaveRootPath))
-        {
-            var root = JObject.Parse(PlayerPrefs.GetString(kSaveRootPath));
+        // if (PlayerPrefs.HasKey(kSaveRootPath))
+        // {
+        //     var root = JObject.Parse(PlayerPrefs.GetString(kSaveRootPath));
 
-            LoadSaveDatas(root[kActiveQuestsSavePath], questDatatabase, LoadActiveQuest);
-            LoadSaveDatas(root[kCompletedQuestsSavePath], questDatatabase, LoadCompletedQuest);
+        //     LoadSaveDatas(root[kActiveQuestsSavePath], questDatatabase, LoadActiveQuest);
+        //     LoadSaveDatas(root[kCompletedQuestsSavePath], questDatatabase, LoadCompletedQuest);
 
-            LoadSaveDatas(root[kActiveAchievementsSavePath], achievementDatabase, LoadActiveQuest);
-            LoadSaveDatas(root[kCompletedAchievementsSavePath], achievementDatabase, LoadCompletedQuest);
+        //     LoadSaveDatas(root[kActiveAchievementsSavePath], achievementDatabase, LoadActiveQuest);
+        //     LoadSaveDatas(root[kCompletedAchievementsSavePath], achievementDatabase, LoadCompletedQuest);
 
-            return true;
-        }
-        else
-            return false;
+        //     return true;
+        // }
+        // else
+        return false;
     }
 
-    private JArray CreateSaveDatas(IReadOnlyList<Quest> quests)
-    {
-        var saveDatas = new JArray();
-        foreach (var quest in quests)
-        {
-            if (quest.IsSavable)
-                saveDatas.Add(JObject.FromObject(quest.ToSaveData()));
-        }
-        return saveDatas;
-    }
+    // private JArray CreateSaveDatas(IReadOnlyList<Quest> quests)
+    // {
+    //     var saveDatas = new JArray();
+    //     foreach (var quest in quests)
+    //     {
+    //         if (quest.IsSavable)
+    //             saveDatas.Add(JObject.FromObject(quest.ToSaveData()));
+    //     }
+    //     return saveDatas;
+    // }
 
-    private void LoadSaveDatas(JToken datasToken, QuestDatabase database, System.Action<QuestSaveData, Quest> onSuccess)
-    {
-        var datas = datasToken as JArray;
-        foreach (var data in datas)
-        {
-            var saveData = data.ToObject<QuestSaveData>();
-            var quest = database.FindQuestBy(saveData.codeName);
-            onSuccess.Invoke(saveData, quest);
-        }
-    }
+    // private void LoadSaveDatas(JToken datasToken, QuestDatabase database, System.Action<QuestSaveData, Quest> onSuccess)
+    // {
+    //     var datas = datasToken as JArray;
+    //     foreach (var data in datas)
+    //     {
+    //         var saveData = data.ToObject<QuestSaveData>();
+    //         var quest = database.FindQuestBy(saveData.codeName);
+    //         onSuccess.Invoke(saveData, quest);
+    //     }
+    // }
     
     private void LoadActiveQuest(QuestSaveData saveData, Quest quest)
     {
