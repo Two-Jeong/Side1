@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Sockets;
-using System.Reflection.Metadata.Ecma335;
 
 namespace CSharp_NetworkClient
 {
