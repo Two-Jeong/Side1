@@ -13,6 +13,7 @@ public class NetworkManager : Singleton<NetworkManager>
     ConcurrentQueue<Packet> packet_queue =  new ConcurrentQueue<Packet>();
     void Start()
     {
+        session = new ServerSession();
         connector = new Connector();
         
         IPAddress ip = IPAddress.Parse("222.110.17.100");
@@ -26,6 +27,12 @@ public class NetworkManager : Singleton<NetworkManager>
         if (false == packet_queue.TryDequeue(out packet))
             return;
 
+        if (session == null)
+        {
+            Debug.LogError("Session is not initialized. Cannot execute packet handlers.");
+            return;
+        }
+        
         if (false == session.ExecuteHandlers(packet))
         {
             Debug.Log($"execute handler fail => protocol: {packet.Protocol}");
@@ -40,6 +47,12 @@ public class NetworkManager : Singleton<NetworkManager>
 
     public void DoSend(IMessage message)
     {
+        if (session == null)
+        {
+            Debug.LogError("Session is not initialized. Cannot send message.");
+            return;
+        }
+        
         session.DoSend(message);
     }
 }
