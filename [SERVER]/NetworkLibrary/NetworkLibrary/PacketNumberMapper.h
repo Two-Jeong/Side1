@@ -21,6 +21,8 @@ public:
         
         static const std::unordered_map<std::string, unsigned short> name_to_number = {
             {"TestEcho", 1},
+            {"AccountRegister", 2},
+            {"AccountLogin", 3},
         };
         
         auto it = name_to_number.find(packet_name);
@@ -34,6 +36,8 @@ public:
     static const char* GetPacketName(unsigned short protocol_number) {
         static const std::unordered_map<unsigned short, const char*> number_to_name = {
             {1, "TestEcho"},
+            {2, "AccountRegister"},
+            {3, "AccountLogin"},
         };
         
         auto it = number_to_name.find(protocol_number);

@@ -23,6 +23,7 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/arenastring.h>
+#include <google/protobuf/generated_message_bases.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/metadata_lite.h>
 #include <google/protobuf/generated_message_reflection.h>
@@ -45,26 +46,102 @@ struct TableStruct_Protocols_2eproto {
   static const uint32_t offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Protocols_2eproto;
+class AccountLoginResult;
+struct AccountLoginResultDefaultTypeInternal;
+extern AccountLoginResultDefaultTypeInternal _AccountLoginResult_default_instance_;
+class AccountRegisterResult;
+struct AccountRegisterResultDefaultTypeInternal;
+extern AccountRegisterResultDefaultTypeInternal _AccountRegisterResult_default_instance_;
+class C2S_AccountLogin;
+struct C2S_AccountLoginDefaultTypeInternal;
+extern C2S_AccountLoginDefaultTypeInternal _C2S_AccountLogin_default_instance_;
+class C2S_AccountRegister;
+struct C2S_AccountRegisterDefaultTypeInternal;
+extern C2S_AccountRegisterDefaultTypeInternal _C2S_AccountRegister_default_instance_;
 class C2S_TestEcho;
 struct C2S_TestEchoDefaultTypeInternal;
 extern C2S_TestEchoDefaultTypeInternal _C2S_TestEcho_default_instance_;
+class S2C_AccountLogin;
+struct S2C_AccountLoginDefaultTypeInternal;
+extern S2C_AccountLoginDefaultTypeInternal _S2C_AccountLogin_default_instance_;
+class S2C_AccountRegister;
+struct S2C_AccountRegisterDefaultTypeInternal;
+extern S2C_AccountRegisterDefaultTypeInternal _S2C_AccountRegister_default_instance_;
 class S2C_TestEcho;
 struct S2C_TestEchoDefaultTypeInternal;
 extern S2C_TestEchoDefaultTypeInternal _S2C_TestEcho_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
+template<> ::AccountLoginResult* Arena::CreateMaybeMessage<::AccountLoginResult>(Arena*);
+template<> ::AccountRegisterResult* Arena::CreateMaybeMessage<::AccountRegisterResult>(Arena*);
+template<> ::C2S_AccountLogin* Arena::CreateMaybeMessage<::C2S_AccountLogin>(Arena*);
+template<> ::C2S_AccountRegister* Arena::CreateMaybeMessage<::C2S_AccountRegister>(Arena*);
 template<> ::C2S_TestEcho* Arena::CreateMaybeMessage<::C2S_TestEcho>(Arena*);
+template<> ::S2C_AccountLogin* Arena::CreateMaybeMessage<::S2C_AccountLogin>(Arena*);
+template<> ::S2C_AccountRegister* Arena::CreateMaybeMessage<::S2C_AccountRegister>(Arena*);
 template<> ::S2C_TestEcho* Arena::CreateMaybeMessage<::S2C_TestEcho>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
+enum AccountRegisterResult_Code : int {
+  AccountRegisterResult_Code_SUCCESS = 0,
+  AccountRegisterResult_Code_ID_ALREADY_EXIST = 1,
+  AccountRegisterResult_Code_AccountRegisterResult_Code_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  AccountRegisterResult_Code_AccountRegisterResult_Code_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool AccountRegisterResult_Code_IsValid(int value);
+constexpr AccountRegisterResult_Code AccountRegisterResult_Code_Code_MIN = AccountRegisterResult_Code_SUCCESS;
+constexpr AccountRegisterResult_Code AccountRegisterResult_Code_Code_MAX = AccountRegisterResult_Code_ID_ALREADY_EXIST;
+constexpr int AccountRegisterResult_Code_Code_ARRAYSIZE = AccountRegisterResult_Code_Code_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AccountRegisterResult_Code_descriptor();
+template<typename T>
+inline const std::string& AccountRegisterResult_Code_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AccountRegisterResult_Code>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function AccountRegisterResult_Code_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    AccountRegisterResult_Code_descriptor(), enum_t_value);
+}
+inline bool AccountRegisterResult_Code_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AccountRegisterResult_Code* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<AccountRegisterResult_Code>(
+    AccountRegisterResult_Code_descriptor(), name, value);
+}
+enum AccountLoginResult_Code : int {
+  AccountLoginResult_Code_SUCCESS = 0,
+  AccountLoginResult_Code_ID_OR_PASSWORD_WRONG = 1,
+  AccountLoginResult_Code_AccountLoginResult_Code_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  AccountLoginResult_Code_AccountLoginResult_Code_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool AccountLoginResult_Code_IsValid(int value);
+constexpr AccountLoginResult_Code AccountLoginResult_Code_Code_MIN = AccountLoginResult_Code_SUCCESS;
+constexpr AccountLoginResult_Code AccountLoginResult_Code_Code_MAX = AccountLoginResult_Code_ID_OR_PASSWORD_WRONG;
+constexpr int AccountLoginResult_Code_Code_ARRAYSIZE = AccountLoginResult_Code_Code_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* AccountLoginResult_Code_descriptor();
+template<typename T>
+inline const std::string& AccountLoginResult_Code_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AccountLoginResult_Code>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function AccountLoginResult_Code_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    AccountLoginResult_Code_descriptor(), enum_t_value);
+}
+inline bool AccountLoginResult_Code_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AccountLoginResult_Code* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<AccountLoginResult_Code>(
+    AccountLoginResult_Code_descriptor(), name, value);
+}
 enum packet_number : int {
   NONE = 0,
   TestEcho = 1,
+  AccountRegister = 2,
+  AccountLogin = 3,
   packet_number_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   packet_number_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool packet_number_IsValid(int value);
 constexpr packet_number packet_number_MIN = NONE;
-constexpr packet_number packet_number_MAX = TestEcho;
+constexpr packet_number packet_number_MAX = AccountLogin;
 constexpr int packet_number_ARRAYSIZE = packet_number_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* packet_number_descriptor();
@@ -388,6 +465,936 @@ class S2C_TestEcho final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Protocols_2eproto;
 };
+// -------------------------------------------------------------------
+
+class AccountRegisterResult final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:AccountRegisterResult) */ {
+ public:
+  inline AccountRegisterResult() : AccountRegisterResult(nullptr) {}
+  explicit PROTOBUF_CONSTEXPR AccountRegisterResult(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AccountRegisterResult(const AccountRegisterResult& from);
+  AccountRegisterResult(AccountRegisterResult&& from) noexcept
+    : AccountRegisterResult() {
+    *this = ::std::move(from);
+  }
+
+  inline AccountRegisterResult& operator=(const AccountRegisterResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AccountRegisterResult& operator=(AccountRegisterResult&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const AccountRegisterResult& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AccountRegisterResult* internal_default_instance() {
+    return reinterpret_cast<const AccountRegisterResult*>(
+               &_AccountRegisterResult_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(AccountRegisterResult& a, AccountRegisterResult& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AccountRegisterResult* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AccountRegisterResult* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AccountRegisterResult* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AccountRegisterResult>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const AccountRegisterResult& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const AccountRegisterResult& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "AccountRegisterResult";
+  }
+  protected:
+  explicit AccountRegisterResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef AccountRegisterResult_Code Code;
+  static constexpr Code SUCCESS =
+    AccountRegisterResult_Code_SUCCESS;
+  static constexpr Code ID_ALREADY_EXIST =
+    AccountRegisterResult_Code_ID_ALREADY_EXIST;
+  static inline bool Code_IsValid(int value) {
+    return AccountRegisterResult_Code_IsValid(value);
+  }
+  static constexpr Code Code_MIN =
+    AccountRegisterResult_Code_Code_MIN;
+  static constexpr Code Code_MAX =
+    AccountRegisterResult_Code_Code_MAX;
+  static constexpr int Code_ARRAYSIZE =
+    AccountRegisterResult_Code_Code_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  Code_descriptor() {
+    return AccountRegisterResult_Code_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& Code_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Code>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Code_Name.");
+    return AccountRegisterResult_Code_Name(enum_t_value);
+  }
+  static inline bool Code_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Code* value) {
+    return AccountRegisterResult_Code_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:AccountRegisterResult)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+  };
+  friend struct ::TableStruct_Protocols_2eproto;
+};
+// -------------------------------------------------------------------
+
+class C2S_AccountRegister final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:C2S_AccountRegister) */ {
+ public:
+  inline C2S_AccountRegister() : C2S_AccountRegister(nullptr) {}
+  ~C2S_AccountRegister() override;
+  explicit PROTOBUF_CONSTEXPR C2S_AccountRegister(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C2S_AccountRegister(const C2S_AccountRegister& from);
+  C2S_AccountRegister(C2S_AccountRegister&& from) noexcept
+    : C2S_AccountRegister() {
+    *this = ::std::move(from);
+  }
+
+  inline C2S_AccountRegister& operator=(const C2S_AccountRegister& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C2S_AccountRegister& operator=(C2S_AccountRegister&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C2S_AccountRegister& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C2S_AccountRegister* internal_default_instance() {
+    return reinterpret_cast<const C2S_AccountRegister*>(
+               &_C2S_AccountRegister_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(C2S_AccountRegister& a, C2S_AccountRegister& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C2S_AccountRegister* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C2S_AccountRegister* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C2S_AccountRegister* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C2S_AccountRegister>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C2S_AccountRegister& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C2S_AccountRegister& from) {
+    C2S_AccountRegister::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C2S_AccountRegister* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "C2S_AccountRegister";
+  }
+  protected:
+  explicit C2S_AccountRegister(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kPasswordFieldNumber = 2,
+  };
+  // string id = 1;
+  void clear_id();
+  const std::string& id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_id();
+  PROTOBUF_NODISCARD std::string* release_id();
+  void set_allocated_id(std::string* id);
+  private:
+  const std::string& _internal_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_id(const std::string& value);
+  std::string* _internal_mutable_id();
+  public:
+
+  // string password = 2;
+  void clear_password();
+  const std::string& password() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_password(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_password();
+  PROTOBUF_NODISCARD std::string* release_password();
+  void set_allocated_password(std::string* password);
+  private:
+  const std::string& _internal_password() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_password(const std::string& value);
+  std::string* _internal_mutable_password();
+  public:
+
+  // @@protoc_insertion_point(class_scope:C2S_AccountRegister)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocols_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S2C_AccountRegister final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:S2C_AccountRegister) */ {
+ public:
+  inline S2C_AccountRegister() : S2C_AccountRegister(nullptr) {}
+  ~S2C_AccountRegister() override;
+  explicit PROTOBUF_CONSTEXPR S2C_AccountRegister(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S2C_AccountRegister(const S2C_AccountRegister& from);
+  S2C_AccountRegister(S2C_AccountRegister&& from) noexcept
+    : S2C_AccountRegister() {
+    *this = ::std::move(from);
+  }
+
+  inline S2C_AccountRegister& operator=(const S2C_AccountRegister& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S2C_AccountRegister& operator=(S2C_AccountRegister&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S2C_AccountRegister& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S2C_AccountRegister* internal_default_instance() {
+    return reinterpret_cast<const S2C_AccountRegister*>(
+               &_S2C_AccountRegister_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(S2C_AccountRegister& a, S2C_AccountRegister& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S2C_AccountRegister* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S2C_AccountRegister* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S2C_AccountRegister* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S2C_AccountRegister>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S2C_AccountRegister& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S2C_AccountRegister& from) {
+    S2C_AccountRegister::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S2C_AccountRegister* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "S2C_AccountRegister";
+  }
+  protected:
+  explicit S2C_AccountRegister(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kResultCodeFieldNumber = 1,
+  };
+  // int32 result_code = 1;
+  void clear_result_code();
+  int32_t result_code() const;
+  void set_result_code(int32_t value);
+  private:
+  int32_t _internal_result_code() const;
+  void _internal_set_result_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:S2C_AccountRegister)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t result_code_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocols_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AccountLoginResult final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:AccountLoginResult) */ {
+ public:
+  inline AccountLoginResult() : AccountLoginResult(nullptr) {}
+  explicit PROTOBUF_CONSTEXPR AccountLoginResult(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AccountLoginResult(const AccountLoginResult& from);
+  AccountLoginResult(AccountLoginResult&& from) noexcept
+    : AccountLoginResult() {
+    *this = ::std::move(from);
+  }
+
+  inline AccountLoginResult& operator=(const AccountLoginResult& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AccountLoginResult& operator=(AccountLoginResult&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const AccountLoginResult& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AccountLoginResult* internal_default_instance() {
+    return reinterpret_cast<const AccountLoginResult*>(
+               &_AccountLoginResult_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(AccountLoginResult& a, AccountLoginResult& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AccountLoginResult* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AccountLoginResult* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AccountLoginResult* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AccountLoginResult>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const AccountLoginResult& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const AccountLoginResult& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "AccountLoginResult";
+  }
+  protected:
+  explicit AccountLoginResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef AccountLoginResult_Code Code;
+  static constexpr Code SUCCESS =
+    AccountLoginResult_Code_SUCCESS;
+  static constexpr Code ID_OR_PASSWORD_WRONG =
+    AccountLoginResult_Code_ID_OR_PASSWORD_WRONG;
+  static inline bool Code_IsValid(int value) {
+    return AccountLoginResult_Code_IsValid(value);
+  }
+  static constexpr Code Code_MIN =
+    AccountLoginResult_Code_Code_MIN;
+  static constexpr Code Code_MAX =
+    AccountLoginResult_Code_Code_MAX;
+  static constexpr int Code_ARRAYSIZE =
+    AccountLoginResult_Code_Code_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  Code_descriptor() {
+    return AccountLoginResult_Code_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& Code_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Code>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Code_Name.");
+    return AccountLoginResult_Code_Name(enum_t_value);
+  }
+  static inline bool Code_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Code* value) {
+    return AccountLoginResult_Code_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:AccountLoginResult)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+  };
+  friend struct ::TableStruct_Protocols_2eproto;
+};
+// -------------------------------------------------------------------
+
+class C2S_AccountLogin final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:C2S_AccountLogin) */ {
+ public:
+  inline C2S_AccountLogin() : C2S_AccountLogin(nullptr) {}
+  ~C2S_AccountLogin() override;
+  explicit PROTOBUF_CONSTEXPR C2S_AccountLogin(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  C2S_AccountLogin(const C2S_AccountLogin& from);
+  C2S_AccountLogin(C2S_AccountLogin&& from) noexcept
+    : C2S_AccountLogin() {
+    *this = ::std::move(from);
+  }
+
+  inline C2S_AccountLogin& operator=(const C2S_AccountLogin& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline C2S_AccountLogin& operator=(C2S_AccountLogin&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const C2S_AccountLogin& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const C2S_AccountLogin* internal_default_instance() {
+    return reinterpret_cast<const C2S_AccountLogin*>(
+               &_C2S_AccountLogin_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(C2S_AccountLogin& a, C2S_AccountLogin& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(C2S_AccountLogin* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(C2S_AccountLogin* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  C2S_AccountLogin* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<C2S_AccountLogin>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const C2S_AccountLogin& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const C2S_AccountLogin& from) {
+    C2S_AccountLogin::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(C2S_AccountLogin* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "C2S_AccountLogin";
+  }
+  protected:
+  explicit C2S_AccountLogin(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kPasswordFieldNumber = 2,
+  };
+  // string id = 1;
+  void clear_id();
+  const std::string& id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_id();
+  PROTOBUF_NODISCARD std::string* release_id();
+  void set_allocated_id(std::string* id);
+  private:
+  const std::string& _internal_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_id(const std::string& value);
+  std::string* _internal_mutable_id();
+  public:
+
+  // string password = 2;
+  void clear_password();
+  const std::string& password() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_password(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_password();
+  PROTOBUF_NODISCARD std::string* release_password();
+  void set_allocated_password(std::string* password);
+  private:
+  const std::string& _internal_password() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_password(const std::string& value);
+  std::string* _internal_mutable_password();
+  public:
+
+  // @@protoc_insertion_point(class_scope:C2S_AccountLogin)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocols_2eproto;
+};
+// -------------------------------------------------------------------
+
+class S2C_AccountLogin final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:S2C_AccountLogin) */ {
+ public:
+  inline S2C_AccountLogin() : S2C_AccountLogin(nullptr) {}
+  ~S2C_AccountLogin() override;
+  explicit PROTOBUF_CONSTEXPR S2C_AccountLogin(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  S2C_AccountLogin(const S2C_AccountLogin& from);
+  S2C_AccountLogin(S2C_AccountLogin&& from) noexcept
+    : S2C_AccountLogin() {
+    *this = ::std::move(from);
+  }
+
+  inline S2C_AccountLogin& operator=(const S2C_AccountLogin& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline S2C_AccountLogin& operator=(S2C_AccountLogin&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const S2C_AccountLogin& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const S2C_AccountLogin* internal_default_instance() {
+    return reinterpret_cast<const S2C_AccountLogin*>(
+               &_S2C_AccountLogin_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(S2C_AccountLogin& a, S2C_AccountLogin& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(S2C_AccountLogin* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(S2C_AccountLogin* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  S2C_AccountLogin* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<S2C_AccountLogin>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const S2C_AccountLogin& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const S2C_AccountLogin& from) {
+    S2C_AccountLogin::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(S2C_AccountLogin* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "S2C_AccountLogin";
+  }
+  protected:
+  explicit S2C_AccountLogin(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kResultCodeFieldNumber = 1,
+  };
+  // int32 result_code = 1;
+  void clear_result_code();
+  int32_t result_code() const;
+  void set_result_code(int32_t value);
+  private:
+  int32_t _internal_result_code() const;
+  void _internal_set_result_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:S2C_AccountLogin)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int32_t result_code_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Protocols_2eproto;
+};
 // ===================================================================
 
 
@@ -463,9 +1470,285 @@ inline void S2C_TestEcho::set_rand_number(int32_t value) {
   // @@protoc_insertion_point(field_set:S2C_TestEcho.rand_number)
 }
 
+// -------------------------------------------------------------------
+
+// AccountRegisterResult
+
+// -------------------------------------------------------------------
+
+// C2S_AccountRegister
+
+// string id = 1;
+inline void C2S_AccountRegister::clear_id() {
+  _impl_.id_.ClearToEmpty();
+}
+inline const std::string& C2S_AccountRegister::id() const {
+  // @@protoc_insertion_point(field_get:C2S_AccountRegister.id)
+  return _internal_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void C2S_AccountRegister::set_id(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:C2S_AccountRegister.id)
+}
+inline std::string* C2S_AccountRegister::mutable_id() {
+  std::string* _s = _internal_mutable_id();
+  // @@protoc_insertion_point(field_mutable:C2S_AccountRegister.id)
+  return _s;
+}
+inline const std::string& C2S_AccountRegister::_internal_id() const {
+  return _impl_.id_.Get();
+}
+inline void C2S_AccountRegister::_internal_set_id(const std::string& value) {
+  
+  _impl_.id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* C2S_AccountRegister::_internal_mutable_id() {
+  
+  return _impl_.id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* C2S_AccountRegister::release_id() {
+  // @@protoc_insertion_point(field_release:C2S_AccountRegister.id)
+  return _impl_.id_.Release();
+}
+inline void C2S_AccountRegister::set_allocated_id(std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.id_.SetAllocated(id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.id_.IsDefault()) {
+    _impl_.id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:C2S_AccountRegister.id)
+}
+
+// string password = 2;
+inline void C2S_AccountRegister::clear_password() {
+  _impl_.password_.ClearToEmpty();
+}
+inline const std::string& C2S_AccountRegister::password() const {
+  // @@protoc_insertion_point(field_get:C2S_AccountRegister.password)
+  return _internal_password();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void C2S_AccountRegister::set_password(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.password_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:C2S_AccountRegister.password)
+}
+inline std::string* C2S_AccountRegister::mutable_password() {
+  std::string* _s = _internal_mutable_password();
+  // @@protoc_insertion_point(field_mutable:C2S_AccountRegister.password)
+  return _s;
+}
+inline const std::string& C2S_AccountRegister::_internal_password() const {
+  return _impl_.password_.Get();
+}
+inline void C2S_AccountRegister::_internal_set_password(const std::string& value) {
+  
+  _impl_.password_.Set(value, GetArenaForAllocation());
+}
+inline std::string* C2S_AccountRegister::_internal_mutable_password() {
+  
+  return _impl_.password_.Mutable(GetArenaForAllocation());
+}
+inline std::string* C2S_AccountRegister::release_password() {
+  // @@protoc_insertion_point(field_release:C2S_AccountRegister.password)
+  return _impl_.password_.Release();
+}
+inline void C2S_AccountRegister::set_allocated_password(std::string* password) {
+  if (password != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.password_.SetAllocated(password, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.password_.IsDefault()) {
+    _impl_.password_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:C2S_AccountRegister.password)
+}
+
+// -------------------------------------------------------------------
+
+// S2C_AccountRegister
+
+// int32 result_code = 1;
+inline void S2C_AccountRegister::clear_result_code() {
+  _impl_.result_code_ = 0;
+}
+inline int32_t S2C_AccountRegister::_internal_result_code() const {
+  return _impl_.result_code_;
+}
+inline int32_t S2C_AccountRegister::result_code() const {
+  // @@protoc_insertion_point(field_get:S2C_AccountRegister.result_code)
+  return _internal_result_code();
+}
+inline void S2C_AccountRegister::_internal_set_result_code(int32_t value) {
+  
+  _impl_.result_code_ = value;
+}
+inline void S2C_AccountRegister::set_result_code(int32_t value) {
+  _internal_set_result_code(value);
+  // @@protoc_insertion_point(field_set:S2C_AccountRegister.result_code)
+}
+
+// -------------------------------------------------------------------
+
+// AccountLoginResult
+
+// -------------------------------------------------------------------
+
+// C2S_AccountLogin
+
+// string id = 1;
+inline void C2S_AccountLogin::clear_id() {
+  _impl_.id_.ClearToEmpty();
+}
+inline const std::string& C2S_AccountLogin::id() const {
+  // @@protoc_insertion_point(field_get:C2S_AccountLogin.id)
+  return _internal_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void C2S_AccountLogin::set_id(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:C2S_AccountLogin.id)
+}
+inline std::string* C2S_AccountLogin::mutable_id() {
+  std::string* _s = _internal_mutable_id();
+  // @@protoc_insertion_point(field_mutable:C2S_AccountLogin.id)
+  return _s;
+}
+inline const std::string& C2S_AccountLogin::_internal_id() const {
+  return _impl_.id_.Get();
+}
+inline void C2S_AccountLogin::_internal_set_id(const std::string& value) {
+  
+  _impl_.id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* C2S_AccountLogin::_internal_mutable_id() {
+  
+  return _impl_.id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* C2S_AccountLogin::release_id() {
+  // @@protoc_insertion_point(field_release:C2S_AccountLogin.id)
+  return _impl_.id_.Release();
+}
+inline void C2S_AccountLogin::set_allocated_id(std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.id_.SetAllocated(id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.id_.IsDefault()) {
+    _impl_.id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:C2S_AccountLogin.id)
+}
+
+// string password = 2;
+inline void C2S_AccountLogin::clear_password() {
+  _impl_.password_.ClearToEmpty();
+}
+inline const std::string& C2S_AccountLogin::password() const {
+  // @@protoc_insertion_point(field_get:C2S_AccountLogin.password)
+  return _internal_password();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void C2S_AccountLogin::set_password(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.password_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:C2S_AccountLogin.password)
+}
+inline std::string* C2S_AccountLogin::mutable_password() {
+  std::string* _s = _internal_mutable_password();
+  // @@protoc_insertion_point(field_mutable:C2S_AccountLogin.password)
+  return _s;
+}
+inline const std::string& C2S_AccountLogin::_internal_password() const {
+  return _impl_.password_.Get();
+}
+inline void C2S_AccountLogin::_internal_set_password(const std::string& value) {
+  
+  _impl_.password_.Set(value, GetArenaForAllocation());
+}
+inline std::string* C2S_AccountLogin::_internal_mutable_password() {
+  
+  return _impl_.password_.Mutable(GetArenaForAllocation());
+}
+inline std::string* C2S_AccountLogin::release_password() {
+  // @@protoc_insertion_point(field_release:C2S_AccountLogin.password)
+  return _impl_.password_.Release();
+}
+inline void C2S_AccountLogin::set_allocated_password(std::string* password) {
+  if (password != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.password_.SetAllocated(password, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.password_.IsDefault()) {
+    _impl_.password_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:C2S_AccountLogin.password)
+}
+
+// -------------------------------------------------------------------
+
+// S2C_AccountLogin
+
+// int32 result_code = 1;
+inline void S2C_AccountLogin::clear_result_code() {
+  _impl_.result_code_ = 0;
+}
+inline int32_t S2C_AccountLogin::_internal_result_code() const {
+  return _impl_.result_code_;
+}
+inline int32_t S2C_AccountLogin::result_code() const {
+  // @@protoc_insertion_point(field_get:S2C_AccountLogin.result_code)
+  return _internal_result_code();
+}
+inline void S2C_AccountLogin::_internal_set_result_code(int32_t value) {
+  
+  _impl_.result_code_ = value;
+}
+inline void S2C_AccountLogin::set_result_code(int32_t value) {
+  _internal_set_result_code(value);
+  // @@protoc_insertion_point(field_set:S2C_AccountLogin.result_code)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 
@@ -474,6 +1757,16 @@ inline void S2C_TestEcho::set_rand_number(int32_t value) {
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::AccountRegisterResult_Code> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::AccountRegisterResult_Code>() {
+  return ::AccountRegisterResult_Code_descriptor();
+}
+template <> struct is_proto_enum< ::AccountLoginResult_Code> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::AccountLoginResult_Code>() {
+  return ::AccountLoginResult_Code_descriptor();
+}
 template <> struct is_proto_enum< ::packet_number> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::packet_number>() {

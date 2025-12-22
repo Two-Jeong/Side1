@@ -9,11 +9,15 @@ public static class PacketNumberMapper
     private static readonly Dictionary<string, ushort> NameToNumber = new Dictionary<string, ushort>
     {
         { "TestEcho", 1 },
+        { "AccountRegister", 2 },
+        { "AccountLogin", 3 },
     };
 
     private static readonly Dictionary<ushort, string> NumberToName = new Dictionary<ushort, string>
     {
         { 1, "TestEcho" },
+        { 2, "AccountRegister" },
+        { 3, "AccountLogin" },
     };
 
     /// <summary>
