@@ -10,6 +10,7 @@ void LoginClientSession::init_handlers()
 {
     m_handlers.emplace(packet_number::TestEcho, [this](auto* p){this->test_echo_handler(p); });
     m_handlers.emplace(packet_number::AccountRegister, [this](auto* p){this->account_register_handler(p); });
+    m_handlers.emplace(packet_number::AccountLogin, [this](auto* p){this->account_login_handler(p); });
 }
 
 void LoginClientSession::finalize()
@@ -60,6 +61,9 @@ void LoginClientSession::account_register_handler(Packet* packet)
         result = AccountRegisterResult::ID_ALREADY_EXIST;
     else
         m_accounts[recv_message_from_client.id()] = recv_message_from_client.password();
+
+    std::cout << "regiter account => id: " << recv_message_from_client.id()  <<"," <<  "password:" << recv_message_from_client.password() << "result: %d" << result << std::endl;
+
     
     S2C_AccountRegister send_message_to_client;
     send_message_to_client.set_result_code(result);
@@ -81,6 +85,8 @@ void LoginClientSession::account_login_handler(Packet* packet)
         result = (m_accounts[recv_message_from_client.id()] == recv_message_from_client.password()) ? result = AccountLoginResult::SUCCESS : AccountLoginResult::ID_OR_PASSWORD_WRONG;
     else
         result = AccountLoginResult::ID_OR_PASSWORD_WRONG;
+    
+    std::cout << "login account => id: " << recv_message_from_client.id()  <<"," <<  "password:" << recv_message_from_client.password() << "result: %d" << result << std::endl;
     
     S2C_AccountLogin send_message_to_client;
     send_message_to_client.set_result_code(result);

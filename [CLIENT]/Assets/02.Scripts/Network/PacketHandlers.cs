@@ -11,18 +11,22 @@ public class PacketHandlerAttribute : Attribute
 public class PacketHandlers
 {
     [PacketHandler(packet_number.TestEcho)]
-    public void TestHandler(Packet packet)
+    public bool TestHandler(Packet packet)
     {
         S2C_TestEcho RecvTestEchoPacketFromServer = new  S2C_TestEcho();
         packet.PopData(RecvTestEchoPacketFromServer);
         Debug.Log($"session id: {RecvTestEchoPacketFromServer.SessionId}, random number: {RecvTestEchoPacketFromServer.RandNumber}");
+        
+        return true;
     }
 
     [PacketHandler(packet_number.AccountLogin)]
-    public void AccountLoginHandler(Packet packet)
+    public bool AccountLoginHandler(Packet packet)
     {
         S2C_AccountLogin RecvAccountLoginPacketFromServer = new  S2C_AccountLogin();
         packet.PopData(RecvAccountLoginPacketFromServer);
         Debug.Log($"account login result: {RecvAccountLoginPacketFromServer.ResultCode}");
+
+        return true;
     }
 }

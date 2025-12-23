@@ -31,25 +31,32 @@ public class ServerSession : Session
 
     public override void OnConnected()
     {
-        C2S_AccountRegister register_request_packet = new C2S_AccountRegister();
-        register_request_packet.Id = "test";
-        register_request_packet.Password = "1234";
-
-        NetworkManager.Instance.DoSend(register_request_packet);
+        Debug.Log($"server on connected");
     }
 
     public override void OnDisconnected()
     {
+        Debug.Log($"server on disconnected");
     }
 
     public override void OnSend()
     {
+        Debug.Log($"server on send");
     }
 
     public bool ExecuteHandlers(Packet packet)
     {
-        if (false == m_packet_handlers[packet.Protocol].Invoke(packet))
+        if (false == m_packet_handlers.ContainsKey(packet.Protocol))
+        {
+            Debug.Log($"packet handler not found => protocol: {packet.Protocol}");
             return false;
+        }
+
+        if (false == m_packet_handlers[packet.Protocol].Invoke(packet))
+        {
+            Debug.Log($"packet handler invoke fail => protocol: {packet.Protocol}");
+            return false;
+        }
 
         return true;
     } 
