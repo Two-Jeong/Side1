@@ -99,7 +99,7 @@ std::vector<std::string> DatabaseManager::get_table_list() {
     try {
         auto result = execute_query(query);
         for (const auto& row : result) {
-            tables.push_back(row.get<std::string>("table_name"));
+            tables.push_back(row.get<std::string>("TABLE_NAME"));
         }
     } catch (const DBException& e) {
         throw QueryException("Failed to get table list: " + std::string(e.what()));
