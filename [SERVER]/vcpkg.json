@@ -6,6 +6,9 @@
     },
     {
       "name": "libmariadb"
+    },
+    {
+      "name": "nlohmann-json"
     }
   ],
   "builtin-baseline": "6245ce44a03f04d19be125ab1bbab578d0933e85",
