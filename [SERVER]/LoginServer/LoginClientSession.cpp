@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "LoginClientSession.h"
 
+#include "DatabaseManager.h"
+
 void LoginClientSession::init()
 {
     ClientSession::init();
@@ -63,6 +65,7 @@ void LoginClientSession::account_register_handler(Packet* packet)
         m_accounts[recv_message_from_client.id()] = recv_message_from_client.password();
 
     std::cout << "regiter account => id: " << recv_message_from_client.id()  <<"," <<  "password:" << recv_message_from_client.password() << "result: %d" << result << std::endl;
+
 
     
     S2C_AccountRegister send_message_to_client;

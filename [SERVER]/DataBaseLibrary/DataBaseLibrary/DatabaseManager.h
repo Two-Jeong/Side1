@@ -4,19 +4,22 @@
 #include <memory>
 #include <functional>
 #include <future>
+#include <mutex>
 
 namespace DB {
 
-/**
- * @brief High-level database manager that provides easy-to-use interface
- * 
- * This class combines connection pooling, error handling, and convenient
- * methods for common database operations.
- */
+
 class DatabaseManager {
 public:
-    explicit DatabaseManager(const DBConfig& config);
-    ~DatabaseManager();
+    // Singleton access
+    static DatabaseManager& get_instance();
+    static void initialize_instance(const DBConfig& config);
+    static void initialize_instance_from_json(const std::string& config_file_path);
+    static void shutdown_instance();
+    
+    // Delete copy constructor and assignment operator
+    DatabaseManager(const DatabaseManager&) = delete;
+    DatabaseManager& operator=(const DatabaseManager&) = delete;
     
     // Initialize and shutdown
     void initialize();
@@ -55,6 +58,17 @@ public:
     const DBConfig& get_config() const { return config_; }
     
 private:
+    // Private constructor for singleton
+    explicit DatabaseManager(const DBConfig& config);
+public:
+    ~DatabaseManager();
+    
+private:
+    // Static members
+    static std::unique_ptr<DatabaseManager> instance_;
+    static std::mutex instance_mutex_;
+    
+    // Instance members
     DBConfig config_;
     std::unique_ptr<DBConnectionPool> pool_;
     std::atomic<bool> initialized_;
@@ -99,26 +113,29 @@ auto DatabaseManager::execute_prepared(const std::string& query, Func func) -> d
     return func(stmt.get());
 }
 
-// Async implementation disabled for now
-/*
-template<typename Func>
-auto DatabaseManager::execute_async(Func func) -> std::future<decltype(func(std::declval<DBConnection*>()))> {
-    ensure_initialized();
-    return execute_async_with_connection(*pool_, func);
-}
-*/
+// Convenience macros for singleton pattern
+#define DB_INSTANCE() \
+    DB::DatabaseManager::get_instance()
 
-// Convenience macros for common operations
-#define DB_EXECUTE_QUERY(manager, query) \
-    (manager).execute_query(query)
+#define DB_EXECUTE_QUERY(query) \
+    DB::DatabaseManager::get_instance().execute_query(query)
 
-#define DB_EXECUTE_UPDATE(manager, query) \
-    (manager).execute_update(query)
+#define DB_EXECUTE_UPDATE(query) \
+    DB::DatabaseManager::get_instance().execute_update(query)
 
-#define DB_EXECUTE_TRANSACTION(manager, func) \
-    (manager).execute_transaction([&](DB::DBConnection* conn) { return func(conn); })
+#define DB_EXECUTE_TRANSACTION(func) \
+    DB::DatabaseManager::get_instance().execute_transaction([&](DB::DBConnection* conn) { return func(conn); })
 
-#define DB_EXECUTE_PREPARED(manager, query, bind_func) \
-    (manager).execute_prepared(query, [&](DB::DBConnection::PreparedStatement* stmt) { return bind_func(stmt); })
+#define DB_EXECUTE_PREPARED(query, bind_func) \
+    DB::DatabaseManager::get_instance().execute_prepared(query, [&](DB::DBConnection::PreparedStatement* stmt) { return bind_func(stmt); })
+
+#define DB_INITIALIZE(config) \
+    DB::DatabaseManager::get_instance().initialize_instance(config)
+
+#define DB_INITIALIZE_FROM_JSON(file_path) \
+    DB::DatabaseManager::get_instance().initialize_instance_from_json(file_path)
+
+#define DB_SHUTDOWN() \
+    DB::DatabaseManager::get_instance().shutdown_instance()
 
 }  // namespace DB

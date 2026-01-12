@@ -621,3 +621,12 @@ Multi-Arch: same
 Description: Default SSL backend
 Status: install ok installed
 
+Package: nlohmann-json
+Version: 3.11.2
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: f9129918a2b663f965d5b2b6d5dae509ffe3373b4e5bc5424a4b029304142fec
+Description: JSON for Modern C++
+Status: install ok installed
+

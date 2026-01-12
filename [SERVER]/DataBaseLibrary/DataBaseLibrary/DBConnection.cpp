@@ -71,14 +71,6 @@ void DBConnection::setup_connection_options() {
     // Character set
     mysql_options(mysql_, MYSQL_SET_CHARSET_NAME, config_.charset.c_str());
     
-    // SSL options
-    if (config_.use_ssl) {
-        mysql_ssl_set(mysql_, 
-            config_.ssl_key_path.empty() ? nullptr : config_.ssl_key_path.c_str(),
-            config_.ssl_cert_path.empty() ? nullptr : config_.ssl_cert_path.c_str(),
-            config_.ssl_ca_path.empty() ? nullptr : config_.ssl_ca_path.c_str(),
-            nullptr, nullptr);
-    }
 }
 
 void DBConnection::connect() {

@@ -4,7 +4,7 @@
 #include <memory>
 #include <memory>
 
-void ServerBase::init(int iocp_thread_count, std::function<NetworkSection*()> section_factory, int section_count)
+void ServerBase::init(int iocp_thread_count, int hard_task_thread_count, std::function<NetworkSection*()> section_factory, int section_count)
 {
     NetworkCore::init(iocp_thread_count);
 
@@ -17,7 +17,13 @@ void ServerBase::init(int iocp_thread_count, std::function<NetworkSection*()> se
         m_performance_monitor_thread = std::thread(&ServerBase::fps_monitor_thread_work, this);
     }
     
-    m_central_thread = std::thread(&ServerBase::central_thread_work, this); 
+    m_central_thread = std::thread(&ServerBase::central_thread_work, this);
+
+    for (int i = 0; i < hard_task_thread_count; ++i)
+    {
+        m_hard_task_threads.push_back(std::thread(&ServerBase::hard_task_thread_work, this));
+    }
+    
     m_listen_socket = NetworkUtil::create_socket();
     m_section_factory = section_factory;
     
@@ -225,6 +231,36 @@ void ServerBase::fps_monitor_thread_work()
         
         update_accept_tps_info();
         print_fps_info();
+    }
+}
+
+void ServerBase::hard_task_thread_work()
+{
+    while (true == is_running())
+    {
+        iTask* task = nullptr;
+
+        if (false == m_hard_task_queue.try_pop(task))
+            continue;
+        
+        if(std::chrono::steady_clock::now() < task->execute_time)
+        {
+            m_hard_task_queue.push(task);
+            continue;
+        }
+
+        task->func();
+
+        if (nullptr != task->post_processing_func)
+            task->post_processing_func();
+
+        if(task->is_repeat)
+        {
+            task->execute_time = std::chrono::steady_clock::now() + std::chrono::microseconds(task->delay_time);
+            m_hard_task_queue.push(task);
+        }
+        else
+            xdelete task;
     }
 }
 

@@ -6,9 +6,14 @@
     <ClInclude Include="DBException.h" />
     <ClInclude Include="QueryResult.h" />
     <ClInclude Include="DBConfig.h" />
+    <ClInclude Include="Database.h" />
+    <ClInclude Include="DatabaseManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DBConnectionPool.cpp" />
     <ClCompile Include="DBConnection.cpp" />
+    <ClCompile Include="DatabaseManager.cpp" />
+    <ClCompile Include="QueryResult.cpp" />
+    <ClCompile Include="SimpleTest.cpp" />
   </ItemGroup>
 </Project>

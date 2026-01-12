@@ -1,0 +1,16 @@
+{
+    "host": "prod-db-server.company.com",
+    "user": "game_prod_user",
+    "password": "ultra_secure_prod_password_2024!",
+    "database": "game_production",
+    "port": 3306,
+    "connection_timeout": 15,
+    "read_timeout": 60,
+    "write_timeout": 60,
+    "auto_reconnect": true,
+    "charset": "utf8mb4",
+    "pool_min_size": 10,
+    "pool_max_size": 50,
+    "pool_idle_timeout_sec": 600,
+    "pool_validation_interval_sec": 120
+}

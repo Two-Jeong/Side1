@@ -1,10 +1,12 @@
 ﻿#include "pch.h"
 #include "LoginServerService.h"
+#include <DatabaseManager.h>
 
-void LoginServerService::init(int iocp_thread_count, std::function<class NetworkSection*()> section_factory,
-    int section_count)
+void LoginServerService::init(int iocp_thread_count, int hard_task_thread_count, std::function<class NetworkSection*()> section_factory,
+                              int section_count)
 {
-    ServerBase::init(iocp_thread_count, section_factory, section_count);
+    ServerBase::init(iocp_thread_count, hard_task_thread_count, section_factory, section_count);
+    DB_INITIALIZE_FROM_JSON("db_config.json");
 }
 
 NetworkSection* LoginServerService::select_first_section()

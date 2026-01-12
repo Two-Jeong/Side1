@@ -4,6 +4,10 @@
 
 namespace DB {
 
+// Static member definitions
+std::unique_ptr<DatabaseManager> DatabaseManager::instance_ = nullptr;
+std::mutex DatabaseManager::instance_mutex_;
+
 DatabaseManager::DatabaseManager(const DBConfig& config)
     : config_(config), initialized_(false) {
     pool_ = std::make_unique<DBConnectionPool>(config_);
@@ -11,6 +15,46 @@ DatabaseManager::DatabaseManager(const DBConfig& config)
 
 DatabaseManager::~DatabaseManager() {
     shutdown();
+}
+
+DatabaseManager& DatabaseManager::get_instance() {
+    std::lock_guard<std::mutex> lock(instance_mutex_);
+    if (!instance_) {
+        throw std::runtime_error("DatabaseManager not initialized. Call initialize_instance() first.");
+    }
+    return *instance_;
+}
+
+void DatabaseManager::initialize_instance(const DBConfig& config) {
+    std::lock_guard<std::mutex> lock(instance_mutex_);
+    if (instance_) {
+        throw std::runtime_error("DatabaseManager already initialized.");
+    }
+    
+    if (!config.is_valid()) {
+        throw std::invalid_argument("Invalid database configuration provided.");
+    }
+    
+    instance_ = std::unique_ptr<DatabaseManager>(new DatabaseManager(config));
+    instance_->initialize();
+}
+
+void DatabaseManager::initialize_instance_from_json(const std::string& config_file_path) {
+    try {
+        DBConfig config = DBConfig::from_json_file(config_file_path);
+        initialize_instance(config);
+    } catch (const std::exception& e) {
+        throw std::runtime_error("Failed to initialize DatabaseManager from JSON file '" + 
+                                config_file_path + "': " + e.what());
+    }
+}
+
+void DatabaseManager::shutdown_instance() {
+    std::lock_guard<std::mutex> lock(instance_mutex_);
+    if (instance_) {
+        instance_->shutdown();
+        instance_.reset();
+    }
 }
 
 void DatabaseManager::initialize() {

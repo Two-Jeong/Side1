@@ -109,7 +109,11 @@ void NetworkSection::section_thread_work()
             continue;
         }
 
+        // 나중에 들어온게 먼저 끝난다면? -> 원자성 있게 DB 작업 한 번 만 하도록 하기
         task->func();
+
+        if (nullptr != task->post_processing_func)
+            task->post_processing_func();
 
          if(task->is_repeat)
         {
