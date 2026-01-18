@@ -42,6 +42,7 @@
 #include "DBConnection.h"
 #include "DBConnectionPool.h"
 #include "DatabaseManager.h"
+#include "AsyncDBContext.h"
 
 /**
  * @namespace DB

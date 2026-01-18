@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsyncDBContext.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="DBConfig.h" />
     <ClInclude Include="DBConnection.h" />

@@ -133,7 +133,7 @@ auto DatabaseManager::execute_prepared(const std::string& query, Func func) -> d
     DB::DatabaseManager::get_instance().initialize_instance(config)
 
 #define DB_INITIALIZE_FROM_JSON(file_path) \
-    DB::DatabaseManager::get_instance().initialize_instance_from_json(file_path)
+    DB::DatabaseManager::initialize_instance_from_json(file_path)
 
 #define DB_SHUTDOWN() \
     DB::DatabaseManager::get_instance().shutdown_instance()

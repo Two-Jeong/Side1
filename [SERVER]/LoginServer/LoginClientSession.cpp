@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "LoginClientSession.h"
-
 #include "DatabaseManager.h"
+#include "AsyncDBContext.h"
 
 void LoginClientSession::init()
 {
@@ -58,24 +58,53 @@ void LoginClientSession::account_register_handler(Packet* packet)
     C2S_AccountRegister recv_message_from_client;
     packet->pop_message(recv_message_from_client);
 
-    AccountRegisterResult::Code result = AccountRegisterResult::SUCCESS;
-    if (m_accounts.count(recv_message_from_client.id()))
-        result = AccountRegisterResult::ID_ALREADY_EXIST;
-    else
-        m_accounts[recv_message_from_client.id()] = recv_message_from_client.password();
 
-    std::cout << "regiter account => id: " << recv_message_from_client.id()  <<"," <<  "password:" << recv_message_from_client.password() << "result: %d" << result << std::endl;
+    auto db_context = DB::create_async_context(
+        [session = this](DB::QueryResult& result)
+        {
+            if (session->is_connected())
+            {
+                auto row = result.fetch_one();
 
+                auto register_result = row->get<bool>("result");
 
+                AccountRegisterResult::Code result_code = AccountRegisterResult::SUCCESS;
+                if (true == register_result)
+                    result_code = AccountRegisterResult::SUCCESS;
+                else
+                    result_code = AccountRegisterResult::ID_ALREADY_EXIST;
+            
+                std::cout << "regiter account success result: " << result_code << std::endl;
+
+                S2C_AccountRegister send_message_to_client;
+                send_message_to_client.set_result_code(result_code);
+
+                if (false == session->do_send(send_message_to_client))
+                {
+                    //TODO: LOG AND DISCONNECT
+                    return;
+                }
+            }
+        }
+        ,
+        [](const std::string& cause)
+        {
+            std::cout << cause << std::endl;
+        }
+    );
+
+    auto task = xnew iTask;
+    task->func = [db_context, user_id = recv_message_from_client.id(), password = recv_message_from_client.password()]() {
+        try {
+            auto result = DB_INSTANCE().execute_query("CALL register_account('" + user_id + "','" + password + "');");
+            
+            db_context->deliver_success(result);
+        } catch (const std::exception& e) {
+            db_context->deliver_error(e.what());
+        }
+    };
     
-    S2C_AccountRegister send_message_to_client;
-    send_message_to_client.set_result_code(result);
-
-    if (false == do_send(send_message_to_client))
-    {
-        //TODO: LOG AND DISCONNECT
-        return;
-    }
+    get_server_base()->push_hard_task(task);
 }
 
 void LoginClientSession::account_login_handler(Packet* packet)
@@ -83,20 +112,43 @@ void LoginClientSession::account_login_handler(Packet* packet)
     C2S_AccountLogin recv_message_from_client;
     packet->pop_message(recv_message_from_client);
 
-    AccountLoginResult::Code result = AccountLoginResult::SUCCESS;
-    if (0 != m_accounts.count(recv_message_from_client.id()))
-        result = (m_accounts[recv_message_from_client.id()] == recv_message_from_client.password()) ? result = AccountLoginResult::SUCCESS : AccountLoginResult::ID_OR_PASSWORD_WRONG;
-    else
-        result = AccountLoginResult::ID_OR_PASSWORD_WRONG;
-    
-    std::cout << "login account => id: " << recv_message_from_client.id()  <<"," <<  "password:" << recv_message_from_client.password() << "result: %d" << result << std::endl;
-    
-    S2C_AccountLogin send_message_to_client;
-    send_message_to_client.set_result_code(result);
+    auto db_context = DB::create_async_context(
+        [session = this](const DB::QueryResult& result)
+        {
+            if (session->is_connected()) {
 
-    if (false == do_send(send_message_to_client))
-    {
-        //TODO: LOG AND DISCONNECT
-        return;
-    }
+                auto result_code = AccountLoginResult::SUCCESS;
+                if (0 == result.row_count())
+                    result_code = AccountLoginResult::ID_OR_PASSWORD_WRONG;
+
+                S2C_AccountLogin send_packet_to_client;
+                send_packet_to_client.set_result_code(result_code);
+                session->do_send(send_packet_to_client);
+                std::cout << "Login DB Execute successful session: " << session->get_id() << std::endl;
+            }
+        },
+        [session = this](const std::string& error)
+        {
+            if (session->is_connected()) {
+                S2C_AccountLogin response;
+                response.set_result_code(AccountLoginResult::ID_OR_PASSWORD_WRONG);
+                session->do_send(response);
+                std::cout << "Login DB Execute failed: " << error << std::endl;
+            }
+        }
+    );
+    
+    auto task = xnew iTask;
+    task->func = [db_context, user_id = recv_message_from_client.id(), password = recv_message_from_client.password()]() {
+        try {
+            auto result = DB_INSTANCE().execute_query(
+                "SELECT id FROM account WHERE id = '"+ user_id + "' AND password = '" + password + "'");
+            
+            db_context->deliver_success(result);
+        } catch (const std::exception& e) {
+            db_context->deliver_error(e.what());
+        }
+    };
+    
+    get_server_base()->push_hard_task(task);
 }
