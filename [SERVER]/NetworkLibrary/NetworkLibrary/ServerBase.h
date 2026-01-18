@@ -21,7 +21,10 @@ public:
 
 public:
     void on_accept(int bytes_transferred, NetworkIO* io);
-
+    
+    void push_hard_task(iTask* task);
+    void push_hard_task(std::shared_ptr<iTask> task);
+    
 private:
     void central_thread_work();
     void fps_monitor_thread_work();

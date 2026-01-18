@@ -107,6 +107,20 @@ void ServerBase::on_accept(int bytes_transferred, NetworkIO* io) {
     }
 }
 
+void ServerBase::push_hard_task(iTask* task)
+{
+    if (task) {
+        m_hard_task_queue.push(task);
+    }
+}
+
+void ServerBase::push_hard_task(std::shared_ptr<iTask> task)
+{
+    if (task) {
+        m_hard_task_queue.push(task.get());
+    }
+}
+
 void ServerBase::central_thread_work()
 {
     while(is_running() == true)

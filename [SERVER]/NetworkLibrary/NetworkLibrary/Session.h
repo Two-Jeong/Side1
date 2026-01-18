@@ -23,6 +23,7 @@ public:
 public:
     int get_id() { return m_session_id; };
     void set_id(int id) { m_session_id = id; };
+    bool is_connected() { return m_is_connected; }
 
     SOCKET get_socket() { return m_connecting_socket; }
 
@@ -41,6 +42,7 @@ public:
         m_remote_port = port;
     }
     virtual NetworkCore* get_network_core() abstract;
+    virtual NetworkSection* get_section() abstract;
 public:
     bool do_connect();
     bool do_recieve();

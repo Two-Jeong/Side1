@@ -13,7 +13,7 @@ public:
     void set_section(class NetworkSection* section) { m_section = section; }
     
     NetworkCore* get_network_core() override;
-
+    virtual ServerBase* get_server_base();
 public:
     void on_connected() override;
     int on_recieve() final;
