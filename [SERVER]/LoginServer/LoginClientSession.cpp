@@ -2,6 +2,7 @@
 #include "LoginClientSession.h"
 #include "DatabaseManager.h"
 #include "AsyncDBContext.h"
+#include "LoginServerService.h"
 
 void LoginClientSession::init()
 {
@@ -112,8 +113,16 @@ void LoginClientSession::account_login_handler(Packet* packet)
     C2S_AccountLogin recv_message_from_client;
     packet->pop_message(recv_message_from_client);
 
+    LoginServerService* service = static_cast<LoginServerService*>(get_server_base());
+    if (nullptr == service)
+    {
+        //TODO: LOG
+        return;
+    }
+    auto& service_config = service->get_config();
+
     auto db_context = DB::create_async_context(
-        [session = this](const DB::QueryResult& result)
+        [session = this, &service_config](const DB::QueryResult& result)
         {
             if (session->is_connected()) {
 
@@ -123,6 +132,8 @@ void LoginClientSession::account_login_handler(Packet* packet)
 
                 S2C_AccountLogin send_packet_to_client;
                 send_packet_to_client.set_result_code(result_code);
+                send_packet_to_client.set_game_server_ip(service_config.game_server_ip);
+                send_packet_to_client.set_game_server_port(service_config.game_server_port);
                 session->do_send(send_packet_to_client);
                 std::cout << "Login DB Execute successful session: " << session->get_id() << std::endl;
             }

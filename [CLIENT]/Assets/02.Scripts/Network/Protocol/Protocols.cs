@@ -30,10 +30,11 @@ public static partial class ProtocolsReflection {
           "ZBgCIAEoCSIqChNTMkNfQWNjb3VudFJlZ2lzdGVyEhMKC3Jlc3VsdF9jb2Rl",
           "GAEgASgFIkMKEkFjY291bnRMb2dpblJlc3VsdCItCgRDb2RlEgsKB1NVQ0NF",
           "U1MQABIYChRJRF9PUl9QQVNTV09SRF9XUk9ORxABIjAKEEMyU19BY2NvdW50",
-          "TG9naW4SCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiJwoQUzJDX0Fj",
-          "Y291bnRMb2dpbhITCgtyZXN1bHRfY29kZRgBIAEoBSpOCg1wYWNrZXRfbnVt",
-          "YmVyEggKBE5PTkUQABIMCghUZXN0RWNobxABEhMKD0FjY291bnRSZWdpc3Rl",
-          "chACEhAKDEFjY291bnRMb2dpbhADYgZwcm90bzM="));
+          "TG9naW4SCgoCaWQYASABKAkSEAoIcGFzc3dvcmQYAiABKAkiWQoQUzJDX0Fj",
+          "Y291bnRMb2dpbhITCgtyZXN1bHRfY29kZRgBIAEoBRIWCg5nYW1lX3NlcnZl",
+          "cl9pcBgCIAEoCRIYChBnYW1lX3NlcnZlcl9wb3J0GAMgASgFKk4KDXBhY2tl",
+          "dF9udW1iZXISCAoETk9ORRAAEgwKCFRlc3RFY2hvEAESEwoPQWNjb3VudFJl",
+          "Z2lzdGVyEAISEAoMQWNjb3VudExvZ2luEANiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::packet_number), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -44,7 +45,7 @@ public static partial class ProtocolsReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::S2C_AccountRegister), global::S2C_AccountRegister.Parser, new[]{ "ResultCode" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::AccountLoginResult), global::AccountLoginResult.Parser, null, null, new[]{ typeof(global::AccountLoginResult.Types.Code) }, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::C2S_AccountLogin), global::C2S_AccountLogin.Parser, new[]{ "Id", "Password" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::S2C_AccountLogin), global::S2C_AccountLogin.Parser, new[]{ "ResultCode" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::S2C_AccountLogin), global::S2C_AccountLogin.Parser, new[]{ "ResultCode", "GameServerIp", "GameServerPort" }, null, null, null, null)
         }));
   }
   #endregion
@@ -1485,6 +1486,8 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public S2C_AccountLogin(S2C_AccountLogin other) : this() {
     resultCode_ = other.resultCode_;
+    gameServerIp_ = other.gameServerIp_;
+    gameServerPort_ = other.gameServerPort_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1506,6 +1509,30 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
     }
   }
 
+  /// <summary>Field number for the "game_server_ip" field.</summary>
+  public const int GameServerIpFieldNumber = 2;
+  private string gameServerIp_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string GameServerIp {
+    get { return gameServerIp_; }
+    set {
+      gameServerIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "game_server_port" field.</summary>
+  public const int GameServerPortFieldNumber = 3;
+  private int gameServerPort_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int GameServerPort {
+    get { return gameServerPort_; }
+    set {
+      gameServerPort_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -1522,6 +1549,8 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
       return true;
     }
     if (ResultCode != other.ResultCode) return false;
+    if (GameServerIp != other.GameServerIp) return false;
+    if (GameServerPort != other.GameServerPort) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1530,6 +1559,8 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
   public override int GetHashCode() {
     int hash = 1;
     if (ResultCode != 0) hash ^= ResultCode.GetHashCode();
+    if (GameServerIp.Length != 0) hash ^= GameServerIp.GetHashCode();
+    if (GameServerPort != 0) hash ^= GameServerPort.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1552,6 +1583,14 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
       output.WriteRawTag(8);
       output.WriteInt32(ResultCode);
     }
+    if (GameServerIp.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(GameServerIp);
+    }
+    if (GameServerPort != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(GameServerPort);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1566,6 +1605,14 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
       output.WriteRawTag(8);
       output.WriteInt32(ResultCode);
     }
+    if (GameServerIp.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(GameServerIp);
+    }
+    if (GameServerPort != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(GameServerPort);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1578,6 +1625,12 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
     int size = 0;
     if (ResultCode != 0) {
       size += 1 + pb::CodedOutputStream.ComputeInt32Size(ResultCode);
+    }
+    if (GameServerIp.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(GameServerIp);
+    }
+    if (GameServerPort != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(GameServerPort);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1593,6 +1646,12 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
     }
     if (other.ResultCode != 0) {
       ResultCode = other.ResultCode;
+    }
+    if (other.GameServerIp.Length != 0) {
+      GameServerIp = other.GameServerIp;
+    }
+    if (other.GameServerPort != 0) {
+      GameServerPort = other.GameServerPort;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1613,6 +1672,14 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
           ResultCode = input.ReadInt32();
           break;
         }
+        case 18: {
+          GameServerIp = input.ReadString();
+          break;
+        }
+        case 24: {
+          GameServerPort = input.ReadInt32();
+          break;
+        }
       }
     }
   #endif
@@ -1630,6 +1697,14 @@ public sealed partial class S2C_AccountLogin : pb::IMessage<S2C_AccountLogin>
           break;
         case 8: {
           ResultCode = input.ReadInt32();
+          break;
+        }
+        case 18: {
+          GameServerIp = input.ReadString();
+          break;
+        }
+        case 24: {
+          GameServerPort = input.ReadInt32();
           break;
         }
       }
