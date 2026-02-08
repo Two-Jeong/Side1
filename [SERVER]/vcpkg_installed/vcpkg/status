@@ -630,3 +630,12 @@ Abi: f9129918a2b663f965d5b2b6d5dae509ffe3373b4e5bc5424a4b029304142fec
 Description: JSON for Modern C++
 Status: install ok installed
 
+Package: box2d
+Version: 2.4.1
+Port-Version: 2
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c4df7ba22a0526bcbe12fa892a539d9729cd799541fddded8c1e2863c368174b
+Description: An open source C++ engine for simulating rigid bodies in 2D
+Status: install ok installed
+
