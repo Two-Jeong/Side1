@@ -37,29 +37,35 @@ HANDLE NetworkSection::get_iocp_handle()
 
 ClientSession* NetworkSection::find_session(unsigned int session_id)
 {
-    return m_sessions.at(session_id);
+    std::shared_lock<std::shared_mutex> lock(m_sessions_mutex);
+    auto it = m_sessions.find(session_id);
+    if (it == m_sessions.end())
+        return nullptr;
+    return it->second;
 }
 
 void NetworkSection::enter_section(ClientSession* session)
 {
-    if(m_sessions.count(session->get_id()) != 0)
     {
-        session->do_disconnect();
-        return;
+        std::unique_lock<std::shared_mutex> lock(m_sessions_mutex);
+        if (m_sessions.count(session->get_id()) != 0)
+        {
+            session->do_disconnect();
+            return;
+        }
+        m_sessions.emplace(session->get_id(), session);
+        session->set_section(this);
     }
-    
-    m_sessions.emplace(session->get_id(), session);
-   session->set_section(this);
 }
 
 void NetworkSection::exit_section(int session_id)
 {
-    if(m_sessions.count(session_id) == 0)
+    std::unique_lock<std::shared_mutex> lock(m_sessions_mutex);
+    auto it = m_sessions.find(session_id);
+    if (it == m_sessions.end())
         return;
-    
-    ClientSession* session = m_sessions.at(session_id);
-    session->set_section(nullptr);
-    m_sessions.erase(session_id);
+    it->second->set_section(nullptr);
+    m_sessions.erase(it);
 }
 
 void NetworkSection::push_task(iTask* task)
@@ -70,12 +76,14 @@ void NetworkSection::push_task(iTask* task)
 
 void NetworkSection::broadcast(std::shared_ptr<Packet> packet)
 {
+    std::shared_lock<std::shared_mutex> lock(m_sessions_mutex);
     for (auto& session : m_sessions)
         session.second->do_send(packet);
 }
 
 void NetworkSection::broadcast(std::shared_ptr<Packet> packet, Session* exception_session)
 {
+    std::shared_lock<std::shared_mutex> lock(m_sessions_mutex);
     for (auto& session : m_sessions)
     {
         if (session.second->get_id() == exception_session->get_id()) continue;
