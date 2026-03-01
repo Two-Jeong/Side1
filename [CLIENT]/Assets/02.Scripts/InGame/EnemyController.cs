@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using _02.Scripts.InGame;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IDamageable
 {
     [Header("Combat")]
     [SerializeField] private int maxHp = 3;
@@ -33,12 +33,7 @@ public class EnemyController : MonoBehaviour
     {
         ApplyDamage(info.Damage, info.Direction);
     }
-
-    public void TakeDamage(int damage)
-    {
-        ApplyDamage(damage, Vector2.zero);
-    }
-
+    
     private void ApplyDamage(int damage, Vector2 hitDir)
     {
         if (damage <= 0)

@@ -172,7 +172,16 @@ namespace _02.Scripts.InGame
             HitInfo info = new HitInfo(attackDamage, dir);
             for (int i = 0; i < hits.Length; i++)
             {
-                hits[i].SendMessage("TakeDamage", info, SendMessageOptions.DontRequireReceiver);
+                IDamageable damageable = hits[i].GetComponent<IDamageable>();
+                if (damageable == null)
+                {
+                    damageable = hits[i].GetComponentInParent<IDamageable>();
+                }
+
+                if (damageable != null)
+                {
+                    damageable.TakeDamage(info);
+                }
             }
         }
 
