@@ -53,6 +53,7 @@ private:
     class ServerBase* m_owner; 
     std::thread m_section_thread;
     std::map<unsigned int, class ClientSession*> m_sessions;
+    mutable std::shared_mutex m_sessions_mutex;
     
     Concurrency::concurrent_priority_queue<iTask*, task_cmp> m_task_queue;
     

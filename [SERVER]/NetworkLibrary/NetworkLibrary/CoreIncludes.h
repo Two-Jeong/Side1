@@ -16,6 +16,7 @@
 #include <functional>
 #include <chrono>
 #include <mutex>
+#include <shared_mutex>
 #include <numeric>
 #include <filesystem>
 #include <fstream>
