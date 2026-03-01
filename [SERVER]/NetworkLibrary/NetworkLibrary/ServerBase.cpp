@@ -285,10 +285,25 @@ void ServerBase::hard_task_thread_work()
             continue;
         }
 
-        task->func();
+        try
+        {
+            task->func();
 
-        if (nullptr != task->post_processing_func)
-            task->post_processing_func();
+            if (nullptr != task->post_processing_func)
+                task->post_processing_func();
+        }
+        catch (const std::exception& e)
+        {
+            std::cerr << "[hard_task] exception: " << e.what() << std::endl;
+            xdelete task;
+            continue;
+        }
+        catch (...)
+        {
+            std::cerr << "[hard_task] unknown exception" << std::endl;
+            xdelete task;
+            continue;
+        }
 
         if(task->is_repeat)
         {
