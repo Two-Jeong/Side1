@@ -61,30 +61,30 @@ void LoginClientSession::account_register_handler(Packet* packet)
 
 
     auto db_context = DB::create_async_context(
-        [session = this](DB::QueryResult& result)
+        [weak_self = weak_from_this()](DB::QueryResult& result)
         {
-            if (session->is_connected())
+            auto session = weak_self.lock();
+            if (!session || !session->is_connected()) return;
+
+            auto row = result.fetch_one();
+
+            auto register_result = row->get<bool>("result");
+
+            AccountRegisterResult::Code result_code = AccountRegisterResult::SUCCESS;
+            if (true == register_result)
+                result_code = AccountRegisterResult::SUCCESS;
+            else
+                result_code = AccountRegisterResult::ID_ALREADY_EXIST;
+
+            std::cout << "regiter account success result: " << result_code << std::endl;
+
+            S2C_AccountRegister send_message_to_client;
+            send_message_to_client.set_result_code(result_code);
+
+            if (false == session->do_send(send_message_to_client))
             {
-                auto row = result.fetch_one();
-
-                auto register_result = row->get<bool>("result");
-
-                AccountRegisterResult::Code result_code = AccountRegisterResult::SUCCESS;
-                if (true == register_result)
-                    result_code = AccountRegisterResult::SUCCESS;
-                else
-                    result_code = AccountRegisterResult::ID_ALREADY_EXIST;
-            
-                std::cout << "regiter account success result: " << result_code << std::endl;
-
-                S2C_AccountRegister send_message_to_client;
-                send_message_to_client.set_result_code(result_code);
-
-                if (false == session->do_send(send_message_to_client))
-                {
-                    //TODO: LOG AND DISCONNECT
-                    return;
-                }
+                //TODO: LOG AND DISCONNECT
+                return;
             }
         }
         ,
@@ -122,30 +122,31 @@ void LoginClientSession::account_login_handler(Packet* packet)
     auto& service_config = service->get_config();
 
     auto db_context = DB::create_async_context(
-        [session = this, &service_config](const DB::QueryResult& result)
+        [session_weak_ptr = weak_from_this(), service_config](const DB::QueryResult& result)
         {
-            if (session->is_connected()) {
+            auto session = session_weak_ptr.lock();
+            if (nullptr == session || false == session->is_connected()) return;
 
-                auto result_code = AccountLoginResult::SUCCESS;
-                if (0 == result.row_count())
-                    result_code = AccountLoginResult::ID_OR_PASSWORD_WRONG;
+            auto result_code = AccountLoginResult::SUCCESS;
+            if (0 == result.row_count())
+                result_code = AccountLoginResult::ID_OR_PASSWORD_WRONG;
 
-                S2C_AccountLogin send_packet_to_client;
-                send_packet_to_client.set_result_code(result_code);
-                send_packet_to_client.set_game_server_ip(service_config.game_server_ip);
-                send_packet_to_client.set_game_server_port(service_config.game_server_port);
-                session->do_send(send_packet_to_client);
-                std::cout << "Login DB Execute successful session: " << session->get_id() << std::endl;
-            }
+            S2C_AccountLogin send_packet_to_client;
+            send_packet_to_client.set_result_code(result_code);
+            send_packet_to_client.set_game_server_ip(service_config.game_server_ip);
+            send_packet_to_client.set_game_server_port(service_config.game_server_port);
+            session->do_send(send_packet_to_client);
+            std::cout << "Login DB Execute successful session: " << session->get_id() << std::endl;
         },
-        [session = this](const std::string& error)
+        [session_weak_ptr = weak_from_this()](const std::string& error)
         {
-            if (session->is_connected()) {
-                S2C_AccountLogin response;
-                response.set_result_code(AccountLoginResult::ID_OR_PASSWORD_WRONG);
-                session->do_send(response);
-                std::cout << "Login DB Execute failed: " << error << std::endl;
-            }
+            auto session_ptr = session_weak_ptr.lock();
+            if (nullptr == session_ptr || false == session_ptr->is_connected()) return;
+
+            S2C_AccountLogin response;
+            response.set_result_code(AccountLoginResult::ID_OR_PASSWORD_WRONG);
+            session_ptr->do_send(response);
+            std::cout << "Login DB Execute failed: " << error << std::endl;
         }
     );
     

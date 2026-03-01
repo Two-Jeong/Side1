@@ -35,7 +35,7 @@ HANDLE NetworkSection::get_iocp_handle()
     return m_owner->get_iocp_handle();
 }
 
-ClientSession* NetworkSection::find_session(unsigned int session_id)
+std::shared_ptr<ClientSession> NetworkSection::find_session(unsigned int session_id)
 {
     std::shared_lock<std::shared_mutex> lock(m_sessions_mutex);
     auto it = m_sessions.find(session_id);
@@ -44,7 +44,7 @@ ClientSession* NetworkSection::find_session(unsigned int session_id)
     return it->second;
 }
 
-void NetworkSection::enter_section(ClientSession* session)
+void NetworkSection::enter_section(std::shared_ptr<ClientSession> session)
 {
     {
         std::unique_lock<std::shared_mutex> lock(m_sessions_mutex);

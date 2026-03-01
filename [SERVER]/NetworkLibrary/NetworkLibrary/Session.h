@@ -1,7 +1,7 @@
 #pragma once
 #include "RecvBuffer.h"
 
-class Session
+class Session : public std::enable_shared_from_this<Session>
 {
 public:
     Session() : m_multi_sender(this)

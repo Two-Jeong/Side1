@@ -35,7 +35,7 @@ void ServerBase::init(int iocp_thread_count, int hard_task_thread_count, std::fu
         m_sections.emplace(section_id, section);
     }
 }
-void ServerBase::open(std::string open_ip, int open_port, std::function<ClientSession*()> session_factory, int accept_back_log)
+void ServerBase::open(std::string open_ip, int open_port, std::function<std::shared_ptr<ClientSession>()> session_factory, int accept_back_log)
 {
     m_session_factory = session_factory;
 
@@ -68,7 +68,7 @@ void ServerBase::on_accept(int bytes_transferred, NetworkIO* io) {
     AcceptIO* accept_io = reinterpret_cast<AcceptIO*>(io);
 
     
-    ClientSession* session = m_session_factory();
+    auto session = m_session_factory();
     session->init();
     session->set_id(Session::generate_session_id());
     session->set_socket(accept_io->m_socket);
@@ -130,18 +130,34 @@ void ServerBase::central_thread_work()
         if(false == m_packet_queue.try_pop(packet))
             continue;
         
-        ClientSession* session = static_cast<ClientSession*>(packet->get_owner());
+        Session* session = packet->get_owner();
+        if (nullptr == session)
+        {
+            //TODO: 로그
+            xdelete packet;
+            continue;
+        }
 
         auto section = session->get_section();
         if (nullptr == section)
         {
-            // 패킷 처리 전 세션이 이미 disconnect됨
+            //TODO: 로그
             xdelete packet;
             continue;
         }
 
         iTask* task = xnew iTask;
-        task->func = [session, packet]() { session->execute_packet(packet); };
+        task->func = [session_weak_ptr = session->weak_from_this(), packet]()
+        {
+            auto session = session_weak_ptr.lock();
+            if (nullptr == session)
+            {
+                xdelete packet;
+                return;
+            }
+            session->execute_packet(packet);
+        };
+        
         section->push_task(task);
     }
 }

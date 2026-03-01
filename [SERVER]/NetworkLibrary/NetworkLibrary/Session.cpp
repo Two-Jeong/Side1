@@ -87,7 +87,7 @@ bool Session::do_send(google::protobuf::Message& message)
 {
     unsigned short protocol_number = PacketNumberMapper::GetProtocolNumber(message.GetTypeName());
 
-    std::shared_ptr<Packet> packet = std::make_shared<Packet>();
+    std::shared_ptr<Packet> packet = xmake_shared(Packet);
     packet->initialize(protocol_number);
     packet->push(message);
     packet->finalize();
