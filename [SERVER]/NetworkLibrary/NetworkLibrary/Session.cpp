@@ -71,8 +71,12 @@ bool Session::do_send(std::shared_ptr<Packet> packet)
     if (performance_check_mode)
     {
         ClientSession* client_session = dynamic_cast<ClientSession*>(this);
-        if (client_session && client_session->get_section())
-            client_session->get_section()->increment_send_count_for_tps();
+        if (client_session)
+        {
+            auto section = client_session->get_section();
+            if (section)
+                section->increment_send_count_for_tps();
+        }
     }
     
     m_multi_sender.register_packet(packet);
@@ -125,8 +129,12 @@ void Session::complete_recieve(int bytes_transferred)
     if (performance_check_mode)
     {
         ClientSession* client_session = dynamic_cast<ClientSession*>(this);
-        if (client_session != nullptr && client_session->get_section() != nullptr)
-            client_session->get_section()->increment_recv_count_for_tps();
+        if (client_session != nullptr)
+        {
+            auto section = client_session->get_section();
+            if (section != nullptr)
+                section->increment_recv_count_for_tps();
+        }
     }
 
     if (false == m_recv_buffer.OnWrite(bytes_transferred))

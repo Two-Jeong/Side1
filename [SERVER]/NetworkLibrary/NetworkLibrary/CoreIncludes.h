@@ -15,6 +15,7 @@
 #include <thread>
 #include <functional>
 #include <chrono>
+#include <memory>
 #include <mutex>
 #include <shared_mutex>
 #include <numeric>

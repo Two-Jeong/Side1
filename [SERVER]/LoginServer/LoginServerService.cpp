@@ -2,16 +2,16 @@
 #include "LoginServerService.h"
 #include <DatabaseManager.h>
 
-void LoginServerService::init(int iocp_thread_count, int hard_task_thread_count, std::function<class NetworkSection*()> section_factory,
+void LoginServerService::init(int iocp_thread_count, int hard_task_thread_count, std::function<std::shared_ptr<NetworkSection>()> section_factory,
                               int section_count)
 {
     ServerBase::init(iocp_thread_count, hard_task_thread_count, section_factory, section_count);
     DB_INITIALIZE_FROM_JSON("db_config.json");
     server_config = LoginServerConfig::from_json_file("login_server_config.json");
-    
+
 }
 
-NetworkSection* LoginServerService::select_first_section()
+std::shared_ptr<NetworkSection> LoginServerService::select_first_section()
 {
     return m_sections.begin()->second;
 }

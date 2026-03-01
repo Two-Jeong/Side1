@@ -4,7 +4,7 @@
 #include <memory>
 #include <memory>
 
-void ServerBase::init(int iocp_thread_count, int hard_task_thread_count, std::function<NetworkSection*()> section_factory, int section_count)
+void ServerBase::init(int iocp_thread_count, int hard_task_thread_count, std::function<std::shared_ptr<NetworkSection>()> section_factory, int section_count)
 {
     NetworkCore::init(iocp_thread_count);
 
@@ -29,7 +29,7 @@ void ServerBase::init(int iocp_thread_count, int hard_task_thread_count, std::fu
     
     for(int i = 0; i < section_count; ++i)
     {
-        NetworkSection* section = m_section_factory();
+        std::shared_ptr<NetworkSection> section = m_section_factory();
         int section_id = NetworkSection::generate_section_id();
         section->init(this, section_id);
         m_sections.emplace(section_id, section);
@@ -84,7 +84,7 @@ void ServerBase::on_accept(int bytes_transferred, NetworkIO* io) {
     NetworkUtil::register_socket(m_iocp_handle, session->get_socket());
     session->complete_connect();
     
-    NetworkSection* first_section =  select_first_section();
+    std::shared_ptr<NetworkSection> first_section = select_first_section();
     if (nullptr == first_section)
     {
         std::cout << "first section is nullptr" << std::endl;
@@ -92,7 +92,7 @@ void ServerBase::on_accept(int bytes_transferred, NetworkIO* io) {
         // TODO: stop server
         return;
     }
-    
+
     first_section->enter_section(session); // TODO: 로드 밸런싱 로직
 
 
@@ -131,12 +131,18 @@ void ServerBase::central_thread_work()
             continue;
         
         ClientSession* session = static_cast<ClientSession*>(packet->get_owner());
-       
-        iTask* task = xnew iTask;
 
+        auto section = session->get_section();
+        if (nullptr == section)
+        {
+            // 패킷 처리 전 세션이 이미 disconnect됨
+            xdelete packet;
+            continue;
+        }
+
+        iTask* task = xnew iTask;
         task->func = [session, packet]() { session->execute_packet(packet); };
-        
-        session->get_section()->push_task(task);
+        section->push_task(task);
     }
 }
 

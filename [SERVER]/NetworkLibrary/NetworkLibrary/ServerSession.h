@@ -11,6 +11,7 @@ public:
     
 public:
     NetworkCore* get_network_core() override { return m_owner; }
+    std::shared_ptr<NetworkSection> get_section() override { return nullptr; }
     void set_network_core(class ClientBase* owner) { m_owner = owner; }
 
 public:
