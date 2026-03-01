@@ -1,15 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace _02.Scripts.InGame
 {
     public class PlayerController : MonoBehaviour
     {
-        public enum PlayerState
-        {
-            Idle,
-            Move
-        }
-
         [Header("Movement")]
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private bool rotateToMove = true;
@@ -21,22 +16,23 @@ namespace _02.Scripts.InGame
         [SerializeField] private float dashDuration = 0.15f;
         [SerializeField] private float dashCooldown = 0.5f;
 
-        [Header("Animation")]
-        [SerializeField] private Animator animator;
-        [SerializeField] private string animSpeedParam = "Speed";
-        [SerializeField] private string animMoveXParam = "MoveX";
-        [SerializeField] private string animMoveYParam = "MoveY";
-        [SerializeField] private bool keepLastDirectionOnIdle = true;
+        [Header("Animation (SPUM)")]
+        [SerializeField] private SPUM_Prefabs spumPrefabs;
+        [SerializeField] private bool updateDepthFromY = true;
+        [SerializeField] private bool flipSpriteByMoveX = true;
+        [SerializeField] private int idleAnimIndex = 0;
+        [SerializeField] private int moveAnimIndex = 0;
 
         private Rigidbody2D rb2D;
         private Vector2 input;
         private Vector2 velocity;
         private Vector2 lastMoveDir = Vector2.down;
-        private PlayerState state = PlayerState.Idle;
+        private PlayerState state = PlayerState.IDLE;
         private bool isDashing;
         private float dashTimer;
         private float dashCooldownTimer;
         private Vector2 dashDir;
+        private readonly Dictionary<PlayerState, int> animIndex = new();
 
         public Vector2 Position => rb2D != null ? rb2D.position : (Vector2)transform.position;
         public Vector2 Velocity => velocity;
@@ -46,10 +42,11 @@ namespace _02.Scripts.InGame
         private void Awake()
         {
             rb2D = GetComponent<Rigidbody2D>();
-            if (animator == null)
-            {
-                animator = GetComponent<Animator>();
-            }
+        }
+
+        private void Start()
+        {
+            InitSpumAnimation();
         }
 
         private void Update()
@@ -98,6 +95,7 @@ namespace _02.Scripts.InGame
             if (isDashing)
             {
                 velocity = dashDir * dashSpeed;
+                lastMoveDir = dashDir;
                 return;
             }
 
@@ -108,11 +106,15 @@ namespace _02.Scripts.InGame
             }
 
             velocity = dir * moveSpeed;
+            if (dir.sqrMagnitude > 0.0001f)
+            {
+                lastMoveDir = dir;
+            }
         }
 
         private void UpdateState()
         {
-            state = velocity.sqrMagnitude > 0.0001f ? PlayerState.Move : PlayerState.Idle;
+            state = velocity.sqrMagnitude > 0.0001f ? PlayerState.MOVE : PlayerState.IDLE;
         }
 
         private void UpdateRotation(float deltaTime)
@@ -143,27 +145,22 @@ namespace _02.Scripts.InGame
 
         private void UpdateAnimation()
         {
-            if (animator == null)
+            if (spumPrefabs == null)
             {
                 return;
             }
 
-            float speed = velocity.magnitude;
-            animator.SetFloat(animSpeedParam, speed);
-
-            Vector2 dir;
-            if (speed > 0.01f)
+            if (updateDepthFromY)
             {
-                dir = velocity.normalized;
-                lastMoveDir = dir;
-            }
-            else
-            {
-                dir = keepLastDirectionOnIdle ? lastMoveDir : Vector2.zero;
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.y * 0.01f);
             }
 
-            animator.SetFloat(animMoveXParam, dir.x);
-            animator.SetFloat(animMoveYParam, dir.y);
+            if (flipSpriteByMoveX && lastMoveDir.sqrMagnitude > 0.0001f)
+            {
+                spumPrefabs.transform.localScale = new Vector3(lastMoveDir.x > 0f ? -1f : 1f, 1f, 1f);
+            }
+
+            PlayStateAnimation(state);
         }
 
         private void UpdateDashTimers(float deltaTime)
@@ -202,6 +199,43 @@ namespace _02.Scripts.InGame
             isDashing = true;
             dashTimer = dashDuration;
             dashCooldownTimer = dashCooldown;
+        }
+
+        private void InitSpumAnimation()
+        {
+            if (spumPrefabs == null && transform.childCount > 0)
+            {
+                spumPrefabs = transform.GetChild(0).GetComponent<SPUM_Prefabs>();
+            }
+
+            if (spumPrefabs == null)
+            {
+                return;
+            }
+
+            if (!spumPrefabs.allListsHaveItemsExist())
+            {
+                spumPrefabs.PopulateAnimationLists();
+            }
+
+            spumPrefabs.OverrideControllerInit();
+            animIndex[PlayerState.IDLE] = idleAnimIndex;
+            animIndex[PlayerState.MOVE] = moveAnimIndex;
+        }
+
+        public void SetStateAnimationIndex(PlayerState animState, int index = 0)
+        {
+            animIndex[animState] = index;
+        }
+
+        private void PlayStateAnimation(PlayerState animState)
+        {
+            if (!animIndex.ContainsKey(animState))
+            {
+                animIndex[animState] = 0;
+            }
+
+            spumPrefabs.PlayAnimation(animState, animIndex[animState]);
         }
 
         public void SetExternalInput(Vector2 newInput)
