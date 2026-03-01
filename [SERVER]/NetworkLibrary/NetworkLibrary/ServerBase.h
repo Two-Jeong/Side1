@@ -8,7 +8,7 @@ public:
     
 public:
     virtual void init(int iocp_thread_count = 1, int hard_task_thread_count = 1, std::function<std::shared_ptr<class NetworkSection>()> section_factory = {}, int section_count = 0);
-    void open(std::string open_ip, int open_port, std::function<class ClientSession*()> session_factory, int accpet_back_log = 1);
+    void open(std::string open_ip, int open_port, std::function<std::shared_ptr<class ClientSession>()> session_factory, int accpet_back_log = 1);
     
     double get_fps_avg();
     double get_recv_tps_avg();
@@ -45,7 +45,7 @@ protected:
 
     std::map<unsigned int, std::shared_ptr<NetworkSection>> m_sections;
     std::function<std::shared_ptr<NetworkSection>()> m_section_factory;
-    std::function<class ClientSession*()> m_session_factory;
+    std::function<std::shared_ptr<ClientSession>()> m_session_factory;
     
     // Accept TPS 측정 관련
     std::chrono::high_resolution_clock::time_point m_last_accept_tps_time;

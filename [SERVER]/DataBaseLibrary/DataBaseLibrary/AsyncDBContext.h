@@ -80,7 +80,7 @@ using UpdateAsyncDBContext = AsyncDBContext<std::function<void(uint64_t)>>; // a
 
 template<typename SuccessCallback>
 auto create_async_context(SuccessCallback success_cb, std::function<void(const std::string&)> error_cb = nullptr) {
-    auto context = std::make_shared<AsyncDBContext<SuccessCallback>>();
+    auto context = xmake_shared(AsyncDBContext<SuccessCallback>)();
     context->success_callback.emplace(std::move(success_cb));
     context->error_callback = std::move(error_cb);
     return context;
