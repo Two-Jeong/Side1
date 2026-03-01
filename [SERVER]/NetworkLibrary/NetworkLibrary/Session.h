@@ -42,7 +42,7 @@ public:
         m_remote_port = port;
     }
     virtual NetworkCore* get_network_core() abstract;
-    virtual NetworkSection* get_section() abstract;
+    virtual std::shared_ptr<NetworkSection> get_section() abstract;
 public:
     bool do_connect();
     bool do_recieve();

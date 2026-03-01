@@ -54,7 +54,7 @@ void NetworkSection::enter_section(ClientSession* session)
             return;
         }
         m_sessions.emplace(session->get_id(), session);
-        session->set_section(this);
+        session->set_section(shared_from_this());
     }
 }
 

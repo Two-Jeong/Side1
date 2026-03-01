@@ -9,8 +9,8 @@ public:
 public:
     void init_handlers() override;
 public:
-    class NetworkSection* get_section()  { return m_section; }
-    void set_section(class NetworkSection* section) { m_section = section; }
+    std::shared_ptr<NetworkSection> get_section() override { return m_section.lock(); }
+    void set_section(std::shared_ptr<NetworkSection> section) { m_section = section; }
     
     NetworkCore* get_network_core() override;
     virtual ServerBase* get_server_base();
@@ -22,5 +22,5 @@ public:
     void execute_packet(Packet* packet) override;
 
 protected:
-    class NetworkSection* m_section;
+    std::weak_ptr<NetworkSection> m_section;
 };

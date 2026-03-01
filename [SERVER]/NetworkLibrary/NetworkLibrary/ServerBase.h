@@ -7,7 +7,7 @@ public:
     virtual ~ServerBase() = default;
     
 public:
-    virtual void init(int iocp_thread_count = 1, int hard_task_thread_count = 1, std::function<class NetworkSection*()> section_factory = {}, int section_count = 0);
+    virtual void init(int iocp_thread_count = 1, int hard_task_thread_count = 1, std::function<std::shared_ptr<class NetworkSection>()> section_factory = {}, int section_count = 0);
     void open(std::string open_ip, int open_port, std::function<class ClientSession*()> session_factory, int accpet_back_log = 1);
     
     double get_fps_avg();
@@ -32,7 +32,7 @@ private:
 
 protected:
     void on_iocp_io(NetworkIO* io, int bytes_transferred) override;
-    virtual NetworkSection* select_first_section() abstract;
+    virtual std::shared_ptr<NetworkSection> select_first_section() abstract;
 
 protected:
     SOCKET m_listen_socket;
@@ -43,8 +43,8 @@ protected:
     std::vector<std::thread> m_hard_task_threads;
     concurrency::concurrent_queue<iTask*> m_hard_task_queue;
 
-    std::map<unsigned int, class NetworkSection*> m_sections;
-    std::function<class NetworkSection*()> m_section_factory;
+    std::map<unsigned int, std::shared_ptr<NetworkSection>> m_sections;
+    std::function<std::shared_ptr<NetworkSection>()> m_section_factory;
     std::function<class ClientSession*()> m_session_factory;
     
     // Accept TPS 측정 관련

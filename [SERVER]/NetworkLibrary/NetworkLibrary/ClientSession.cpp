@@ -7,18 +7,20 @@ void ClientSession::init_handlers()
 
 NetworkCore* ClientSession::get_network_core()
 {
-    if (m_section == nullptr)
+    auto section = m_section.lock();
+    if (nullptr == section)
         return nullptr;
     
-    return m_section->get_network_core();
+    return section->get_network_core();
 }
 
 ServerBase* ClientSession::get_server_base()
 {
-    if (m_section == nullptr)
+    auto section = m_section.lock();
+    if (nullptr == section)
         return nullptr;
     
-    return static_cast<ServerBase*>(m_section->get_network_core());
+    return static_cast<ServerBase*>(section->get_network_core());
 }
 
 void ClientSession::on_connected()
@@ -37,8 +39,10 @@ void ClientSession::on_send(int data_size)
 void ClientSession::on_disconnected()
 {
     Session::on_disconnected();
-    m_section->exit_section(get_id());
-    m_section = nullptr;
+    auto section = m_section.lock();
+    if (nullptr != section)
+        section->exit_section(get_id());
+    m_section.reset();
 }
 
 void ClientSession::execute_packet(Packet* packet)
