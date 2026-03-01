@@ -5,147 +5,53 @@ namespace _02.Scripts.InGame
 {
     public class PlayerController : MonoBehaviour
     {
-        [Header("Movement")]
-        [SerializeField] private float moveSpeed = 5f;
-        [SerializeField] private bool rotateToMove = true;
-        [SerializeField] private float rotationOffset = 0f;
-        [SerializeField] private float rotationLerpSpeed = 0f;
-        [SerializeField] private bool useExternalInput = false;
-        [SerializeField] private KeyCode dashKey = KeyCode.Space;
-        [SerializeField] private float dashSpeed = 10f;
-        [SerializeField] private float dashDuration = 0.15f;
-        [SerializeField] private float dashCooldown = 0.5f;
-
         [Header("Animation (SPUM)")]
         [SerializeField] private SPUM_Prefabs spumPrefabs;
         [SerializeField] private bool updateDepthFromY = true;
         [SerializeField] private bool flipSpriteByMoveX = true;
         [SerializeField] private int idleAnimIndex = 0;
         [SerializeField] private int moveAnimIndex = 0;
+        [SerializeField] private int attackAnimIndex = 0;
 
-        private Rigidbody2D rb2D;
-        private Vector2 input;
-        private Vector2 velocity;
-        private Vector2 lastMoveDir = Vector2.down;
-        private PlayerState state = PlayerState.IDLE;
-        private bool isDashing;
-        private float dashTimer;
-        private float dashCooldownTimer;
-        private Vector2 dashDir;
+        [Header("Combat")]
+        [SerializeField] private int attackDamage = 1;
+        [SerializeField] private float attackRange = 1f;
+        [SerializeField] private float attackRadius = 0.5f;
+        [SerializeField] private float attackDuration = 0.2f;
+        [SerializeField] private float attackCooldown = 0.4f;
+        [SerializeField] private LayerMask attackLayers;
+        [SerializeField] private bool drawAttackGizmo = true;
+
+        private PlayerMoveMent movement;
         private readonly Dictionary<PlayerState, int> animIndex = new();
-
-        public Vector2 Position => rb2D != null ? rb2D.position : (Vector2)transform.position;
-        public Vector2 Velocity => velocity;
-        public float Rotation => transform.eulerAngles.z;
-        public PlayerState State => state;
-
-        private void Awake()
-        {
-            rb2D = GetComponent<Rigidbody2D>();
-        }
+        private bool isAttacking;
+        private float attackTimer;
+        private float attackCooldownTimer;
+        private bool attackHitTriggered;
+        private Vector2 attackDir = Vector2.right;
+        private PlayerState lastPlayedState = PlayerState.IDLE;
 
         private void Start()
         {
+            movement = GetComponent<PlayerMoveMent>();
             InitSpumAnimation();
         }
 
         private void Update()
         {
-            UpdateDashTimers(Time.deltaTime);
+            UpdateAttackTimers(Time.deltaTime);
 
-            if (Input.GetKeyDown(dashKey))
+            if (Input.GetMouseButtonDown(0))
             {
-                TryStartDash();
+                TryStartAttack();
             }
 
-            if (!useExternalInput)
-            {
-                ReadInput();
-            }
-
-            UpdateVelocityFromInput();
-            UpdateState();
-            UpdateRotation(Time.deltaTime);
             UpdateAnimation();
-        }
-
-        private void FixedUpdate()
-        {
-            Vector2 delta = velocity * Time.fixedDeltaTime;
-
-            if (rb2D != null)
-            {
-                rb2D.MovePosition(rb2D.position + delta);
-            }
-            else
-            {
-                transform.position += (Vector3)delta;
-            }
-        }
-
-        private void ReadInput()
-        {
-            float x = Input.GetAxisRaw("Horizontal");
-            float y = Input.GetAxisRaw("Vertical");
-            input = new Vector2(x, y);
-        }
-
-        private void UpdateVelocityFromInput()
-        {
-            if (isDashing)
-            {
-                velocity = dashDir * dashSpeed;
-                lastMoveDir = dashDir;
-                return;
-            }
-
-            Vector2 dir = input;
-            if (dir.sqrMagnitude > 1f)
-            {
-                dir = dir.normalized;
-            }
-
-            velocity = dir * moveSpeed;
-            if (dir.sqrMagnitude > 0.0001f)
-            {
-                lastMoveDir = dir;
-            }
-        }
-
-        private void UpdateState()
-        {
-            state = velocity.sqrMagnitude > 0.0001f ? PlayerState.MOVE : PlayerState.IDLE;
-        }
-
-        private void UpdateRotation(float deltaTime)
-        {
-            if (!rotateToMove)
-            {
-                return;
-            }
-
-            if (velocity.sqrMagnitude <= 0.0001f)
-            {
-                return;
-            }
-
-            float targetAngle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg + rotationOffset;
-            float currentAngle = transform.eulerAngles.z;
-
-            if (rotationLerpSpeed > 0f)
-            {
-                float newAngle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, rotationLerpSpeed * deltaTime);
-                transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
-            }
-            else
-            {
-                transform.rotation = Quaternion.Euler(0f, 0f, targetAngle);
-            }
         }
 
         private void UpdateAnimation()
         {
-            if (spumPrefabs == null)
+            if (spumPrefabs == null || movement == null)
             {
                 return;
             }
@@ -155,50 +61,18 @@ namespace _02.Scripts.InGame
                 transform.position = new Vector3(transform.position.x, transform.position.y, transform.localPosition.y * 0.01f);
             }
 
-            if (flipSpriteByMoveX && lastMoveDir.sqrMagnitude > 0.0001f)
+            Vector2 faceDir = isAttacking ? attackDir : movement.LastMoveDir;
+            if (flipSpriteByMoveX && faceDir.sqrMagnitude > 0.0001f)
             {
-                spumPrefabs.transform.localScale = new Vector3(lastMoveDir.x > 0f ? -1f : 1f, 1f, 1f);
+                spumPrefabs.transform.localScale = new Vector3(faceDir.x > 0f ? -1f : 1f, 1f, 1f);
             }
 
-            PlayStateAnimation(state);
-        }
-
-        private void UpdateDashTimers(float deltaTime)
-        {
-            if (dashCooldownTimer > 0f)
+            PlayerState nextState = isAttacking ? PlayerState.ATTACK : movement.State;
+            if (nextState != lastPlayedState)
             {
-                dashCooldownTimer -= deltaTime;
+                PlayStateAnimation(nextState);
+                lastPlayedState = nextState;
             }
-
-            if (!isDashing)
-            {
-                return;
-            }
-
-            dashTimer -= deltaTime;
-            if (dashTimer <= 0f)
-            {
-                isDashing = false;
-            }
-        }
-
-        private void TryStartDash()
-        {
-            if (isDashing || dashCooldownTimer > 0f)
-            {
-                return;
-            }
-
-            Vector2 dir = lastMoveDir;
-            if (dir.sqrMagnitude < 0.0001f)
-            {
-                dir = input.sqrMagnitude > 0.0001f ? input.normalized : Vector2.down;
-            }
-
-            dashDir = dir.normalized;
-            isDashing = true;
-            dashTimer = dashDuration;
-            dashCooldownTimer = dashCooldown;
         }
 
         private void InitSpumAnimation()
@@ -221,6 +95,7 @@ namespace _02.Scripts.InGame
             spumPrefabs.OverrideControllerInit();
             animIndex[PlayerState.IDLE] = idleAnimIndex;
             animIndex[PlayerState.MOVE] = moveAnimIndex;
+            animIndex[PlayerState.ATTACK] = attackAnimIndex;
         }
 
         public void SetStateAnimationIndex(PlayerState animState, int index = 0)
@@ -238,15 +113,80 @@ namespace _02.Scripts.InGame
             spumPrefabs.PlayAnimation(animState, animIndex[animState]);
         }
 
-        public void SetExternalInput(Vector2 newInput)
+        private void UpdateAttackTimers(float deltaTime)
         {
-            useExternalInput = true;
-            input = newInput;
+            if (attackCooldownTimer > 0f)
+            {
+                attackCooldownTimer -= deltaTime;
+            }
+
+            if (!isAttacking)
+            {
+                return;
+            }
+
+            attackTimer -= deltaTime;
+            if (attackTimer <= 0f)
+            {
+                if (!attackHitTriggered)
+                {
+                    attackHitTriggered = true;
+                    PerformAttack(attackDir);
+                }
+
+                isAttacking = false;
+            }
         }
 
-        public void ClearExternalInput()
+        private void TryStartAttack()
         {
-            useExternalInput = false;
+            if (isAttacking || attackCooldownTimer > 0f)
+            {
+                return;
+            }
+
+            Camera cam = Camera.main;
+            if (cam == null)
+            {
+                return;
+            }
+
+            Vector2 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 dir = mouseWorld - (Vector2)transform.position;
+            if (dir.sqrMagnitude < 0.0001f)
+            {
+                dir = movement != null ? movement.LastMoveDir : Vector2.right;
+            }
+
+            attackDir = dir.normalized;
+            isAttacking = true;
+            attackTimer = attackDuration;
+            attackCooldownTimer = attackCooldown;
+            attackHitTriggered = false;
+        }
+
+        private void PerformAttack(Vector2 dir)
+        {
+            Vector2 center = (Vector2)transform.position + dir * attackRange;
+            Collider2D[] hits = Physics2D.OverlapCircleAll(center, attackRadius, attackLayers);
+            HitInfo info = new HitInfo(attackDamage, dir);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                hits[i].SendMessage("TakeDamage", info, SendMessageOptions.DontRequireReceiver);
+            }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (!drawAttackGizmo)
+            {
+                return;
+            }
+
+            Vector2 dir = attackDir.sqrMagnitude > 0.0001f ? attackDir : Vector2.right;
+            Vector2 center = (Vector2)transform.position + dir * attackRange;
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(center, attackRadius);
         }
     }
 }
