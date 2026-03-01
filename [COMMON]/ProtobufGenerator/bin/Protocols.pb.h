@@ -1370,8 +1370,24 @@ class S2C_AccountLogin final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kGameServerIpFieldNumber = 2,
     kResultCodeFieldNumber = 1,
+    kGameServerPortFieldNumber = 3,
   };
+  // string game_server_ip = 2;
+  void clear_game_server_ip();
+  const std::string& game_server_ip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_game_server_ip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_game_server_ip();
+  PROTOBUF_NODISCARD std::string* release_game_server_ip();
+  void set_allocated_game_server_ip(std::string* game_server_ip);
+  private:
+  const std::string& _internal_game_server_ip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_game_server_ip(const std::string& value);
+  std::string* _internal_mutable_game_server_ip();
+  public:
+
   // int32 result_code = 1;
   void clear_result_code();
   int32_t result_code() const;
@@ -1379,6 +1395,15 @@ class S2C_AccountLogin final :
   private:
   int32_t _internal_result_code() const;
   void _internal_set_result_code(int32_t value);
+  public:
+
+  // int32 game_server_port = 3;
+  void clear_game_server_port();
+  int32_t game_server_port() const;
+  void set_game_server_port(int32_t value);
+  private:
+  int32_t _internal_game_server_port() const;
+  void _internal_set_game_server_port(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:S2C_AccountLogin)
@@ -1389,7 +1414,9 @@ class S2C_AccountLogin final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr game_server_ip_;
     int32_t result_code_;
+    int32_t game_server_port_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1732,6 +1759,76 @@ inline void S2C_AccountLogin::_internal_set_result_code(int32_t value) {
 inline void S2C_AccountLogin::set_result_code(int32_t value) {
   _internal_set_result_code(value);
   // @@protoc_insertion_point(field_set:S2C_AccountLogin.result_code)
+}
+
+// string game_server_ip = 2;
+inline void S2C_AccountLogin::clear_game_server_ip() {
+  _impl_.game_server_ip_.ClearToEmpty();
+}
+inline const std::string& S2C_AccountLogin::game_server_ip() const {
+  // @@protoc_insertion_point(field_get:S2C_AccountLogin.game_server_ip)
+  return _internal_game_server_ip();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void S2C_AccountLogin::set_game_server_ip(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.game_server_ip_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:S2C_AccountLogin.game_server_ip)
+}
+inline std::string* S2C_AccountLogin::mutable_game_server_ip() {
+  std::string* _s = _internal_mutable_game_server_ip();
+  // @@protoc_insertion_point(field_mutable:S2C_AccountLogin.game_server_ip)
+  return _s;
+}
+inline const std::string& S2C_AccountLogin::_internal_game_server_ip() const {
+  return _impl_.game_server_ip_.Get();
+}
+inline void S2C_AccountLogin::_internal_set_game_server_ip(const std::string& value) {
+  
+  _impl_.game_server_ip_.Set(value, GetArenaForAllocation());
+}
+inline std::string* S2C_AccountLogin::_internal_mutable_game_server_ip() {
+  
+  return _impl_.game_server_ip_.Mutable(GetArenaForAllocation());
+}
+inline std::string* S2C_AccountLogin::release_game_server_ip() {
+  // @@protoc_insertion_point(field_release:S2C_AccountLogin.game_server_ip)
+  return _impl_.game_server_ip_.Release();
+}
+inline void S2C_AccountLogin::set_allocated_game_server_ip(std::string* game_server_ip) {
+  if (game_server_ip != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.game_server_ip_.SetAllocated(game_server_ip, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.game_server_ip_.IsDefault()) {
+    _impl_.game_server_ip_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:S2C_AccountLogin.game_server_ip)
+}
+
+// int32 game_server_port = 3;
+inline void S2C_AccountLogin::clear_game_server_port() {
+  _impl_.game_server_port_ = 0;
+}
+inline int32_t S2C_AccountLogin::_internal_game_server_port() const {
+  return _impl_.game_server_port_;
+}
+inline int32_t S2C_AccountLogin::game_server_port() const {
+  // @@protoc_insertion_point(field_get:S2C_AccountLogin.game_server_port)
+  return _internal_game_server_port();
+}
+inline void S2C_AccountLogin::_internal_set_game_server_port(int32_t value) {
+  
+  _impl_.game_server_port_ = value;
+}
+inline void S2C_AccountLogin::set_game_server_port(int32_t value) {
+  _internal_set_game_server_port(value);
+  // @@protoc_insertion_point(field_set:S2C_AccountLogin.game_server_port)
 }
 
 #ifdef __GNUC__

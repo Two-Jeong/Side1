@@ -47,4 +47,6 @@ message C2S_AccountLogin{
 
 message S2C_AccountLogin{
   int32 result_code = 1;
+  string game_server_ip = 2;
+  int32 game_server_port = 3;
 }

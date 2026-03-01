@@ -112,7 +112,9 @@ struct C2S_AccountLoginDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 C2S_AccountLoginDefaultTypeInternal _C2S_AccountLogin_default_instance_;
 PROTOBUF_CONSTEXPR S2C_AccountLogin::S2C_AccountLogin(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.result_code_)*/0
+    /*decltype(_impl_.game_server_ip_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.result_code_)*/0
+  , /*decltype(_impl_.game_server_port_)*/0
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct S2C_AccountLoginDefaultTypeInternal {
   PROTOBUF_CONSTEXPR S2C_AccountLoginDefaultTypeInternal()
@@ -185,6 +187,8 @@ const uint32_t TableStruct_Protocols_2eproto::offsets[] PROTOBUF_SECTION_VARIABL
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::S2C_AccountLogin, _impl_.result_code_),
+  PROTOBUF_FIELD_OFFSET(::S2C_AccountLogin, _impl_.game_server_ip_),
+  PROTOBUF_FIELD_OFFSET(::S2C_AccountLogin, _impl_.game_server_port_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::C2S_TestEcho)},
@@ -218,15 +222,16 @@ const char descriptor_table_protodef_Protocols_2eproto[] PROTOBUF_SECTION_VARIAB
   "AccountRegister\022\023\n\013result_code\030\001 \001(\005\"C\n\022"
   "AccountLoginResult\"-\n\004Code\022\013\n\007SUCCESS\020\000\022"
   "\030\n\024ID_OR_PASSWORD_WRONG\020\001\"0\n\020C2S_Account"
-  "Login\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"\'\n\020S"
-  "2C_AccountLogin\022\023\n\013result_code\030\001 \001(\005*N\n\r"
-  "packet_number\022\010\n\004NONE\020\000\022\014\n\010TestEcho\020\001\022\023\n"
-  "\017AccountRegister\020\002\022\020\n\014AccountLogin\020\003b\006pr"
-  "oto3"
+  "Login\022\n\n\002id\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"Y\n\020S"
+  "2C_AccountLogin\022\023\n\013result_code\030\001 \001(\005\022\026\n\016"
+  "game_server_ip\030\002 \001(\t\022\030\n\020game_server_port"
+  "\030\003 \001(\005*N\n\rpacket_number\022\010\n\004NONE\020\000\022\014\n\010Tes"
+  "tEcho\020\001\022\023\n\017AccountRegister\020\002\022\020\n\014AccountL"
+  "ogin\020\003b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_Protocols_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Protocols_2eproto = {
-    false, false, 524, descriptor_table_protodef_Protocols_2eproto,
+    false, false, 574, descriptor_table_protodef_Protocols_2eproto,
     "Protocols.proto",
     &descriptor_table_Protocols_2eproto_once, nullptr, 0, 8,
     schemas, file_default_instances, TableStruct_Protocols_2eproto::offsets,
@@ -1467,11 +1472,23 @@ S2C_AccountLogin::S2C_AccountLogin(const S2C_AccountLogin& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   S2C_AccountLogin* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.result_code_){}
+      decltype(_impl_.game_server_ip_){}
+    , decltype(_impl_.result_code_){}
+    , decltype(_impl_.game_server_port_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  _this->_impl_.result_code_ = from._impl_.result_code_;
+  _impl_.game_server_ip_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.game_server_ip_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_game_server_ip().empty()) {
+    _this->_impl_.game_server_ip_.Set(from._internal_game_server_ip(), 
+      _this->GetArenaForAllocation());
+  }
+  ::memcpy(&_impl_.result_code_, &from._impl_.result_code_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.game_server_port_) -
+    reinterpret_cast<char*>(&_impl_.result_code_)) + sizeof(_impl_.game_server_port_));
   // @@protoc_insertion_point(copy_constructor:S2C_AccountLogin)
 }
 
@@ -1480,9 +1497,15 @@ inline void S2C_AccountLogin::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.result_code_){0}
+      decltype(_impl_.game_server_ip_){}
+    , decltype(_impl_.result_code_){0}
+    , decltype(_impl_.game_server_port_){0}
     , /*decltype(_impl_._cached_size_)*/{}
   };
+  _impl_.game_server_ip_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.game_server_ip_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 S2C_AccountLogin::~S2C_AccountLogin() {
@@ -1496,6 +1519,7 @@ S2C_AccountLogin::~S2C_AccountLogin() {
 
 inline void S2C_AccountLogin::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.game_server_ip_.Destroy();
 }
 
 void S2C_AccountLogin::SetCachedSize(int size) const {
@@ -1508,7 +1532,10 @@ void S2C_AccountLogin::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.result_code_ = 0;
+  _impl_.game_server_ip_.ClearToEmpty();
+  ::memset(&_impl_.result_code_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.game_server_port_) -
+      reinterpret_cast<char*>(&_impl_.result_code_)) + sizeof(_impl_.game_server_port_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1522,6 +1549,24 @@ const char* S2C_AccountLogin::_InternalParse(const char* ptr, ::_pbi::ParseConte
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _impl_.result_code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string game_server_ip = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_game_server_ip();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "S2C_AccountLogin.game_server_ip"));
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 game_server_port = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.game_server_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1561,6 +1606,22 @@ uint8_t* S2C_AccountLogin::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_result_code(), target);
   }
 
+  // string game_server_ip = 2;
+  if (!this->_internal_game_server_ip().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_game_server_ip().data(), static_cast<int>(this->_internal_game_server_ip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "S2C_AccountLogin.game_server_ip");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_game_server_ip(), target);
+  }
+
+  // int32 game_server_port = 3;
+  if (this->_internal_game_server_port() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_game_server_port(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1577,9 +1638,21 @@ size_t S2C_AccountLogin::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // string game_server_ip = 2;
+  if (!this->_internal_game_server_ip().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_game_server_ip());
+  }
+
   // int32 result_code = 1;
   if (this->_internal_result_code() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_result_code());
+  }
+
+  // int32 game_server_port = 3;
+  if (this->_internal_game_server_port() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_game_server_port());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -1600,8 +1673,14 @@ void S2C_AccountLogin::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_game_server_ip().empty()) {
+    _this->_internal_set_game_server_ip(from._internal_game_server_ip());
+  }
   if (from._internal_result_code() != 0) {
     _this->_internal_set_result_code(from._internal_result_code());
+  }
+  if (from._internal_game_server_port() != 0) {
+    _this->_internal_set_game_server_port(from._internal_game_server_port());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -1619,8 +1698,19 @@ bool S2C_AccountLogin::IsInitialized() const {
 
 void S2C_AccountLogin::InternalSwap(S2C_AccountLogin* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_.result_code_, other->_impl_.result_code_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.game_server_ip_, lhs_arena,
+      &other->_impl_.game_server_ip_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(S2C_AccountLogin, _impl_.game_server_port_)
+      + sizeof(S2C_AccountLogin::_impl_.game_server_port_)
+      - PROTOBUF_FIELD_OFFSET(S2C_AccountLogin, _impl_.result_code_)>(
+          reinterpret_cast<char*>(&_impl_.result_code_),
+          reinterpret_cast<char*>(&other->_impl_.result_code_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata S2C_AccountLogin::GetMetadata() const {

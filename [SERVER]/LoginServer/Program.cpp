@@ -6,8 +6,8 @@
 int main()
 {
     LoginServerService service;
-    service.init(1, [](){ return xnew NetworkSection; }, 1);
-    service.open("0.0.0.0", 25000, [](){return xnew LoginClientSession; });
+    service.init(1, 1, [](){ return xnew NetworkSection; }, 1);
+    service.open(service.get_config().login_server_ip, service.get_config().login_server_port, [](){return xnew LoginClientSession; });
 
     while (true) {}
 }

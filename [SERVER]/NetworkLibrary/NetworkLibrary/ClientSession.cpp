@@ -13,6 +13,14 @@ NetworkCore* ClientSession::get_network_core()
     return m_section->get_network_core();
 }
 
+ServerBase* ClientSession::get_server_base()
+{
+    if (m_section == nullptr)
+        return nullptr;
+    
+    return static_cast<ServerBase*>(m_section->get_network_core());
+}
+
 void ClientSession::on_connected()
 {
 }

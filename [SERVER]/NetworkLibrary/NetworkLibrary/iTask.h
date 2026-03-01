@@ -6,4 +6,5 @@ struct iTask
     std::chrono::steady_clock::time_point execute_time;
     long long delay_time = 0;
     std::function<void()> func;
+    std::function<void()> post_processing_func;
 };

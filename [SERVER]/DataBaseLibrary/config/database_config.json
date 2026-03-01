@@ -1,0 +1,16 @@
+{
+    "host": "localhost",
+    "user": "game_user",
+    "password": "secure_password123",
+    "database": "game_database",
+    "port": 3306,
+    "connection_timeout": 10,
+    "read_timeout": 30,
+    "write_timeout": 30,
+    "auto_reconnect": true,
+    "charset": "utf8mb4",
+    "pool_min_size": 5,
+    "pool_max_size": 20,
+    "pool_idle_timeout_sec": 300,
+    "pool_validation_interval_sec": 60
+}

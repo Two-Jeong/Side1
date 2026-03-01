@@ -7,7 +7,7 @@ public:
     virtual ~ServerBase() = default;
     
 public:
-    virtual void init(int iocp_thread_count = 1, std::function<class NetworkSection*()> section_factory = {}, int section_count = 0);
+    virtual void init(int iocp_thread_count = 1, int hard_task_thread_count = 1, std::function<class NetworkSection*()> section_factory = {}, int section_count = 0);
     void open(std::string open_ip, int open_port, std::function<class ClientSession*()> session_factory, int accpet_back_log = 1);
     
     double get_fps_avg();
@@ -21,10 +21,14 @@ public:
 
 public:
     void on_accept(int bytes_transferred, NetworkIO* io);
-
+    
+    void push_hard_task(iTask* task);
+    void push_hard_task(std::shared_ptr<iTask> task);
+    
 private:
     void central_thread_work();
     void fps_monitor_thread_work();
+    void hard_task_thread_work();
 
 protected:
     void on_iocp_io(NetworkIO* io, int bytes_transferred) override;
@@ -36,6 +40,8 @@ protected:
     std::thread m_central_thread;
     std::thread m_performance_monitor_thread;
     
+    std::vector<std::thread> m_hard_task_threads;
+    concurrency::concurrent_queue<iTask*> m_hard_task_queue;
 
     std::map<unsigned int, class NetworkSection*> m_sections;
     std::function<class NetworkSection*()> m_section_factory;
