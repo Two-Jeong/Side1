@@ -147,6 +147,12 @@ void Session::complete_recieve(int bytes_transferred)
     int process_byte_size = on_recieve();
 
     m_recv_buffer.OnRead(process_byte_size);
+
+    if (-1 == process_byte_size)
+    {
+        //TODO: LOG
+        return;
+    }
     
     if(false == do_recieve())
     {
@@ -178,6 +184,13 @@ int Session::on_recieve()
         if(remain_len < PACKET_HEADER_SIZEOF) break;
 
         PacketHeader header = *(reinterpret_cast<PacketHeader*>(m_recv_buffer.GetReadPos() + complete_byte_length));
+        
+        if (header.packet_size < sizeof(PacketHeader) || header.packet_size > USHRT_MAX)
+        {
+            //TODO: LOG
+            do_disconnect();
+            return -1;
+        }
         
         if(header.packet_size > remain_len) break;
 
